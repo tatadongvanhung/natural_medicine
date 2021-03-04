@@ -1,0 +1,31 @@
+﻿
+@{
+	
+	Layout = null;
+}
+
+<html>
+<head>
+
+	<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+	<script src="~/Scripts/notify.min.js"></script>
+	<script src="~/Scripts/notify-metro.js"></script>
+</head>
+
+<body>
+	<div class="message"></div>
+
+	<button class="add-cart">Click me</button>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$(".message").hide();
+			$(".add-cart").click(function () {
+				$.notify("Your class starts in 15min", {
+					className: 'success',
+					globalPosition: 'top center'
+				});
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+﻿@{
+	ViewBag.Title = "Category";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using natural_medicine.Models
+@model List<product>
+
+@{
+	category category = ViewBag.category;
+
+}
+
+<ul class="breadcrumb">
+	<li><a href="/home/index">Trang chủ</a> <span class="divider">/</span></li>
+	<li class="active">@category.name</li>
+</ul>
+
+@{ var group = Model.GroupBy(r => Model.IndexOf(r) / 4).ToList();
+
+	foreach (var parentItem in group)
+	{
+		<ul class="thumbnails">
+
+			@foreach (product it in parentItem)
+			{
+
+				<li class="span3">
+					<div class="thumbnail">
+						<a href="product_details.html" class="overlay"></a>
+						<a class="zoomTool" href="/Home/product/@it.id" title=""><span class="icon-search"></span> XEM</a>
+						<a href="/Home/product/@it.id"><img src="~/Content/assets/img/@it.image_url" alt=""></a>
+						<div class="caption cntr">
+							<p>@it.name</p>
+							<p><strong> @it.price đ</strong></p>
+							<h4><a class="shopBtn" href="/Cart/AddItem/@it.id" title="THÊM VÀO GIỎ"> THÊM VÀO GIỎ </a></h4>
+							<br class="clr">
+						</div>
+					</div>
+				</li>
+			}
+
+		</ul>
+	}
+}
+
+
+

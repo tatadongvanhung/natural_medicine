@@ -41,6 +41,9 @@ namespace natural_medicine.Models
         [StringLength(255)]
         public string description { get; set; }
 
+        [Column(TypeName = "text")]
+        public string image_url { get; set; }
+
         [StringLength(255)]
         public string note { get; set; }
 

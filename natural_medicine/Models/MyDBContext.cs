@@ -69,6 +69,10 @@ namespace natural_medicine.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<product>()
+                .Property(e => e.image_url)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<product>()
                 .HasMany(e => e.imports)
                 .WithOptional(e => e.product)
                 .HasForeignKey(e => e.product_id);
