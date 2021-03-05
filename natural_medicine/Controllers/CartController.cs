@@ -95,5 +95,45 @@ namespace natural_medicine.Controllers
             ViewBag.account = account;
             return View(cart);
         }
+        [HttpPost]
+        public JsonResult discount(discount gg)
+        {
+            var discount = context.discounts.Where(x => x.code.Trim() == gg.code).FirstOrDefault();
+            if (discount != null)
+            {
+                if (discount.start_date < DateTime.Now.Date && discount.end_date > DateTime.Now.Date)
+                {
+                    // Nếu code còn hạn sử dụng
+                    var result = new { success = "true", code = discount.code, 
+                        error = "false",
+                        value = discount.value,
+                        max_value = discount.max_value };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    var result = new
+                    {
+                        success = "false",
+                        code = "",
+                        error = "true",
+                        value = 0,
+                        max_value = 0
+                    };
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+            } else
+            {
+                var result = new
+                {
+                    success = "false",
+                    code = "",
+                    error = "true",
+                    value = 0,
+                    max_value = 0
+                };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

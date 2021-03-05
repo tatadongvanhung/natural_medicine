@@ -35,67 +35,6 @@
 			}
 
 			<div class="well">
-
-				<form class="form-horizontal" action="/Cart/Payment" method="POST" onsubmit="return CheckForm()">
-					@{
-						natural_medicine.Models.user acc = ViewBag.account;
-
-						<input type="hidden" name="makh" value="@acc.id" />
-
-						<div class="control-group">
-							<label class="control-label">
-								Họ Tên <sup style="color: red">*</sup>
-							</label>
-							<div class="controls">
-								<input type="text" id="hoten" name="hoten" value="@acc.name" />
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label">Email <sup style="color: red">*</sup></label>
-							<div class="controls">
-								<input name="email" id="email" type="email" value="@acc.email" />
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label">SĐT <sup style="color: red">*</sup></label>
-							<div class="controls">
-								<input type="text" name="sdt" id="sodienthoai" value="@acc.phone" />
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label">
-								Địa chỉ <sup style="color: red">*</sup>
-							</label>
-							<div class="controls">
-								<textarea id="diachi" name="diachi" placeholder="Địa chỉ nhận hàng">@acc.addresses</textarea>
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label">
-								Lời nhắn<sup style="color: red"></sup>
-							</label>
-							<div class="controls">
-								<textarea id="ghichu" name="ghichu" placeholder="Lời nhắn cho chúng tôi"></textarea>
-								<span style="margin-left: 15px" id='message'></span>
-							</div>
-						</div>
-						<input type="hidden" name="tongtien" value="@sum" />
-						<div class="control-group">
-							<div class="controls">
-								<input type="submit" name="submitAccount" value="Đặt hàng" class="exclusive shopBtn">
-								<span style="margin-left: 15px" id='message'></span>
-							</div>
-						</div>
-					}
-
-				</form>
-			</div>
-
-			<div class="well">
 				<table class="table table-bordered table-condensed">
 					<thead>
 						<tr>
@@ -118,14 +57,165 @@
 							</tr>
 						}
 						<tr>
-							<td style="text-align:center" colspan="4" class="alignR"><strong>Tổng Tiền:	</strong></td style="text-align:center">
-							<td style="text-align:center; color:orangered;"><strong>@sum đ</strong></td>
+							<td style="text-align:center" colspan="4" class="alignR"><strong>TẠM TÍNH:	</strong></td>
+							<td style="text-align:center; color:yellowgreen;"><strong id="subtotal"> đ</strong></td>
+						</tr>
+						<tr>
+							<td style="text-align:center" colspan="4" class="alignR"><strong>GIẢM GIÁ: </strong></td>
+							<td style="text-align:center; color:yellowgreen;"><strong style="text-decoration: line-through;" id="discount"> đ</strong></td>
+						</tr>
+						<tr>
+							<td style="text-align:center" colspan="4" class="alignR"><strong>TỔNG TIỀN:	</strong></td>
+							<td style="text-align:center; color:orangered;"><strong id="total"> đ</strong></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+
+			<div class="well">
+				<table class="table table-bordered">
+					<tbody>
+						<tr>
+							<td>
+								<form class="form-inline">
+									<label style="min-width:159px"> MÃ GIẢM GIÁ: </label>
+									<input id="code" type="text" name="discount_code" class="" placeholder="NHẬP MÃ GIẢM GIÁ">
+									<button type="button" class="shopBtn add-code"> THÊM</button>
+									<span id="code-err" style="color: red;"><i class="icon-remove">  Mã giảm giá không hợp lệ!</i></span>
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="well">
+
+				<form class="form-horizontal" action="/Cart/Payment" method="POST" onsubmit="return CheckForm()">
+					@{
+						natural_medicine.Models.user user = ViewBag.account;
+
+						<input type="hidden" name="id" value="@user.id" />
+
+						<div class="control-group">
+							<label class="control-label">
+								Họ Tên <sup style="color: red">*</sup>
+							</label>
+							<div class="controls">
+								<input type="text" id="name" name="name" value="@user.name" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">Email <sup style="color: red">*</sup></label>
+							<div class="controls">
+								<input name="email" id="email" type="email" value="@user.email" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">SĐT <sup style="color: red">*</sup></label>
+							<div class="controls">
+								<input type="text" name="phone" id="phone" value="@user.phone" />
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">
+								Địa chỉ <sup style="color: red">*</sup>
+							</label>
+							<div class="controls">
+								<textarea id="address" name="address" placeholder="Địa chỉ nhận hàng">@user.addresses</textarea>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">
+								Lời nhắn<sup style="color: red"></sup>
+							</label>
+							<div class="controls">
+								<textarea id="ghichu" name="ghichu" placeholder="Lời nhắn cho chúng tôi"></textarea>
+								<span style="margin-left: 15px" id='message'></span>
+							</div>
+						</div>
+						<input id="input-subtotal" type="hidden" name="subtotal" value="@sum" />
+						<input id="input-discount" type="hidden" value="0" />
+						<input id="input-code" type="hidden" name="discount_code" value="" />
+						<input id="input-total" type="hidden" name="total" value="@sum" />
+						<div class="control-group">
+							<div class="controls">
+								<input type="submit" name="submitAccount" value="Đặt hàng" class="exclusive shopBtn">
+								<span style="margin-left: 15px" id='message'></span>
+							</div>
+						</div>
+					}
+
+				</form>
+			</div>
 		</div>
 	</div>
+
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+			$("#code-err").hide();
+			var subtotal = $("#input-subtotal").val();
+			$("#subtotal").html(subtotal + " đ");
+
+			var discount = $("#input-discount").val();
+			$("#discount").html(discount +" đ");
+
+			var total = $("#input-total").val();
+			$("#total").html(total + " đ");
+
+			$(".add-code").click(function () {
+				var dataForm = new Object();
+				dataForm.code = $('#code').val();
+				var serviceURL = '/cart/discount';
+				$.ajax({
+					url: serviceURL,
+					type: "POST",
+					data: JSON.stringify(dataForm),
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: successFunc,
+					error: errorFunc
+				});
+				function successFunc(data) {
+					if (data.success == "true") {
+						$('.change-password').attr('disabled', 'disabled');
+						var max_value = data.max_value;
+						var value = data.value;
+						var subtotal = $("#input-subtotal").val();
+						var total = subtotal;
+						var discount = subtotal * value;
+						if (discount > max_value) {
+							total = total - max_value;
+							$("#discount").html(max_value + " đ");
+						}
+						else {
+							total = total - discount;
+							$("#discount").html(discount + " đ");
+						}
+
+						$("#subtotal").html(subtotal + " đ");
+						$("#total").html(total + " đ");
+						//set input
+						$("#input-subtotal").val(subtotal);
+						$("#input-total").val(total);
+						$("#input-discount").val(discount);
+						$("#input-code").val(data.code);
+					} else {
+						$("#code-err").show();
+						setTimeout(function () { $("#code-err").hide(); }, 1000);
+					}
+				}
+				function errorFunc() {
+				}
+			});
+		});
+	</script>
 </body>
 
 
