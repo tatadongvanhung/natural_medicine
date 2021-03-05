@@ -35,7 +35,12 @@
 						<a href="https://www.tumblr.com/"><span class="icon-tumblr" target="_blank"></span></a>
 					</div>
 					<a class="active" href="/home/index"> <span class="icon-home"></span> Trang chủ</a>
-					<a href="/account/myaccount"><span class="icon-user"></span> Tài khoản</a>
+					@{ natural_medicine.Models.user auth = (natural_medicine.Models.user)Session["loginClient"];
+						if (auth != null)
+						{
+							<a href="/Account/myaccount"><span class="icon-user"></span> Tài khoản</a>
+						}
+					}
 					<a href="/account/regiter"><span class="icon-edit"></span> Đăng ký </a>
 					<a href="/home/contact"><span class="icon-envelope"></span> Liên hệ</a>
 					<a href="/account/logout"><span class="icon-off"></span> Đăng xuất</a>
@@ -95,16 +100,54 @@
 							<input type="text" name="search" placeholder="Tìm kiếm..." class="search-query span2">
 							<input type="submit" value="Tìm kiếm" class="exclusive shopBtn">
 						</form>
-						<ul class="nav pull-right">
+						@{
+							if (auth == null)
+							{
+								<ul class="nav pull-right">
+									<li class="dropdown">
+										<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Đăng nhập <b class="caret"></b></a>
+										<div class="dropdown-menu">
+											<form method="post" action="/Account/Login" class="form-horizontal loginFrm">
+												<div class="control-group">
+													<input type="text" name="phone" maxlength="10" class="span2" id="inputEmail" placeholder="Số điện thoại">
+												</div>
+												<div class="control-group">
+													<input type="password" name="password" class="span2" id="inputPassword" placeholder="Mật khẩu">
+												</div>
+												<div class="control-group">
+													<label class="checkbox">
+														<input type="checkbox"> Nhớ mật khẩu
+													</label>
+													<button type="submit" class="shopBtn btn-block">Đăng nhập</button>
+												</div>
+											</form>
+										</div>
+									</li>
+								</ul>
+							}
+							else
+							{
+								<ul class="nav pull-right">
+									<li class="dropdown">
+										<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class=""></span> @auth.name <b class="caret"></b></a>
+										<div class="dropdown-menu">
+											<a href="/Account/Logout"> <button class="shopBtn btn-block">Đăng xuất</button></a>
+										</div>
+									</li>
+								</ul>
+							}
+
+						}
+						@*<ul class="nav pull-right">
 							<li class="dropdown">
 								<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Đăng nhập <b class="caret"></b></a>
 								<div class="dropdown-menu">
-									<form method="post" action="/Account/DangNhap" class="form-horizontal loginFrm">
+									<form method="post" action="/Account/Login" class="form-horizontal loginFrm">
 										<div class="control-group">
-											<input type="text" name="SDT" maxlength="10" class="span2" id="inputEmail" placeholder="Số điện thoại">
+											<input type="text" name="phone" maxlength="10" class="span2" id="inputEmail" required="required" placeholder="Số điện thoại">
 										</div>
 										<div class="control-group">
-											<input type="password" name="MatKhau" class="span2" id="inputPassword" placeholder="Mật khẩu">
+											<input type="password" name="password" class="span2" id="inputPassword" required="required" placeholder="Mật khẩu">
 										</div>
 										<div class="control-group">
 											<label class="checkbox">
@@ -115,7 +158,7 @@
 									</form>
 								</div>
 							</li>
-						</ul>
+						</ul>*@
 					</div>
 				</div>
 			</div>

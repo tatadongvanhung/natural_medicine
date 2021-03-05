@@ -15,9 +15,10 @@
 				</li>
 				<li class="active">Đăng ký tài khoản</li>
 			</ul>
-
+			<div class="alert alert-success" id="success-alert" style="display:none">Đăng ký tài khoản thành công!</div>
+			<div class="alert error-success" id="error-alert" style="display:none">Đăng ký tài khoản thất bại!</div>
 			<div class="well">
-				<form class="form-horizontal" action="/Account/Regiter" method="POST" autocomplete="off" onsubmit="return CheckForm()">
+				<form id="regiter" class="form-horizontal" action="/Account/Regiter" method="POST" autocomplete="off" onsubmit="return CheckForm()">
 					<div class="control-group">
 						<label class="control-label">
 							Họ Tên <sup style="color: red">*</sup>
@@ -49,7 +50,7 @@
 							Địa chỉ <sup style="color: red">*</sup>
 						</label>
 						<div class="controls">
-							<textarea name="diachi" placeholder="Địa chỉ" id="diachi" required="required"></textarea>
+							<textarea name="address" placeholder="Địa chỉ" id="diachi" required="required"></textarea>
 						</div>
 					</div>
 
@@ -76,7 +77,7 @@
 
 					<div class="control-group">
 						<div class="controls">
-							<input type="submit" name="submitAccount" value="Đăng ký" class="exclusive shopBtn">
+							<input type="submit" name="submitAccount" value="Đăng ký" class="exclusive shopBtn regiter">
 							<input type="reset" id="reset" value="Làm mới" class="exclusive defaultBtn">
 						</div>
 					</div>
@@ -109,7 +110,7 @@
 					$("#confirm-ok").show();
 				}
 			});
-			$("#confirm_password").change(function () {
+			$("#confirm_password").hover(function () {
 				var confirm = $(this).val();
 				var pasword = $('#password').val();
 				if (pasword != confirm) {
@@ -128,7 +129,7 @@
 				}
 			});
 			//Kiểm tra xem số điện thoại đã tồn tại chưa
-			$("#phone").change(function () {
+			$("#phone").hover(function () {
 				var phone_number = $(this).val();
 				var serviceURL = '/Account/CheckPhoneNumber/' + phone_number;
 				if (phone_number != '') {
@@ -169,6 +170,32 @@
 				$("#phone-ok").hide();
 				$('#confirm_password').css("border", "0.1px solid #C0C0C0");
 				$('#password').css("border", "0.1px solid #C0C0C0");
+			});
+
+			$(".regiterajax").click(function () {
+				var dataForm = $('form').serialize();
+				var serviceURL = '/Account/Regiter';
+				alert(dataForm);
+				$.ajax({
+					url: serviceURL,
+					method: 'POST',
+					data: dataForm,
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: successFunc,
+					error: errorFunc
+				});
+				function successFunc(data) {
+					if (data == "success") {
+						$("#success-alert").show();
+						setTimeout(function () { $("#success-alert").hide(); }, 5000);
+					} else {
+						$("#error-alert").show();
+						setTimeout(function () { $("#error-alert").hide(); }, 5000);
+					}
+				}
+				function errorFunc(data, status) {
+				}
 			});
 		});
 		function CheckForm() {

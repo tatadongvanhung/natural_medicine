@@ -6,6 +6,11 @@
 @using natural_medicine.Models
 @model user
 
+@{
+	address user_address = ViewBag.user_address;
+
+}
+
 
 <div class="row">
 	@{Html.RenderAction("_Slidebar", "Home");}
@@ -22,189 +27,257 @@
 				<li class="active"><a href="#info" data-toggle="tab"> THÔNG TIN TÀI KHOẢN</a></li>
 				<li class=""><a href="#changepassword" data-toggle="tab"> ĐỔI MẬT KHẨU</a></li>
 			</ul>
+
 			<div id="myTabContent" class="tab-content tabWrapper">
 				<div class="tab-pane fade active in" id="info">
-					<form class="form-horizontal" action="/Account/ChangeInfo" method="POST">
-
-						<input type="hidden" name="makh" value="@Model.id" />
-
+					<div class="alert alert-success" id="success-alert" style="display:none">Cập nhật thông tin thành công!</div>
+					<div class="alert error-success" id="error-alert" style="display:none">Cập nhật thông tin thất bại!</div>
+					<form id="form-change-info" class="form-horizontal">
+						<input type="hidden" id="id" name="id" value="@Model.id" />
 						<div class="control-group">
 							<label class="control-label">
 								Họ Tên <sup style="color: red">*</sup>
 							</label>
 							<div class="controls">
-								<input type="text" id="hoten" name="hoten" required="required" value="@Model.name" />
-								<span style="margin-left: 15px" id='hoten1'></span>
+								<input type="text" id="name" name="name" required="required" value="@Model.name" />
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label">SĐT <sup style="color: red">*</sup></label>
 							<div class="controls">
-								<input type="text" id="sdt" name="sdt" value="@Model.phone" />
-								<span style="margin-left: 15px" id='sdt1'></span>
+								<input type="text" id="phone_number" name="phone" value="@Model.phone" required="required"/>
+								<span style="margin-left: 15px" id='phone_span'></span>
+								<span id="phone-ok" style="color: green;"><i class="icon-ok"></i></span>
+								<span id="phone-err" style="color: red;"><i class="icon-remove"></i>  SDT đã được sử dụng!</span>
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label">Email <sup style="color: red">*</sup></label>
 							<div class="controls">
-								<input name="email" id="email" type="email" value="@Model.email" />
-								<span style="margin-left: 15px" id='email1'></span>
+								<input name="email" id="email" type="email" value="@Model.email" required="required" />
 							</div>
 						</div>
+
 						<div class="control-group">
 							<label class="control-label">
 								Địa chỉ <sup style="color: red">*</sup>
 							</label>
 							<div class="controls">
-								<textarea name="diachi" id="diachi" placeholder="Địa chỉ">@Model.addresses</textarea>
-								<span style="margin-left: 15px" id='diachi1'></span>
+								<textarea name="address" id="address" placeholder="Địa chỉ" required="required">@user_address.address1</textarea>
 							</div>
 						</div>
 
 						<div class="control-group">
 							<div class="controls">
-								<input type="submit" name="submitAccount" value="Cập nhật" class="exclusive shopBtn">
+								<input type="button" name="submitAccount" value="Cập nhật" class="exclusive shopBtn change-info">
 							</div>
 						</div>
 					</form>
 				</div>
 
 				<div class="tab-pane fade active in" id="changepassword">
-					<form class="form-horizontal" action="/Account/ChangePassword" method="POST" onsubmit="return CheckForm2()">
-
-						<input type="hidden" name="makh" value="@Model.id" />
+					<form id="form-change-password" class="form-horizontal" onsubmit="return CheckForm()">
+						
+						<div class="alert alert-success" id="success-alert-password" style="display:none">Cập nhật mật khẩu thành công!</div>
+						<div class="alert error-success" id="error-alert-password" style="display:none">Cập nhật mật khẩu thất bại!</div>
+						
+						<input type="hidden" class="id-change" name="id" value="@Model.id" />
 
 						<div class="control-group">
-							@*<label class="control-label">
-									Mật khẩu cũ <sup style="color: red">*</sup>
-								</label>*@
+							<label class="control-label">SĐT <sup style="color: red">*</sup></label>
 							<div class="controls">
-								<input type="password" name="matkhaucu" placeholder="Mật khẩu hiện tại!" maxlength="20" id="oldpassword">
-								<span style="margin-left: 15px" id='oldpassword1'></span>
+								<input type="text" name="phone" value="@Model.phone" readonly="readonly" />
 							</div>
 						</div>
 
 						<div class="control-group">
+							<label class="control-label">Mật khẩu <sup style="color: red">*</sup></label>
 							<div class="controls">
-								<input type="password" name="matkhau" onkeyup='check();'
+								<input type="password" name="password" class="password-change"
 									   placeholder="Mật khẩu mới" maxlength="20" id="password" />
-								<span style="margin-left: 15px" id='password1'></span>
+								<span style="margin-left: 15px" id='password'></span>
 							</div>
 						</div>
 
 						<div class="control-group">
-
-							@*<label class="control-label">Xác nhận mật khẩu <sup style="color: red">*</sup></label>*@
+							<label class="control-label">Xác nhận <sup style="color: red">*</sup></label>
 							<div class="controls">
 								<input type="password" placeholder="Xác nhận mật khẩu mới."
-									   maxlength="20" id="confirm_password" onkeyup='check();'>
-								<span style="margin-left: 15px" id='confirm_password1'></span>
+									   maxlength="20" id="confirm_password">
+								<span style="margin-left: 15px" id='confirm_password'></span>
+								<span id="confirm-ok" style="color: green;"><i class="icon-ok"></i></span>
+								<span id="confirm-err" style="color: red;"><i class="icon-remove"></i></span>
 							</div>
 						</div>
+
 						<div class="control-group">
 							<div class="controls">
-								<input type="submit" name="submitAccount" value="Cập nhật" class="exclusive shopBtn">
+								<input type="button" name="submitAccount" value="Cập nhật" class="exclusive shopBtn change-password">
 							</div>
 						</div>
 					</form>
 				</div>
-
-
 			</div>
-
-
 		</div>
-
-
 	</div>
 </div>
 
-<script>
-	// Xác nhận mật khẩu
-	var check = function () {
-		if (document.getElementById('password').value == document
-			.getElementById('confirm_password').value) {
-			document.getElementById('confirm_password1').style.color = 'green';
-			document.getElementById('confirm_password1').innerHTML = 'Xác nhận mật khẩu chính xác!';
-		} else {
-			document.getElementById('confirm_password1').style.color = 'red';
-			document.getElementById('confirm_password1').innerHTML = 'Xác nhận mật khẩu không đúng!';
-		}
 
-	}
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#phone-err").hide();
+		$("#phone-ok").hide();
+		const old_phone = $("#phone_number").val();
+		//Kiểm tra xem số điện thoại đã tồn tại chưa
+		$("#phone_number").change(function () {
+			var phone_number = $(this).val();
+			var serviceURL = '/Account/CheckPhoneNumber/' + phone_number;
+			if (phone_number != old_phone && phone_number != '' ) {
+				$.ajax({
+					url: serviceURL,
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: successFunc,
+					error: errorFunc
+				});
+				function successFunc(data, status) {
+					if (data == "success") {
+						$("#phone-err").hide();
+						$("#phone-ok").hide();
+						$("#phone-ok").show();
+						$('.change-info').removeAttr('disabled');
+					} else {
+						$("#phone-err").hide();
+						$("#phone-ok").hide();
+						$("#phone-err").show();
+						$('.change-info').attr('disabled', 'disabled');
+					}
+				}
+			} else{
+				$("#phone-err").hide();
+				$("#phone-ok").hide();
+				$('.change-info').removeAttr('disabled');
+			}
+			function errorFunc() {
+				alert("Lỗi AJAX");
+			}
+		});
 
+		$("#confirm-err").hide();
+		$("#confirm-ok").hide();
+		$("#password").change(function () {
+			var pasword = $(this).val();
+			var confirm = $('#confirm_password').val();
+			if (pasword != confirm) {
+				$(this).css("border", "0.5px solid red");
+				$('#confirm_password').css("border", "0.5px solid red");
+				$("#confirm-err").hide();
+				$("#confirm-ok").hide();
+				$("#confirm-err").show();
+				$('.change-password').attr('disabled', 'disabled');
+			}
+			else {
+				$(this).css("border", "0.5px solid #C0C0C0");
+				$('#confirm_password').css("border", "0.5px solid #C0C0C0");
+				$("#confirm-err").hide();
+				$("#confirm-ok").hide();
+				$("#confirm-ok").show();
+				$('.change-password').removeAttr('disabled');
+			}
+		});
+		$("#confirm_password").hover(function () {
+			var confirm = $(this).val();
+			var pasword = $('#password').val();
+			if (pasword != confirm) {
+				$(this).css("border", "0.5px solid red");
+				$('#password').css("border", "0.5px solid red");
+				$("#confirm-err").hide();
+				$("#confirm-ok").hide();
+				$("#confirm-err").show();
+				$('.change-password').attr('disabled', 'disabled');
+			}
+			else {
+				$(this).css("border", "0.5px solid #C0C0C0");
+				$('#password').css("border", "0.5px solid #C0C0C0");
+				$("#confirm-err").hide();
+				$("#confirm-ok").hide();
+				$("#confirm-ok").show();
+				$('.change-password').removeAttr('disabled');
+			}
+		});
+		//Change info
+		$(".change-info").click(function () {
+			//var dataForm = $('#form-change-info').serialize();
+			var dataForm = new Object();
+			dataForm.id = $('#id').val();
+			dataForm.name = $('#name').val();
+			dataForm.phone = $('#phone_number').val();
+			dataForm.email = $('#email').val();
+			dataForm.address = $('#address').val();
+			var serviceURL = '/Account/ChangeInfo';
+			$.ajax({
+				url: serviceURL,
+				type: "POST",
+				data: JSON.stringify(dataForm),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: successFunc,
+				error: errorFunc
+			});
+			function successFunc(data) {
+				if (data == "success") {
+					$("#success-alert").show();
+					setTimeout(function () { $("#success-alert").hide(); }, 1000);
+				} else {
+					$("#error-alert").show();
+					setTimeout(function () { $("#error-alert").hide(); }, 1000);
+				}
+			}
+			function errorFunc() {
+			}
+		});
+		//Change password
+		$(".change-password").click(function () {
+			var dataForm = new Object();
+			dataForm.id = $('.id-change').val();
+			dataForm.password = $('.password-change').val();
+			var serviceURL = '/Account/ChangePassword';
+			$.ajax({
+				url: serviceURL,
+				type: "POST",
+				data: JSON.stringify(dataForm),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: successFunc,
+				error: errorFunc
+			});
+			function successFunc(data) {
+				if (data == "success") {
+					$("#success-alert-password").show();
+					setTimeout(function () { $("#success-alert-password").hide(); }, 1000);
+				} else {
+					$("#error-alert-password").show();
+					setTimeout(function () { $("#error-alert-password").hide(); }, 1000);
+				}
+			}
+			function errorFunc() {
+			}
+		});
+	});
 	function CheckForm() {
-		// Bước 1: Lấy các giá trị cần nhập
-		var hoten = document.getElementById('hoten').value;
-		var email = document.getElementById('email').value;
-		var sdt = document.getElementById('sdt').value;
-		var diachi = document.getElementById('diachi').value;
-
-		// Bước 2: Kiểm tra dữ liệu hợp lệ hay không
-		if (hoten == '') {
-			document.getElementById('hoten1').style.color = 'red';
-			document.getElementById('hoten1').innerHTML = 'Vui lòng nhập họ tên!';
-		}
-		else if (sdt == '') {
-			document.getElementById('sodienthoai1').style.color = 'red';
-			document.getElementById('sodienthoai1').innerHTML = 'Vui lòng nhập số điện thoại!';
-		}
-
-		else if (email == '') {
-			document.getElementById('email1').style.color = 'red';
-			document.getElementById('email1').innerHTML = 'Vui lòng nhập email!';
-		}
-
-		else if (diachi == '') {
-			document.getElementById('diachi1').style.color = 'red';
-			document.getElementById('diachi1').innerHTML = 'Vui lòng nhập địa chỉ!';
-		}
-		else {
-
-			return true;
-		}
-
-		return false;
-	}
-
-	function CheckForm2() {
-
-		var old = document.getElementById('oldpassword').value;
 		var password = document.getElementById('password').value;
 		var confirm_password = document.getElementById('confirm_password').value;
-
-
-
-		// Bước 2: Kiểm tra dữ liệu hợp lệ hay không
-		if (old == '') {
-			document.getElementById('oldpassword1').style.color = 'red';
-			document.getElementById('oldpassword1').innerHTML = 'Vui lòng nhập mật khẩu hiện tại!';
+		if (confirm_password != password) {
+			document.getElementById('confirm_password_span').style.color = 'red';
+			document.getElementById('confirm_password_span').innerHTML = '<span class="glyphicon glyphicon-ok"></span>';
 		}
-		else if (password == '') {
-			document.getElementById('password1').style.color = 'red';
-			document.getElementById('password1').innerHTML = 'Vui lòng nhập mật khẩu mới!';
-		}
-
-		else if (confirm_password == '') {
-			document.getElementById('confirm_password1').style.color = 'red';
-			document.getElementById('confirm_password1').innerHTML = 'Vui lòng xác nhận mật khẩu!';
-		}
-
-		else if (confirm_password != password) {
-			document.getElementById('confirm_password1').style.color = 'red';
-			document.getElementById('confirm_password1').innerHTML = 'Xác nhận mật khẩu không đúng!';
-		}
-
 		else {
-
 			return true;
 		}
-
 		return false;
 	}
-
 </script>
 
 
