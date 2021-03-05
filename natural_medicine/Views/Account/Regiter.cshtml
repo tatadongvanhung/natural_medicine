@@ -1,0 +1,189 @@
+﻿
+@{
+	ViewBag.Title = "Regiter";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<body>
+	<div class="row">
+
+		@{Html.RenderAction("_Slidebar", "Home");}
+
+		<div class="span9">
+			<ul class="breadcrumb">
+				<li>
+					<a href="/home/index">Trang chủ</a> <span class="divider">/</span>
+				</li>
+				<li class="active">Đăng ký tài khoản</li>
+			</ul>
+
+			<div class="well">
+				<form class="form-horizontal" action="/Account/Regiter" method="POST" autocomplete="off" onsubmit="return CheckForm()">
+					<div class="control-group">
+						<label class="control-label">
+							Họ Tên <sup style="color: red">*</sup>
+						</label>
+						<div class="controls">
+							<input type="text" name="name" placeholder=" Họ tên" id="name" required="required" />
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">SĐT <sup style="color: red">*</sup></label>
+						<div class="controls">
+							<input type="text" name="phone" placeholder=" Số điện thoại" maxlength="10" id="phone" required="required" />
+							<span style="margin-left: 15px" id='phone_span'></span>
+							<span id="phone-ok" style="color: green;"><i class="icon-ok"></i></span>
+							<span id="phone-err" style="color: red;"><i class="icon-remove"></i>  Số điện thoại đã được sử dụng!</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">Email <sup style="color: red">*</sup></label>
+						<div class="controls">
+							<input autocomplete="false" type="email" name="email" placeholder=" Email" id="email" required="required" />
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">
+							Địa chỉ <sup style="color: red">*</sup>
+						</label>
+						<div class="controls">
+							<textarea name="diachi" placeholder="Địa chỉ" id="diachi" required="required"></textarea>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">
+							Mật khẩu <sup style="color: red">*</sup>
+						</label>
+						<div class="controls">
+							<input autocomplete="false" type="password" name="password" placeholder=" Mật khẩu" maxlength="10" id="password" />
+							<span style="margin-left: 15px" id='password_span'></span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">Xác nhận <sup style="color: red">*</sup></label>
+						<div class="controls">
+							<input type="password" placeholder=" Xác nhận mật khẩu"
+								   maxlength="10" id="confirm_password">
+							<span style="margin-left: 15px" id='confirm_password_span'></span>
+							<span id="confirm-ok" style="color: green;"><i class="icon-ok"></i></span>
+							<span id="confirm-err" style="color: red;"><i class="icon-remove"></i></span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							<input type="submit" name="submitAccount" value="Đăng ký" class="exclusive shopBtn">
+							<input type="reset" id="reset" value="Làm mới" class="exclusive defaultBtn">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+			$("#confirm-err").hide();
+			$("#confirm-ok").hide();
+			$("#phone-err").hide();
+			$("#phone-ok").hide();
+			$("#password").change(function () {
+				var pasword = $(this).val();
+				var confirm = $('#confirm_password').val();
+				if (pasword != confirm) {
+					$(this).css("border", "0.5px solid red");
+					$('#confirm_password').css("border", "0.5px solid red");
+					$("#confirm-err").hide();
+					$("#confirm-ok").hide();
+					$("#confirm-err").show();
+				}
+				else {
+					$(this).css("border", "0.5px solid #C0C0C0");
+					$('#confirm_password').css("border", "0.5px solid #C0C0C0");
+					$("#confirm-err").hide();
+					$("#confirm-ok").hide();
+					$("#confirm-ok").show();
+				}
+			});
+			$("#confirm_password").change(function () {
+				var confirm = $(this).val();
+				var pasword = $('#password').val();
+				if (pasword != confirm) {
+					$(this).css("border", "0.5px solid red");
+					$('#password').css("border", "0.5px solid red");
+					$("#confirm-err").hide();
+					$("#confirm-ok").hide();
+					$("#confirm-err").show();
+				}
+				else{
+					$(this).css("border", "0.5px solid #C0C0C0");
+					$('#password').css("border", "0.5px solid #C0C0C0");
+					$("#confirm-err").hide();
+					$("#confirm-ok").hide();
+					$("#confirm-ok").show();
+				}
+			});
+			//Kiểm tra xem số điện thoại đã tồn tại chưa
+			$("#phone").change(function () {
+				var phone_number = $(this).val();
+				var serviceURL = '/Account/CheckPhoneNumber/' + phone_number;
+				if (phone_number != '') {
+					$.ajax({
+						url: serviceURL,
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						success: successFunc,
+						error: errorFunc
+					});
+					function successFunc(data, status) {
+						if (data == "success") {
+							$("#phone-err").hide();
+							$("#phone-ok").hide();
+							$("#phone-ok").show();
+							$('input[type="submit"]').removeAttr('disabled');
+						} else {
+							$("#phone-err").hide();
+							$("#phone-ok").hide();
+							$("#phone-err").show();
+							$('input[type="submit"]').attr('disabled', 'disabled');
+						}
+					}
+				} else {
+					$("#phone-err").hide();
+					$("#phone-ok").hide();
+					$('input[type="submit"]').removeAttr('disabled');
+				}
+				
+				function errorFunc() {
+					alert("Lỗi hệ thống");
+				}
+			});
+			$("#reset").click(function () {
+				$("#confirm-err").hide();
+				$("#confirm-ok").hide();
+				$("#phone-err").hide();
+				$("#phone-ok").hide();
+				$('#confirm_password').css("border", "0.1px solid #C0C0C0");
+				$('#password').css("border", "0.1px solid #C0C0C0");
+			});
+		});
+		function CheckForm() {
+			var password = document.getElementById('password').value;
+			var confirm_password = document.getElementById('confirm_password').value;
+			if (confirm_password != password) {
+				document.getElementById('confirm_password_span').style.color = 'red';
+				document.getElementById('confirm_password_span').innerHTML = '<span class="glyphicon glyphicon-ok"></span>';
+			}
+			else {
+				return true;
+			}
+			return false;
+		}
+	</script>
+</body>
+
+
