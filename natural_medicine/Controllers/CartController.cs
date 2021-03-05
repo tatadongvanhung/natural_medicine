@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -83,7 +84,6 @@ namespace natural_medicine.Controllers
         {
             var account = (user)Session["loginClient"];
             var cart = (Cart)Session["CartSession"];
-
             if (account == null)
             {
                 return RedirectToAction("mycart", "cart");
@@ -92,8 +92,60 @@ namespace natural_medicine.Controllers
             {
                 cart = new Cart();
             }
+            var listaddress = context.addresses.Where(x => x.user_id == account.id).ToList();
+            var payment_methods = context.payment_methods.ToList();
             ViewBag.account = account;
+            ViewBag.listaddress = listaddress;
+            ViewBag.payment_methods = payment_methods;
             return View(cart);
+        }
+        [HttpPost]
+        public ActionResult Payment(order hoadon)
+        {
+            using (DbContextTransaction dbTran = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    hoadon.status_id = 1;
+                    hoadon.create_at = DateTime.Now;
+                    context.orders.Add(hoadon);
+                    context.SaveChanges();
+
+                    var order_id_max = context.orders.Max(x => x.id);
+
+                    var cart = (Cart)Session["CartSession"];
+
+                    foreach (var item in cart.Lines)
+                    {
+                        orders_detail detail = new orders_detail();
+                        detail.order_id = order_id_max;
+                        detail.product_id = item.product.id;
+                        detail.price = item.product.price;
+                        detail.quantity = item.quantity;
+                        context.orders_detail.Add(detail);
+                        context.SaveChanges();
+                    }
+                    dbTran.Commit();
+                    cart.Clear();
+                    Session["CartSession"] = cart;
+                }
+                catch
+                {
+                    dbTran.Rollback();
+                    return RedirectToAction("Error");
+                }
+            }
+            return RedirectToAction("Success");
+        }
+
+        public ActionResult Success()
+        {
+            return View();
+        }
+
+        public ActionResult Error()
+        {
+            return View();
         }
         [HttpPost]
         public JsonResult discount(discount gg)

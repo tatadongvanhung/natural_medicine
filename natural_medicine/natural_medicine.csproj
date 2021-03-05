@@ -296,6 +296,8 @@
     <Content Include="Views\Account\MyAccount.cshtml" />
     <Content Include="Views\Account\Regiter.cshtml" />
     <Content Include="Views\Cart\Payment.cshtml" />
+    <Content Include="Views\Cart\Success.cshtml" />
+    <Content Include="Views\Cart\Error.cshtml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>

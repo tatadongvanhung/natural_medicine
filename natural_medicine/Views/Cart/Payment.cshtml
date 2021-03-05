@@ -7,6 +7,11 @@
 @using natural_medicine.Models.CartModel;
 @model Cart
 
+@{
+	List<natural_medicine.Models.address> listaddress = ViewBag.listaddress;
+	List<natural_medicine.Models.payment_methods> payment_methods = ViewBag.payment_methods;
+}
+
 <body>
 	<!--
 	Body Section
@@ -91,57 +96,71 @@
 
 			<div class="well">
 
-				<form class="form-horizontal" action="/Cart/Payment" method="POST" onsubmit="return CheckForm()">
+				<form class="form-horizontal" action="/cart/payment" method="POST">
 					@{
 						natural_medicine.Models.user user = ViewBag.account;
 
-						<input type="hidden" name="id" value="@user.id" />
+						<input type="hidden" name="user_id" value="@user.id" />
 
 						<div class="control-group">
 							<label class="control-label">
-								Họ Tên <sup style="color: red">*</sup>
+								KHÁCH HÀNG: <sup style="color: red"></sup>
 							</label>
 							<div class="controls">
-								<input type="text" id="name" name="name" value="@user.name" />
+								<input type="text" id="name" name="name" value="@user.name" readonly="readonly" />
 							</div>
 						</div>
 
 						<div class="control-group">
-							<label class="control-label">Email <sup style="color: red">*</sup></label>
+							<label class="control-label">SỐ ĐIỆN THOẠI <sup style="color: red"></sup></label>
 							<div class="controls">
-								<input name="email" id="email" type="email" value="@user.email" />
-							</div>
-						</div>
-
-						<div class="control-group">
-							<label class="control-label">SĐT <sup style="color: red">*</sup></label>
-							<div class="controls">
-								<input type="text" name="phone" id="phone" value="@user.phone" />
+								<input type="text" name="phone" id="phone" value="@user.phone" readonly="readonly" />
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label">
-								Địa chỉ <sup style="color: red">*</sup>
+								ĐỊA CHỈ NHẬN HÀNG: <sup style="color: red"></sup>
 							</label>
 							<div class="controls">
-								<textarea id="address" name="address" placeholder="Địa chỉ nhận hàng">@user.addresses</textarea>
+								<select name="user_address_id" id="user_address_id">
+									@foreach (natural_medicine.Models.address it in listaddress)
+									{
+										<option value="@it.id">@it.address1</option>
+									}
+								</select>
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label">
-								Lời nhắn<sup style="color: red"></sup>
+								HT THANH TOÁN: <sup style="color: red"></sup>
 							</label>
 							<div class="controls">
-								<textarea id="ghichu" name="ghichu" placeholder="Lời nhắn cho chúng tôi"></textarea>
+								<select name="payment_method_id" id="payment_method_id">
+									@foreach (natural_medicine.Models.payment_methods it in payment_methods)
+									{
+										<option value="@it.id">@it.name</option>
+									}
+								</select>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">
+								LỜI NHẮN <sup style="color: red"></sup>
+							</label>
+							<div class="controls">
+								<textarea id="ghichu" name="note" placeholder="Yêu cầu..."></textarea>
 								<span style="margin-left: 15px" id='message'></span>
 							</div>
 						</div>
+
 						<input id="input-subtotal" type="hidden" name="subtotal" value="@sum" />
 						<input id="input-discount" type="hidden" value="0" />
 						<input id="input-code" type="hidden" name="discount_code" value="" />
 						<input id="input-total" type="hidden" name="total" value="@sum" />
+
 						<div class="control-group">
 							<div class="controls">
 								<input type="submit" name="submitAccount" value="Đặt hàng" class="exclusive shopBtn">
@@ -149,7 +168,6 @@
 							</div>
 						</div>
 					}
-
 				</form>
 			</div>
 		</div>
@@ -164,7 +182,7 @@
 			$("#subtotal").html(subtotal + " đ");
 
 			var discount = $("#input-discount").val();
-			$("#discount").html(discount +" đ");
+			$("#discount").html(discount + " đ");
 
 			var total = $("#input-total").val();
 			$("#total").html(total + " đ");
