@@ -6,6 +6,41 @@
 @using natural_medicine.Models.CartModel;
 @model Cart
 
+<div class="modal fade" id="PopUpLogin" role="dialog">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Vui lòng đăng nhập!</h4>
+			</div>
+			<div class="modal-body">
+				<form method="post" action="/Account/PopUpLogin" class="form-horizontal loginFrm">
+					<div class="control-group">
+						<input type="text" name="phone" maxlength="10" style="width:490px"  id="inputEmail" placeholder="Số điện thoại">
+					</div>
+					<div class="control-group">
+						<input type="password" name="password" style="width:490px" id="inputPassword" placeholder="Mật khẩu">
+					</div>
+					<div class="control-group">
+						<label class="checkbox">
+							<input type="checkbox"> Nhớ mật khẩu
+						</label>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<input type="reset" name="" value="Làm mới" class="exclusive defaultBtn">
+							<input type="submit" name="submitAccount" value="Đăng nhập" class="shopBtn" >
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div class="row" style="height: 100vh;">
 	<div class="span12">
 		<ul class="breadcrumb">
@@ -63,17 +98,23 @@
 				</form>
 				<hr class="soften" />
 				<a href="/home/index" class="shopBtn btn-large"><span class="icon-arrow-left"></span> Quay lại mua sắm </a>
-
-				@*api_shop_ban_thuoc_btl_cnltth_2020.Models.KHACHHANG auth = (api_shop_ban_thuoc_btl_cnltth_2020.Models.KHACHHANG)Session["LoginKH"];
-				if (auth == null)
 				{
-					<a href="/Account/logincart" class="shopBtn btn-large pull-right">Tiếp <span class="icon-arrow-right"></span></a>
-				}*@
-				<a href="/Cart/payment" class="shopBtn btn-large pull-right">Tiếp <span class="icon-arrow-right"></span></a>
+					natural_medicine.Models.user auth = (natural_medicine.Models.user)Session["loginClient"];
+					if (auth == null)
+					{
+						<button class="shopBtn btn-large pull-right add-cart" data-toggle="modal" data-target="#PopUpLogin">
+							Tiếp <span class="icon-arrow-right"></span>
+						</button>
+					}
+					else
+					{
+						<a href="/cart/payment" class="shopBtn btn-large pull-right">Tiếp <span class="icon-arrow-right"></span></a>
+					}
+
+				}
 			}
 			else
 			{
-
 				<table class="table table-bordered table-condensed">
 					<thead>
 						<tr>

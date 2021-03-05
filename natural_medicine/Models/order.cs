@@ -43,6 +43,10 @@ namespace natural_medicine.Models
 
         public byte? status_id { get; set; }
 
+        public int? user_address_id { get; set; }
+
+        public virtual address address1 { get; set; }
+
         public virtual payment_methods payment_methods { get; set; }
 
         public virtual orders_status orders_status { get; set; }

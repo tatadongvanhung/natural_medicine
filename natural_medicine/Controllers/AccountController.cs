@@ -35,10 +35,26 @@ namespace natural_medicine.Controllers
             }
             return Redirect(Request.UrlReferrer.ToString());
         }
+        [HttpPost] 
+        public ActionResult PopUpLogin (user auth)
+        {
+            user model = context.users.Where(X => X.phone == auth.phone).FirstOrDefault();
+            if (model != null && model.user_type == 1)
+            {
+                Boolean checkPasswork = BCrypt.Net.BCrypt.Verify(auth.password, model.password.Trim());
+                if (checkPasswork)
+                {
+                    Session["loginClient"] = model;
+                    model.last_login_at = DateTime.Now;
+                    context.SaveChanges();
+                }
+            }
+            return RedirectToAction("payment", "cart");
+        }
         public ActionResult Logout()
         {
             Session["loginClient"] = null;
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("Index","Home");
         }
         public ActionResult MyAccount()
         {

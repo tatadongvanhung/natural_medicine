@@ -29,8 +29,9 @@ namespace natural_medicine.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<address>()
-                .Property(e => e.address1)
-                .IsUnicode(false);
+                .HasMany(e => e.orders)
+                .WithOptional(e => e.address1)
+                .HasForeignKey(e => e.user_address_id);
 
             modelBuilder.Entity<category>()
                 .HasMany(e => e.products)

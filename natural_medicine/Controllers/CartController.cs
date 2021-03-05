@@ -79,5 +79,21 @@ namespace natural_medicine.Controllers
             }
             return RedirectToAction("mycart");
         }
+        public ActionResult Payment()
+        {
+            var account = (user)Session["loginClient"];
+            var cart = (Cart)Session["CartSession"];
+
+            if (account == null)
+            {
+                return RedirectToAction("mycart", "cart");
+            }
+            if (cart == null)
+            {
+                cart = new Cart();
+            }
+            ViewBag.account = account;
+            return View(cart);
+        }
     }
 }
