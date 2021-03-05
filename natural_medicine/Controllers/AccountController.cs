@@ -80,6 +80,7 @@ namespace natural_medicine.Controllers
             context.SaveChanges();
             var add = context.addresses.Where(x => x.user_id == obj.id).FirstOrDefault();
             add.address1 = model.address;
+            add.update_at = DateTime.Now;
             context.SaveChanges();
             return Json("success", JsonRequestBehavior.AllowGet);
         }
