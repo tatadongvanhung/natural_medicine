@@ -1,0 +1,60 @@
+﻿
+@{
+	ViewBag.Title = "ViewCategory";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using natural_medicine.Models
+@model List<category>
+
+<div class="right__content">
+	<div class="right__title">Bảng điều khiển</div>
+	<p class="right__desc">Danh sách thể loại</p>
+	<div class="right__table">
+		<div class="margin-btn-add">
+			<button class="btn btn-add" type="button" id="insert-category"><a href="/admin/category/insertcategory">Thêm mới</a></button>
+			
+		</div>
+		
+		<div class="right__tableWrapper">
+			<table>
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th>Tên thể loại</th>
+						<th>Mô tả</th>
+						<th>Sửa</th>
+						<th>Xoá</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@{
+						if (Model != null)
+						{
+							int i = 0;
+							foreach (category it in Model)
+							{
+								i++;
+								<tr>
+									<td data-label="STT">@i</td>
+									<td data-label="Tiêu đề">@it.name</td>
+									<td data-label="Mô tả">@it.note</td>
+									<td data-label="Sửa" class="right__iconTable"><a href="/admin/category/updatecategory/@it.id"><img src="~/Content/admin/assets/icon-edit.svg" alt=""></a></td>
+									<td data-label="Xoá" class="right__iconTable"><a href="/admin/category/deletecategory/@it.id"><img src="~/Content/admin/assets/icon-trash-black.svg" alt=""></a></td>
+								</tr>
+							}
+						}
+						else
+						{
+							<tr>
+								<td style="text-align:center;" colspan="5" class="alignR"><strong>DANH SÁCH THỂ LOẠI TRỐNG!</strong></td>
+							</tr>
+						}
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+

@@ -131,6 +131,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -158,30 +162,31 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Admin\css\bootstrap-table.css" />
-    <Content Include="Content\Admin\css\bootstrap-theme.css" />
-    <Content Include="Content\Admin\css\bootstrap-theme.min.css" />
-    <Content Include="Content\Admin\css\bootstrap.css" />
-    <Content Include="Content\Admin\css\bootstrap.min.css" />
-    <Content Include="Content\Admin\css\datepicker.css" />
-    <Content Include="Content\Admin\css\datepicker3.css" />
-    <Content Include="Content\Admin\css\styles.css" />
-    <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\Admin\img\New Text Document.txt" />
-    <Content Include="Content\Admin\img\SP1_Gung.jpg" />
-    <Content Include="Content\Admin\js\bootstrap-datepicker.js" />
-    <Content Include="Content\Admin\js\bootstrap-table.js" />
-    <Content Include="Content\Admin\js\bootstrap.js" />
-    <Content Include="Content\Admin\js\bootstrap.min.js" />
-    <Content Include="Content\Admin\js\chart-data.js" />
-    <Content Include="Content\Admin\js\chart.min.js" />
-    <Content Include="Content\Admin\js\easypiechart-data.js" />
-    <Content Include="Content\Admin\js\easypiechart.js" />
-    <Content Include="Content\Admin\js\html5shiv.min.js" />
-    <Content Include="Content\Admin\js\jquery-1.11.1.min.js" />
-    <Content Include="Content\Admin\js\lumino.glyphs.js" />
-    <Content Include="Content\Admin\js\respond.min.js" />
-    <Content Include="Content\Admin\js\table-viet-hoa.js" />
+    <Content Include="Content\admin\assets\arrow-down.svg" />
+    <Content Include="Content\admin\assets\arrow-right-black.svg" />
+    <Content Include="Content\admin\assets\arrow-right.svg" />
+    <Content Include="Content\admin\assets\ellipse1.svg" />
+    <Content Include="Content\admin\assets\icon-book.svg" />
+    <Content Include="Content\admin\assets\icon-check.svg" />
+    <Content Include="Content\admin\assets\icon-dashboard.svg" />
+    <Content Include="Content\admin\assets\icon-edit.svg" />
+    <Content Include="Content\admin\assets\icon-email.svg" />
+    <Content Include="Content\admin\assets\icon-facebook.svg" />
+    <Content Include="Content\admin\assets\icon-logout.svg" />
+    <Content Include="Content\admin\assets\icon-pencil.svg" />
+    <Content Include="Content\admin\assets\icon-return.svg" />
+    <Content Include="Content\admin\assets\icon-settings.svg" />
+    <Content Include="Content\admin\assets\icon-tag.svg" />
+    <Content Include="Content\admin\assets\icon-trash-black.svg" />
+    <Content Include="Content\admin\assets\icon-trash.svg" />
+    <Content Include="Content\admin\assets\icon-twitter.svg" />
+    <Content Include="Content\admin\assets\icon-user.svg" />
+    <Content Include="Content\admin\assets\icon-users.svg" />
+    <Content Include="Content\admin\assets\icon-x.svg" />
+    <Content Include="Content\admin\assets\logo.svg" />
+    <Content Include="Content\admin\assets\profile.jpg" />
+    <Content Include="Content\admin\css\main.css" />
+    <Content Include="Content\admin\js\main.js" />
     <Content Include="Content\assets\css\bootstrap-responsive.css" />
     <Content Include="Content\assets\css\bootstrap-responsive.min.css" />
     <Content Include="Content\assets\css\bootstrap.css" />
@@ -244,11 +249,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\Admin\css\bootstrap-theme.css.map" />
-    <Content Include="Content\Admin\css\bootstrap.css.map" />
-    <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\Admin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\assets\font-awesome\font\fontawesome-webfont.eot" />
     <Content Include="Content\assets\font-awesome\font\fontawesome-webfont.ttf" />
     <Content Include="Content\assets\font-awesome\font\fontawesome-webfont.woff" />
@@ -271,6 +271,17 @@
     <Content Include="Content\assets\font-awesome\scss\_mixins.scss" />
     <Content Include="Content\assets\font-awesome\scss\_path.scss" />
     <Content Include="Content\assets\font-awesome\scss\_variables.scss" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Content\admin\css\main.css.map" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\InsertProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\ViewProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\InsertCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\ViewCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\UpdateCategory.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -313,6 +324,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

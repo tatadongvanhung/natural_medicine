@@ -1,0 +1,58 @@
+﻿
+@{
+	ViewBag.Title = "InsertCategory";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="right__content">
+	<div class="right__title">Bảng điều khiển</div>
+	<p class="right__desc">Thêm thể loại</p>
+	<div class="right__formWrapper" id="category-div">
+		<div class="alert alert-success" id="alert-success" style="display:none;">Thêm thể loại <span id="ctg-name"></span> thành công!</div>
+		<div class="alert alert-danger" id="alert-error" style="display:none;">Thêm thể loại không thành công!</div>
+		<form id="form-insert-category">
+			<div class="right__inputWrapper">
+				<label for="title">Tên thể loại</label>
+				<input type="text" name="name" id="category-name" placeholder="Tên thể loại" required="required">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="desc">Mô tả</label>
+				<textarea name="note" id="category-note" cols="30" rows="10" placeholder="Mô tả"></textarea>
+			</div>
+			<button class="btn" type="button" id="insert-category">Thêm</button>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#insert-category").click(function () {
+			var dataForm = new Object();
+			dataForm.name = $('#category-name').val();
+			dataForm.note = $('#category-note').val();
+			var serviceURL = '/category/insertcategory';
+			$.ajax({
+				url: serviceURL,
+				type: "POST",
+				data: JSON.stringify(dataForm),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: successFunc,
+				error: errorFunc
+			});
+			function successFunc(data) {
+				if (data == "success") {
+					$("#ctg-name").html(dataForm.name);
+					$("#alert-success").show();
+					setTimeout(function () { $("#alert-success").hide(); }, 3000);
+					$("#form-insert-category")[0].reset();
+				} else {
+					$("#alert-error").show();
+					setTimeout(function () { $("#alert-error").hide(); }, 3000);
+				}
+			}
+			function errorFunc() {
+			}
+		});
+	});
+</script>
+

@@ -1,0 +1,62 @@
+﻿
+@{
+	ViewBag.Title = "UpdateCategory";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using natural_medicine.Models
+@model category
+
+<div class="right__content">
+	<div class="right__title">Bảng điều khiển</div>
+	<p class="right__desc">Thêm thể loại</p>
+	<div class="right__formWrapper" id="category-div">
+		<div class="alert alert-success" id="alert-success" style="display:none;">Cập nhật thể loại thành công!</div>
+		<div class="alert alert-danger" id="alert-error" style="display:none;">Cập nhật thể loại không thành công!</div>
+		<form id="form-insert-category">
+			<input type="hidden" id="category-id" name="id" value="@Model.id" />
+			<div class="right__inputWrapper">
+				<label for="title">Tên thể loại</label>
+				<input type="text" name="name" id="category-name" value="@Model.name" placeholder="Tên thể loại" required="required">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="desc">Mô tả</label>
+				<textarea name="note" id="category-note" cols="30" rows="10" placeholder="Mô tả">@Model.note</textarea>
+			</div>
+			<button class="btn" type="button" id="insert-category">Sửa</button>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#insert-category").click(function () {
+			var dataForm = new Object();
+			dataForm.id = $('#category-id').val();
+			dataForm.name = $('#category-name').val();
+			dataForm.note = $('#category-note').val();
+			var serviceURL = '/category/updatecategory';
+			$.ajax({
+				url: serviceURL,
+				type: "POST",
+				data: JSON.stringify(dataForm),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: successFunc,
+				error: errorFunc
+			});
+			function successFunc(data) {
+				if (data == "success") {
+					$("#alert-success").show();
+					setTimeout(function () { $("#alert-success").hide(); }, 3000);
+				} else {
+					$("#alert-error").show();
+					setTimeout(function () { $("#alert-error").hide(); }, 3000);
+				}
+			}
+			function errorFunc() {
+			}
+		});
+	});
+</script>
+
+
+
