@@ -130,6 +130,29 @@
 		$("#phone-err").hide();
 		$("#phone-ok").hide();
 		const old_phone = $("#phone_number").val();
+		const old_name = $('#name').val();
+		const old_email = $('#email').val();
+		const old_address = $('#address').val();
+
+		$("#name").change(function () {
+			var name = $('#name').val();
+			if (name == '') {
+				$('#name').val(old_name);
+			}
+		});
+		$("#email").change(function () {
+			var name = $('#email').val();
+			if (name == '') {
+				$('#email').val(old_email);
+			}
+		});
+		$("#address").change(function () {
+			var name = $('#address').val();
+			if (name == '') {
+				$('#address').val(old_address);
+			}
+		});
+		
 		//Kiểm tra xem số điện thoại đã tồn tại chưa
 		$("#phone_number").change(function () {
 			var phone_number = $(this).val();
