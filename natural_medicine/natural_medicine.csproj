@@ -140,7 +140,9 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DiscountController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PublishersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -289,6 +291,12 @@
     <Content Include="Areas\Admin\Views\Category\InsertCategory.cshtml" />
     <Content Include="Areas\Admin\Views\Category\ViewCategory.cshtml" />
     <Content Include="Areas\Admin\Views\Category\UpdateCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\Publishers\InsertPublisher.cshtml" />
+    <Content Include="Areas\Admin\Views\Publishers\ViewPublisher.cshtml" />
+    <Content Include="Areas\Admin\Views\Publishers\UpdatePublisher.cshtml" />
+    <Content Include="Areas\Admin\Views\Discount\InsertDiscount.cshtml" />
+    <Content Include="Areas\Admin\Views\Discount\ViewDiscount.cshtml" />
+    <Content Include="Areas\Admin\Views\Discount\UpdateDiscount.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

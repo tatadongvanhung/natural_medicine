@@ -1,0 +1,71 @@
+﻿
+@{
+	ViewBag.Title = "UpdatePublisher";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using natural_medicine.Models
+@model publisher
+<div class="right__content">
+	<div class="right__title">Bảng điều khiển</div>
+	<p class="right__desc">Cập nhật nhà cung cấp</p>
+	<div class="right__formWrapper" id="category-div">
+		<div class="alert alert-success" id="alert-success" style="display:none;">Sửa nhà cung cấp thành công!</div>
+		<div class="alert alert-danger" id="alert-error" style="display:none;">Sửa nhà cung cấp không thành công!</div>
+		<form id="form-insert-publisher">
+			<input type="hidden" id="publisher-id" name="id" value="@Model.id" />
+			<div class="right__inputWrapper">
+				<label for="title">Tên nhà cung cấp</label>
+				<input value="@Model.name" type="text" name="name" id="publisher-name" placeholder="Tên nhà cung cấp" required="required">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="title">Số điện thoại</label>
+				<input value="@Model.phone" type="text" maxlength="10" name="phone" id="publisher-phone" placeholder="Số điện thoại nhà cung cấp" required="required">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="desc">Địa chỉ</label>
+				<textarea name="address" id="publisher-address" cols="30" rows="10" placeholder="Địa chỉ nhà cung cấp">@Model.address</textarea>
+			</div>
+			<button class="btn" type="button" id="insert-publisher">Sửa</button>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#insert-publisher").click(function () {
+			var dataForm = new Object();
+			dataForm.id = $('#publisher-id').val();
+			dataForm.name = $('#publisher-name').val();
+			dataForm.phone = $('#publisher-phone').val();
+			dataForm.address = $('#publisher-address').val();
+			var serviceURL = '/publishers/updatepublisher';
+			$.ajax({
+				url: serviceURL,
+				type: "POST",
+				data: JSON.stringify(dataForm),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: successFunc,
+				error: errorFunc
+			});
+			function successFunc(data) {
+				if (data == "success") {
+					$("#alert-success").show();
+					setTimeout(function () { $("#alert-success").hide(); }, 3000);
+					$("#form-insert-category")[0].reset();
+				} else {
+					$("#alert-error").show();
+					setTimeout(function () { $("#alert-error").hide(); }, 3000);
+				}
+			}
+			function errorFunc() {
+				$("#alert-error").show();
+				setTimeout(function () { $("#alert-error").hide(); }, 3000);
+			}
+		});
+	});
+</script>
+
+
+
+
+

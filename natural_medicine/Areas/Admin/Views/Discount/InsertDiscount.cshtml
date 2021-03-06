@@ -1,0 +1,80 @@
+﻿
+@{
+	ViewBag.Title = "InsertDiscount";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="right__content">
+	<div class="right__title">Bảng điều khiển</div>
+	<p class="right__desc">Thêm mã ưu đãi</p>
+	<div class="right__formWrapper" id="category-div">
+		<div class="alert alert-success" id="alert-success" style="display:none;">Thêm mã ưu đãi <span id="ctg-name"></span> thành công!</div>
+		<div class="alert alert-danger" id="alert-error" style="display:none;">Thêm mã ưu đãi không thành công!</div>
+		<form id="form-insert-category">
+			<div class="right__inputWrapper">
+				<label for="title">Code</label>
+				<input type="text" name="code" id="discount-code" placeholder="Mã giảm giá" required="required">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="desc">Tiêu đề</label>
+				<textarea name="description" id="discount-description" cols="30" rows="3" placeholder="Mô tả chương trình"></textarea>
+			</div>
+			<div class="right__inputWrapper">
+				<label for="desc">Giá trị giảm giá ( % )</label>
+				<input type="text" name="value" id="discount-value" placeholder="0.0" required="required">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="desc">Giá trị giảm tối đa</label>
+				<input type="text" name="max_value" id="discount-max" placeholder="Gía trị giảm tối đa" required="required">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="desc">Ngày bắt đầu áp dụng</label>
+				<input type="date" name="start_date" id="discount-start" placeholder="" required="required">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="desc">Ngày kết thúc áp dụng</label>
+				<input type="date" name="end_date" id="discount-end" placeholder="" required="required">
+			</div>
+			<button class="btn" type="button" id="insert-discount">Thêm</button>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#insert-discount").click(function () {
+			var dataForm = new Object();
+			dataForm.code = $('#discount-code').val();
+			dataForm.description = $('#discount-description').val();
+			dataForm.value = $('#discount-value').val();
+			dataForm.max_value = $('#discount-max').val();
+			dataForm.start_date = $('#discount-start').val();
+			dataForm.end_date = $('#discount-end').val();
+			var serviceURL = '/discount/insertdiscount';
+			$.ajax({
+				url: serviceURL,
+				type: "POST",
+				data: JSON.stringify(dataForm),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: successFunc,
+				error: errorFunc
+			});
+			function successFunc(data) {
+				if (data == "success") {
+					$("#ctg-name").html(dataForm.code);
+					$("#alert-success").show();
+					setTimeout(function () { $("#alert-success").hide(); }, 3000);
+					$("#form-insert-category")[0].reset();
+				} else {
+					$("#alert-error").show();
+					setTimeout(function () { $("#alert-error").hide(); }, 3000);
+				}
+			}
+			function errorFunc() {
+			}
+		});
+	});
+</script>
+
+
+

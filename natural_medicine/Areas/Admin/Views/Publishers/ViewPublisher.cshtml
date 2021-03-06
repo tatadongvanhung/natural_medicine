@@ -1,0 +1,70 @@
+﻿
+@{
+	ViewBag.Title = "ViewPublisher";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@using PagedList.Mvc;
+
+
+@model PagedList.IPagedList<natural_medicine.Models.publisher>
+
+<div class="right__content">
+	<div class="right__title">Bảng điều khiển</div>
+	<p class="right__desc">Danh sách nhà cung cấp</p>
+	<div class="right__table">
+		<div class="margin-btn-add">
+			<button class="btn btn-add" type="button" id="insert-category"><a href="/admin/publishers/insertpublisher">Thêm mới</a></button>
+
+		</div>
+
+		<div class="right__tableWrapper">
+			<table>
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th>Tên NCC</th>
+						<th>SĐT</th>
+						<th>Địa chỉ</th>
+						<th>Sửa</th>
+						<th>Xoá</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@{
+						if (Model != null)
+						{
+							int i = 0;
+							foreach (natural_medicine.Models.publisher it in Model)
+							{
+								i++;
+								<tr>
+									<td data-label="STT">@i</td>
+									<td data-label="Tên NCC">@it.name</td>
+									<td data-label="SĐT">@it.phone</td>
+									<td data-label="Địa chỉ">@it.address</td>
+									<td data-label="Sửa" class="right__iconTable"><a href="/admin/publishers/updatepublisher/@it.id"><img src="~/Content/admin/assets/icon-edit.svg" alt=""></a></td>
+									<td data-label="Xoá" class="right__iconTable"><a href="/admin/publishers/deletepublisher/@it.id"><img src="~/Content/admin/assets/icon-trash-black.svg" alt=""></a></td>
+								</tr>
+							}
+						}
+						else
+						{
+							<tr>
+								<td style="text-align:center;" colspan="5" class="alignR"><strong>DANH SÁCH THỂ LOẠI TRỐNG!</strong></td>
+							</tr>
+						}
+					}
+				</tbody>
+			</table>
+			@Html.PagedListPager(Model, page => Url.Action("ViewPublisher", new { page }))
+
+		</div>
+		@*Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount*@
+	</div>
+</div>
+
+
+
