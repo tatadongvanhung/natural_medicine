@@ -87,7 +87,7 @@
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function () {
-
+			
 			$("#confirm-err").hide();
 			$("#confirm-ok").hide();
 			$("#phone-err").hide();
@@ -95,6 +95,9 @@
 			$("#password").change(function () {
 				var pasword = $(this).val();
 				var confirm = $('#confirm_password').val();
+				if (pasword != null && confirm != null) {
+
+				}
 				if (pasword != confirm) {
 					$(this).css("border", "0.5px solid red");
 					$('#confirm_password').css("border", "0.5px solid red");
