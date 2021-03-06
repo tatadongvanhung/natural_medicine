@@ -83,3 +83,7 @@ C:\Users\Admin\source\repos\natural_medicine\natural_medicine\bin\EntityFramewor
 C:\Users\Admin\source\repos\natural_medicine\natural_medicine\bin\EntityFramework.SqlServer.xml
 C:\Users\Admin\source\repos\natural_medicine\natural_medicine\bin\BCrypt.Net.dll
 C:\Users\Admin\source\repos\natural_medicine\natural_medicine\bin\BCrypt.Net.xml
+C:\Users\Admin\source\repos\natural_medicine\natural_medicine\bin\PagedList.dll
+C:\Users\Admin\source\repos\natural_medicine\natural_medicine\bin\PagedList.Mvc.dll
+C:\Users\Admin\source\repos\natural_medicine\natural_medicine\bin\PagedList.xml
+C:\Users\Admin\source\repos\natural_medicine\natural_medicine\bin\PagedList.Mvc.xml

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using natural_medicine.Models;
+using PagedList;
 
 namespace natural_medicine.Areas.Admin.Controllers
 {
@@ -30,10 +31,14 @@ namespace natural_medicine.Areas.Admin.Controllers
             }
            
         }
-        public ActionResult ViewCategory()
+        public ActionResult ViewCategory(int ?page)
         {
+            if (page == null) page = 1;
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
             var model = context.categories.ToList();
-            return View(model);
+            return View(model.ToPagedList(pageNumber, pageSize));
         }
         public ActionResult DeleteCategory(int id)
         {

@@ -1,11 +1,11 @@
 ﻿
+@using PagedList.Mvc;
 @{
 	ViewBag.Title = "ViewCategory";
 	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-@using natural_medicine.Models
-@model List<category>
+@model PagedList.IPagedList<natural_medicine.Models.category>
 
 <div class="right__content">
 	<div class="right__title">Bảng điều khiển</div>
@@ -13,9 +13,9 @@
 	<div class="right__table">
 		<div class="margin-btn-add">
 			<button class="btn btn-add" type="button" id="insert-category"><a href="/admin/category/insertcategory">Thêm mới</a></button>
-			
+
 		</div>
-		
+
 		<div class="right__tableWrapper">
 			<table>
 				<thead>
@@ -33,7 +33,7 @@
 						if (Model != null)
 						{
 							int i = 0;
-							foreach (category it in Model)
+							foreach (natural_medicine.Models.category it in Model)
 							{
 								i++;
 								<tr>
@@ -54,7 +54,10 @@
 					}
 				</tbody>
 			</table>
+			@Html.PagedListPager(Model, page => Url.Action("ViewCategory", new { page }))
+
 		</div>
+		@*Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount*@
 	</div>
 </div>
 
