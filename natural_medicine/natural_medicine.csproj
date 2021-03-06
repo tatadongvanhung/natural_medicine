@@ -173,6 +173,7 @@
     <Content Include="Content\admin\assets\arrow-down.svg" />
     <Content Include="Content\admin\assets\arrow-right-black.svg" />
     <Content Include="Content\admin\assets\arrow-right.svg" />
+    <Content Include="Content\admin\assets\bg.jpg" />
     <Content Include="Content\admin\assets\ellipse1.svg" />
     <Content Include="Content\admin\assets\icon-book.svg" />
     <Content Include="Content\admin\assets\icon-check.svg" />
@@ -297,6 +298,8 @@
     <Content Include="Areas\Admin\Views\Discount\InsertDiscount.cshtml" />
     <Content Include="Areas\Admin\Views\Discount\ViewDiscount.cshtml" />
     <Content Include="Areas\Admin\Views\Discount\UpdateDiscount.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\ViewCustomer.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
