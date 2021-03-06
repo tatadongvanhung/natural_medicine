@@ -46,5 +46,12 @@ namespace natural_medicine.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Search(String search)
+        {
+            var model = context.products.Where(X => X.name.Contains(search) || X.uses.Contains(search)).ToList();
+            return View(model);
+        }
     }
 }

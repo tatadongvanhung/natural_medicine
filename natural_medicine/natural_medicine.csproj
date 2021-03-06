@@ -303,6 +303,7 @@
     <Content Include="Views\Cart\Error.cshtml" />
     <Content Include="Views\MyOrder\ListOrder.cshtml" />
     <Content Include="Views\MyOrder\OrderDetail.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>

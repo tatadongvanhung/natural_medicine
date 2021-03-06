@@ -93,13 +93,13 @@
 					</a>
 					<div class="nav-collapse">
 						<ul class="nav">
-							<li class="active"><a href="/Home/Index">Trang chủ	</a></li>
+							<li class="active"><a href="/home/index">Trang chủ	</a></li>
 							<li class=""><a href="/home/test">Tin tức</a></li>
 							<li class=""><a href="/cart/mycart">Giỏ hàng</a></li>
 							<li class=""><a href="/myorder/listorder">Theo dõi đơn hàng</a></li>
 
 						</ul>
-						<form action="/Home/Search" class="navbar-search pull-left" method="post">
+						<form action="/home/search" class="navbar-search pull-left" method="post">
 							<input type="text" name="search" placeholder="Tìm kiếm..." class="search-query span2">
 							<input type="submit" value="Tìm kiếm" class="exclusive shopBtn">
 						</form>
@@ -110,7 +110,7 @@
 									<li class="dropdown">
 										<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="icon-lock"></span> Đăng nhập <b class="caret"></b></a>
 										<div class="dropdown-menu">
-											<form method="post" action="/Account/Login" class="form-horizontal loginFrm">
+											<form method="post" action="/account/login" class="form-horizontal loginFrm">
 												<div class="control-group">
 													<input type="text" name="phone" maxlength="10" class="span2" id="inputEmail" placeholder="Số điện thoại">
 												</div>
@@ -134,7 +134,7 @@
 									<li class="dropdown">
 										<a data-toggle="dropdown" class="dropdown-toggle" href="#"><span class=""></span> @auth.name <b class="caret"></b></a>
 										<div class="dropdown-menu">
-											<a href="/Account/Logout"> <button class="shopBtn btn-block">Đăng xuất</button></a>
+											<a href="/account/logout"> <button class="shopBtn btn-block">Đăng xuất</button></a>
 										</div>
 									</li>
 								</ul>
