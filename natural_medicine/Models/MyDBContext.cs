@@ -25,6 +25,8 @@ namespace natural_medicine.Models
         public virtual DbSet<publisher> publishers { get; set; }
         public virtual DbSet<review> reviews { get; set; }
         public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<VIEW_ORDER> VIEW_ORDER { get; set; }
+        public virtual DbSet<VIEW_ORDER_DETAIL> VIEW_ORDER_DETAIL { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -134,6 +136,18 @@ namespace natural_medicine.Models
                 .HasMany(e => e.reviews)
                 .WithOptional(e => e.user)
                 .HasForeignKey(e => e.user_id);
+
+            modelBuilder.Entity<VIEW_ORDER>()
+                .Property(e => e.phone)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<VIEW_ORDER>()
+                .Property(e => e.discount_code)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<VIEW_ORDER_DETAIL>()
+                .Property(e => e.image_url)
+                .IsUnicode(false);
         }
     }
 }

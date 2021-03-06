@@ -134,6 +134,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MyOrderController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -152,6 +153,8 @@
     <Compile Include="Models\publisher.cs" />
     <Compile Include="Models\review.cs" />
     <Compile Include="Models\user.cs" />
+    <Compile Include="Models\VIEW_ORDER.cs" />
+    <Compile Include="Models\VIEW_ORDER_DETAIL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -298,6 +301,8 @@
     <Content Include="Views\Cart\Payment.cshtml" />
     <Content Include="Views\Cart\Success.cshtml" />
     <Content Include="Views\Cart\Error.cshtml" />
+    <Content Include="Views\MyOrder\ListOrder.cshtml" />
+    <Content Include="Views\MyOrder\OrderDetail.cshtml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>
