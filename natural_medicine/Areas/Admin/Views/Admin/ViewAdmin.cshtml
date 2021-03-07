@@ -1,0 +1,79 @@
+﻿
+@{
+	ViewBag.Title = "ViewAdmin";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@using PagedList.Mvc;
+
+
+@model PagedList.IPagedList<natural_medicine.Models.user>
+
+<div class="right__content">
+	<div class="right__title">Bảng điều khiển</div>
+	<p class="right__desc">Danh sách khách hàng</p>
+	<div class="right__table">
+		<div class="margin-btn-add">
+			<button class="btn btn-add" type="button" id="insert-category"><a href="/admin/admin/insertadmin">Thêm mới</a></button>
+		</div>
+		<div class="right__tableWrapper">
+			<table>
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th>Họ tên</th>
+						<th>Số điện thoại</th>
+						<th>Quyền</th>
+						<th>Đăng nhập lần cuối</th>
+						<th>Sửa</th>
+						<th>Xoá</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@{
+						if (Model != null)
+						{
+							int i = 0;
+							foreach (natural_medicine.Models.user it in Model)
+							{
+								i++;
+								<tr>
+									<td data-label="STT">@i</td>
+									<td data-label="Tiêu đề">@it.name</td>
+									<td data-label="Mô tả">@it.phone</td>
+									@if (it.user_type == 2)
+									{
+										<td data-label="Mô tả">ADMIN</td>
+									}
+									else
+									{
+										<td data-label="Mô tả">MASTER ADMIN</td>
+									}
+									<td data-label="Mô tả">@it.last_login_at</td>
+									<td data-label="Sửa" class="right__iconTable"><a href="/admin/admin/updateadmin/@it.id"><img src="~/Content/admin/assets/icon-edit.svg" alt=""></a></td>
+									<td data-label="Xoá" class="right__iconTable"><a href="/admin/admin/deleteadmin/@it.id"><img src="~/Content/admin/assets/icon-trash-black.svg" alt=""></a></td>
+								</tr>
+							}
+						}
+						else
+						{
+							<tr>
+								<td style="text-align:center;" colspan="6" class="alignR"><strong>DANH SÁCH KHÁCH HÀNG TRỐNG!</strong></td>
+							</tr>
+						}
+					}
+				</tbody>
+			</table>
+			@Html.PagedListPager(Model, page => Url.Action("ViewCategory", new { page }))
+
+		</div>
+		@*Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount*@
+	</div>
+</div>
+
+
+
+
+

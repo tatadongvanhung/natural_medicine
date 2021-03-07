@@ -107,5 +107,19 @@ namespace natural_medicine.Areas.Admin.Controllers
             return Json("success", JsonRequestBehavior.AllowGet);
             
         }
+
+        public ActionResult ViewAdmin(int ?page)
+        {
+            if (page == null) page = 1;
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            var model = context.users.Where(x => x.user_type != 1).ToList();
+            return View(model.ToPagedList(pageNumber, pageSize));
+        }
+        public ActionResult DeleteAdmin(int id)
+        {
+            var model = context.users.Where(x => x.id == id).FirstOrDefault();
+            return RedirectToAction("ViewAdmin");
+        }
     }
 }
