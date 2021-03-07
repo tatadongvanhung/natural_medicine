@@ -144,6 +144,7 @@
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\PublishersController.cs" />
+    <Compile Include="Areas\Admin\Security\CustomAuthorizeAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -198,6 +199,8 @@
     <Content Include="Content\admin\assets\profile.jpg" />
     <Content Include="Content\admin\css\main.css" />
     <Content Include="Content\admin\js\main.js" />
+    <Content Include="Content\admin\login\script.js" />
+    <Content Include="Content\admin\login\style.css" />
     <Content Include="Content\assets\css\bootstrap-responsive.css" />
     <Content Include="Content\assets\css\bootstrap-responsive.min.css" />
     <Content Include="Content\assets\css\bootstrap.css" />
@@ -303,6 +306,7 @@
     <Content Include="Areas\Admin\Views\Admin\Login.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\ViewCustomer.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\ViewOrder.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\ViewOrder_Detail.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

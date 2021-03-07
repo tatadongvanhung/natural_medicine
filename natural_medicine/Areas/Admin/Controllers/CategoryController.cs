@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using natural_medicine.Models;
 using PagedList;
+using natural_medicine.Areas.Admin.Security;
 
 namespace natural_medicine.Areas.Admin.Controllers
 {
@@ -12,6 +13,7 @@ namespace natural_medicine.Areas.Admin.Controllers
     {
         private MyDBContext context = new MyDBContext();
         // GET: Admin/Category
+        [CustomAuthorize]
         public ActionResult InsertCategory()
         {
             return View();
@@ -31,6 +33,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             }
            
         }
+        [CustomAuthorize]
         public ActionResult ViewCategory(int ?page)
         {
             if (page == null) page = 1;
@@ -40,6 +43,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             var model = context.categories.ToList();
             return View(model.ToPagedList(pageNumber, pageSize));
         }
+        [CustomAuthorize]
         public ActionResult DeleteCategory(int id)
         {
             var obj = context.categories.Where(x => x.id == id).FirstOrDefault();
@@ -47,6 +51,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             context.SaveChanges();
             return RedirectToAction("ViewCategory");
         }
+        [CustomAuthorize]
         public ActionResult UpdateCategory(int id)
         {
             var model = context.categories.Where(x => x.id == id).FirstOrDefault();

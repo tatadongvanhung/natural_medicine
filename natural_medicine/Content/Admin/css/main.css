@@ -24,8 +24,22 @@ body {
   font-family: "Muli", sans-serif;
   background-color: #E2DFF2;
 }
+.right__order_detail {
+    padding-left:130px;
+}
 
+.right__order_detail label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.right__formFilter {
+    padding: 40px;
+    border-radius: 5px;
+}
 .container-filter {
+    border-radius: 5px;
     padding-left: 80px;
 }
 

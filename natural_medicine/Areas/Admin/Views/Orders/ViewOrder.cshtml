@@ -14,11 +14,11 @@
 		<form method="get" action="/admin/orders/vieworder">
 			<div class="right__inputWrapper">
 				<label for="title">Ngày bắt đầu</label>
-				<input type="date" name="start_date" id="filter-start">
+				<input type="date" name="start_date" id="filter_start">
 			</div>
 			<div class="right__inputWrapper">
 				<label for="desc">Ngày kết thúc</label>
-				<input type="date" name="end_date" id="filter-end">
+				<input type="date" name="end_date" id="filter_end">
 			</div>
 			<div style="padding-top:20px;">
 				<button style="width:100px;" class="btn" type="submit" id="filter-orders">Tìm kiếm</button>
@@ -33,8 +33,11 @@
 						<th>STT</th>
 						<th>Khách hàng</th>
 						<th>SĐT</th>
+						<th>Địa chỉ</th>
 						<th>Ngày</th>
+						<th>Tổng tiền</th>
 						<th>Trạng thái</th>
+						<th>Chi tiết</th>
 						<th>Xoá</th>
 					</tr>
 				</thead>
@@ -47,20 +50,23 @@
 							foreach (natural_medicine.Models.VIEW_ORDER it in Model)
 							{
 								i++;
-								<tr>
-									<td data-label="STT">@i</td>
-									<td data-label="Tiêu đề">@it.name</td>
-									<td data-label="Mô tả">@it.phone</td>
-									<td data-label="Mô tả">@it.create_at</td>
-									<td data-label="Mô tả">@it.status</td>
-									<td data-label="Xoá" class="right__iconTable"><a href="/admin/admin/deletecustomer/@it.id"><img src="~/Content/admin/assets/icon-trash-black.svg" alt=""></a></td>
-								</tr>
+										<tr>
+											<td data-label="STT">@i</td>
+											<td data-label="Tiêu đề">@it.name</td>
+											<td data-label="SĐT">@it.phone</td>
+											<td data-label="SĐT">@it.address</td>
+											<td data-label="Mô tả">@it.create_at</td>
+											<td data-label="Mô tả">@it.total</td>
+											<td data-label="Mô tả">@it.status</td>
+											<td data-label="Sửa" class="right__iconTable"><a href="/admin/orders/vieworder_detail/@it.id"><img src="~/Content/admin/assets/icon-edit.svg" alt=""></a></td>
+											<td data-label="Xoá" class="right__iconTable"><a href="/admin/orders/deleteorder/@it.id"><img src="~/Content/admin/assets/icon-trash-black.svg" alt=""></a></td>
+										</tr>
 							}
 						}
 						else
 						{
 							<tr>
-								<td style="text-align:center;" colspan="6" class="alignR"><strong>DANH SÁCH ĐƠN HÀNG TRỐNG!</strong></td>
+								<td style="text-align:center;" colspan="8" class="alignR"><strong>DANH SÁCH ĐƠN HÀNG TRỐNG!</strong></td>
 							</tr>
 						}
 					}
@@ -72,6 +78,13 @@
 		@*Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount*@
 	</div>
 </div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('[type="date"]').prop('max', function () {
+			return new Date().toJSON().split('T')[0];
+		});
+	});
+</script>
 
 
 

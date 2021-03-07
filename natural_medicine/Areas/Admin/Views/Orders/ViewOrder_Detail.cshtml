@@ -1,0 +1,137 @@
+﻿
+@{
+	ViewBag.Title = "ViewOrder_Detail";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model IEnumerable<natural_medicine.Models.VIEW_ORDER_DETAIL>
+
+@{ 
+	natural_medicine.Models.VIEW_ORDER order = ViewBag.order;
+	List<natural_medicine.Models.orders_status> order_status = ViewBag.order_status;
+}
+
+<div class="right__content">
+	<div class="right__title">Bảng điều khiển</div>
+	<p class="right__desc">Chi tiết đơn hàng</p>
+	<div class="container-filter">
+		<div class="right__inputWrapper">
+			<label for="title">Trạng thái đơn hàng</label>
+			<input type="hidden" id="order-id" value="@order.id" />
+			<input type="hidden" id="old-status-id" value="@order.status_id" />
+			<select style="width:450px;" name="status_id" id="selected-id">
+				@foreach (natural_medicine.Models.orders_status it in order_status)
+				{
+					<option value="@it.id">@it.status</option>
+				}
+			</select>
+		</div>
+		<div style="padding-top:20px;">
+			<button style="width:100px;" class="btn" type="button" id="update-status">Cập nhật</button>
+		</div>
+	</div>
+	<div class="right__formFilter" id="category-div"></div>
+	<p class="right__desc">Thông tin đơn hàng số: #@order.id</p>
+	<div class="right__order_detail">
+		<p class="right__desc">- Khách hàng: <label>@order.name.</label></p>
+		<p class="right__desc">- Số điện thoại: <label>@order.phone.</label></p>
+		<p class="right__desc">- Địa chỉ nhận hàng: <label>@order.address.</label></p>
+		@if (order.discount_code != null)
+		{
+			<p class="right__desc">- Tạm tính: <label>@order.subtotal VNĐ.</label></p>
+			<p class="right__desc">- Mã giảm giá áp dụng: <label>@order.discount_code.</label></p>
+			int? discount = @order.subtotal - @order.total;
+			<p class="right__desc">- Chiết khẩu: <label>@discount VNĐ.</label></p>
+		}
+		<p class="right__desc">- Tổng tiền: <label>@order.total VNĐ.</label></p>
+		<p class="right__desc">- Phương thức thanh toán: <label>@order.payment_method.</label></p>
+		<p class="right__desc">- Trạng thái đơn hàng: <label id="label-status">@order.status.</label></p>
+		<p class="right__desc">- Ngày đặt hàng: <label>@order.create_at.</label></p>
+	</div>
+	<div class="right__table">
+		<div class="right__tableWrapper">
+			<table>
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th>Hình ảnh</th>
+						<th>Sản phẩm</th>
+						<th>Số lượng</th>
+						<th>Đơn giá</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@{
+						if (Model != null)
+						{
+							int i = 0;
+							foreach (natural_medicine.Models.VIEW_ORDER_DETAIL it in Model)
+							{
+								i++;
+								<tr>
+									<td data-label="STT">@i</td>
+									<td data-label="Hình ảnh">
+										<img src="~/Content/assets/img/@it.image_url" />
+									</td>
+									<td data-label="SĐT">@it.name</td>
+									<td data-label="SĐT">@it.quantity</td>
+									<td data-label="Mô tả">@it.price VNĐ</td>
+								</tr>
+							}
+						}
+						else
+						{
+							<tr>
+								<td style="text-align:center;" colspan="8" class="alignR"><strong>DANH SÁCH ĐƠN HÀNG TRỐNG!</strong></td>
+							</tr>
+						}
+					}
+				</tbody>
+			</table>
+			@*@Html.PagedListPager(Model, page => Url.Action("ViewOrder", new { page }))*@
+
+		</div>
+		@*Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount*@
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('[type="date"]').prop('max', function () {
+			return new Date().toJSON().split('T')[0];
+		});
+		var old_status = $('#old-status-id').val();
+		$('#selected-id').val(old_status);
+	});
+	$("#update-status").click(function () {
+		var dataForm = new Object();
+		dataForm.id = $('#order-id').val();
+		dataForm.status_id = $('#selected-id').val();
+		var status = $("#selected-id option:selected").text();
+		var serviceURL = '/orders/updateorderstatus';
+		$.ajax({
+			url: serviceURL,
+			type: "POST",
+			data: JSON.stringify(dataForm),
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: successFunc,
+			error: errorFunc
+		});
+		function successFunc(data) {
+			if (data == "success") {
+				$("#label-status").html(status);
+			} else {
+				alert("Cập nhật trạng thái xảy ra lỗi!")
+			}
+		}
+		function errorFunc() {
+			alert("Cập nhật trạng thái xảy ra lỗi!")
+		}
+	});
+</script>
+
+
+
+
+

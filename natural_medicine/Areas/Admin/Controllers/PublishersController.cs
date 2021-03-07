@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using natural_medicine.Models;
+using natural_medicine.Areas.Admin.Security;
 
 namespace natural_medicine.Areas.Admin.Controllers
 {
@@ -13,6 +14,7 @@ namespace natural_medicine.Areas.Admin.Controllers
         // GET: Admin/Publishers
         private MyDBContext context = new MyDBContext();
 
+        [CustomAuthorize]
         public ActionResult InsertPublisher()
         {
             return View();
@@ -32,6 +34,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             }
 
         }
+        [CustomAuthorize]
         public ActionResult ViewPublisher(int? page)
         {
             if (page == null) page = 1;
@@ -41,6 +44,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             var model = context.publishers.ToList();
             return View(model.ToPagedList(pageNumber, pageSize));
         }
+        [CustomAuthorize]
         public ActionResult DeletePublisher(int id)
         {
             var obj = context.publishers.Where(x => x.id == id).FirstOrDefault();
@@ -48,6 +52,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             context.SaveChanges();
             return RedirectToAction("ViewPublisher");
         }
+        [CustomAuthorize]
         public ActionResult UpdatePublisher(int id)
         {
             var model = context.publishers.Where(x => x.id == id).FirstOrDefault();

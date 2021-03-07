@@ -23,7 +23,12 @@
 						<div class="left__logo">$ NATURAL MEDICINE $</div>
 						<div class="left__profile">
 							<div class="left__image"><img src="~/Content/admin/assets/profile.jpg" alt=""></div>
-							<p class="left__name">Dong Van Hung</p>
+							@{ natural_medicine.Models.user auth = (natural_medicine.Models.user)Session["loginAdmin"];
+								if (auth != null)
+								{
+									<p class="left__name">@auth.name</p>
+								}
+							}
 						</div>
 						<ul class="left__menu">
 							<li class="left__menuItem">
@@ -51,7 +56,7 @@
 								</div>
 							</li>
 							<li class="left__menuItem">
-								<a href="view_orders.html" class="left__title"><img src="~/Content/admin/assets/icon-book.svg" alt="">Đơn Đặt Hàng</a>
+								<a href="/admin/orders/vieworder" class="left__title"><img src="~/Content/admin/assets/icon-book.svg" alt="">Đơn Đặt Hàng</a>
 							</li>
 							<li class="left__menuItem">
 								<div class="left__title"><img src="~/Content/admin/assets/icon-settings.svg" alt="">CT Giảm Giá<img class="left__iconDown" src="~/Content/admin/assets/arrow-down.svg" alt=""></div>
@@ -64,9 +69,6 @@
 								<a href="/admin/admin/viewcustomer" class="left__title"><img src="~/Content/admin/assets/icon-users.svg" alt="">Khách Hàng</a>
 							</li>
 							<li class="left__menuItem">
-								<a href="edit_css.html" class="left__title"><img src="~/Content/admin/assets/icon-pencil.svg" alt="">Chỉnh CSS</a>
-							</li>
-							<li class="left__menuItem">
 								<div class="left__title"><img src="~/Content/admin/assets/icon-book.svg" alt="">Báo Cáo<img class="left__iconDown" src="~/Content/admin/assets/arrow-down.svg" alt=""></div>
 								<div class="left__text">
 									<a class="left__link" href="/admin/category/insertcategory">Sản Phẩm</a>
@@ -74,22 +76,22 @@
 									<a class="left__link" href="/admin/category/viewcategory">Doanh Thu</a>
 								</div>
 							</li>
+							@if (auth != null)
+							{
+								if (auth.user_type == 3)
+								{
+									<li class="left__menuItem">
+										<div class="left__title"><img src="~/Content/admin/assets/icon-user.svg" alt="">Admin<img class="left__iconDown" src="~/Content/admin/assets/arrow-down.svg" alt=""></div>
+										<div class="left__text">
+											<a class="left__link" href="insert_admin.html">Thêm Admin</a>
+											<a class="left__link" href="view_admins.html">Xem Danh Sách</a>
+										</div>
+									</li>
+								}
+
+							}
 							<li class="left__menuItem">
-								<div class="left__title"><img src="~/Content/admin/assets/icon-user.svg" alt="">Admin<img class="left__iconDown" src="~/Content/admin/assets/arrow-down.svg" alt=""></div>
-								<div class="left__text">
-									<a class="left__link" href="insert_admin.html">Thêm Admin</a>
-									<a class="left__link" href="view_admins.html">Xem Danh Sách</a>
-								</div>
-							</li>
-							<li class="left__menuItem">
-								<div class="left__title"><img src="~/Content/admin/assets/icon-settings.svg" alt="">Slide<img class="left__iconDown" src="~/Content/admin/assets/arrow-down.svg" alt=""></div>
-								<div class="left__text">
-									<a class="left__link" href="insert_slide.html">Chèn Slide</a>
-									<a class="left__link" href="view_slides.html">Xem Slide</a>
-								</div>
-							</li>
-							<li class="left__menuItem">
-								<a href="" class="left__title"><img src="~/Content/admin/assets/icon-logout.svg" alt="">Đăng Xuất</a>
+								<a href="/admin/admin/logout" class="left__title"><img src="~/Content/admin/assets/icon-logout.svg" alt="">Đăng Xuất</a>
 							</li>
 						</ul>
 					</div>

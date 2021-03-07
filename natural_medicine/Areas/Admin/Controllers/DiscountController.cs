@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using natural_medicine.Models;
-
+using natural_medicine.Areas.Admin.Security;
 
 namespace natural_medicine.Areas.Admin.Controllers
 {
@@ -13,6 +13,7 @@ namespace natural_medicine.Areas.Admin.Controllers
     {
         private MyDBContext context = new MyDBContext();
         // GET: Admin/Discount
+        [CustomAuthorize]
         public ActionResult InsertDiscount()
         {
             return View();
@@ -33,6 +34,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             }
 
         }
+        [CustomAuthorize]
         public ActionResult ViewDiscount(int? page)
         {
             if (page == null) page = 1;
@@ -42,6 +44,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             var model = context.discounts.OrderByDescending(x => x.end_date).ToList();
             return View(model.ToPagedList(pageNumber, pageSize));
         }
+        [CustomAuthorize]
         public ActionResult DeleteDiscount(int id)
         {
             var obj = context.discounts.Where(x => x.id == id).FirstOrDefault();
@@ -49,6 +52,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             context.SaveChanges();
             return RedirectToAction("ViewDiscount");
         }
+        [CustomAuthorize]
         public ActionResult UpdateDiscount(int id)
         {
             var model = context.discounts.Where(x => x.id == id).FirstOrDefault();
