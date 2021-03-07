@@ -307,6 +307,7 @@
     <Content Include="Areas\Admin\Views\Admin\ViewCustomer.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\ViewOrder.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\ViewOrder_Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\InsertAdmin.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

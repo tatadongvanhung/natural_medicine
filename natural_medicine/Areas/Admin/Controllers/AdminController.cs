@@ -50,7 +50,7 @@ namespace natural_medicine.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Login(user auth)
         {
-            user model = context.users.Where(X => X.phone == auth.phone).FirstOrDefault();
+            user model = context.users.Where(X => X.phone == auth.phone && X.user_type != 1).FirstOrDefault();
             if (model != null && model.user_type != 1)
             {
                 Boolean checkPasswork = BCrypt.Net.BCrypt.Verify(auth.password, model.password.Trim());
@@ -76,6 +76,36 @@ namespace natural_medicine.Areas.Admin.Controllers
         {
             Session["loginAdmin"] = null;
             return RedirectToAction("login");
+        }
+
+        public ActionResult CheckPhoneNumber(string id)
+        {
+            var result = "";
+            var model = context.users.Where(x => x.phone.Trim() == id && x.user_type != 1).FirstOrDefault();
+            if (model == null)
+            {
+                result = "success";
+            }
+            else
+            {
+                result = "error";
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult InsertAdmin()
+        {
+            return View();
+        }
+        [HttpPost]
+        public JsonResult InsertAdmin(user model)
+        {
+            model.password =  BCrypt.Net.BCrypt.HashPassword(model.password, 14);
+            model.create_at = DateTime.Now;
+            context.users.Add(model);
+            context.SaveChanges();
+            return Json("success", JsonRequestBehavior.AllowGet);
+            
         }
     }
 }
