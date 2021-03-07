@@ -24,7 +24,18 @@ body {
   font-family: "Muli", sans-serif;
   background-color: #E2DFF2;
 }
-.pagination{
+
+.container-filter {
+    padding-left: 80px;
+}
+
+.container-filter div {
+    padding: 0 50px 0 50px;
+    width: auto;
+    height: auto;
+    float:left;
+}
+.pagination {
     float: right;
 }
 .alert {

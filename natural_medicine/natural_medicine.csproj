@@ -141,6 +141,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\DiscountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\PublishersController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -173,6 +174,7 @@
     <Content Include="Content\admin\assets\arrow-down.svg" />
     <Content Include="Content\admin\assets\arrow-right-black.svg" />
     <Content Include="Content\admin\assets\arrow-right.svg" />
+    <Content Include="Content\admin\assets\back-to-top.svg" />
     <Content Include="Content\admin\assets\bg.jpg" />
     <Content Include="Content\admin\assets\ellipse1.svg" />
     <Content Include="Content\admin\assets\icon-book.svg" />
@@ -300,6 +302,7 @@
     <Content Include="Areas\Admin\Views\Discount\UpdateDiscount.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Login.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\ViewCustomer.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\ViewOrder.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
