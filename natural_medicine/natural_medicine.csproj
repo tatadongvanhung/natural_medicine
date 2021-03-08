@@ -172,12 +172,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\admin\assets\add.svg" />
     <Content Include="Content\admin\assets\arrow-down.svg" />
     <Content Include="Content\admin\assets\arrow-right-black.svg" />
     <Content Include="Content\admin\assets\arrow-right.svg" />
     <Content Include="Content\admin\assets\back-to-top.svg" />
     <Content Include="Content\admin\assets\bg.jpg" />
     <Content Include="Content\admin\assets\ellipse1.svg" />
+    <Content Include="Content\admin\assets\icon-add.svg" />
     <Content Include="Content\admin\assets\icon-book.svg" />
     <Content Include="Content\admin\assets\icon-check.svg" />
     <Content Include="Content\admin\assets\icon-dashboard.svg" />
@@ -311,6 +313,7 @@
     <Content Include="Areas\Admin\Views\Admin\ViewAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\UpdateAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\Product\ImportProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\UpdateProduct.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

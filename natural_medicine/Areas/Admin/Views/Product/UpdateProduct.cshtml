@@ -1,25 +1,34 @@
 ﻿
 @{
-    ViewBag.Title = "InsertProduct";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+	ViewBag.Title = "UpdateProduct";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@{
+	ViewBag.Title = "InsertProduct";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 @using natural_medicine.Models;
+@model product
 
-@{ 
+@{
 	IEnumerable<publisher> publisher = ViewBag.publisher;
 	IEnumerable<category> category = ViewBag.category;
 }
 <div class="right__content">
 	<div class="right__title">Bảng điều khiển</div>
-	<p class="right__desc">Thêm Sản Phẩm</p>
+	<p class="right__desc">Cập Nhật Sản Phẩm</p>
 	<div class="right__formWrapper">
-		<form action="/admin/product/insertproduct" method="post" enctype="multipart/form-data">
+		<form action="/admin/product/updateproduct" method="post" enctype="multipart/form-data">
+			<input type="hidden" value="@Model.id" name="id"/>
 			<div class="right__inputWrapper">
 				<label for="title">Tiêu đề</label>
-				<input type="text" name="name" id="product-name" placeholder="Tên sản phẩm">
+				<input type="text" value="@Model.name" name="name" id="product-name" placeholder="Tên sản phẩm">
 			</div>
 			<div class="right__inputWrapper">
 				<label for="p_category">Thể loại</label>
+				<input type="hidden" value="@Model.category_id" id="old-category" />
 				<select id="product-category" name="category_id">
 					<option disabled selected>Chọn thể loại</option>
 					@foreach (category it in category)
@@ -30,6 +39,7 @@
 			</div>
 			<div class="right__inputWrapper">
 				<label for="category">Nhà cung cấp</label>
+				<input type="hidden" value="@Model.publisher_id" id="old-publisher" />
 				<select name="publisher_id" id="product-publisher">
 					<option disabled selected>Chọn nhà cung cấp</option>
 					@foreach (publisher it in publisher)
@@ -38,40 +48,53 @@
 					}
 				</select>
 			</div>
+			<div class="right__inputWrapper" style="width:30%; height:30%;">
+				<img src="~/Content/assets/img/@Model.image_url" alt="">
+			</div>
 			<div class="right__inputWrapper">
 				<label for="image">Hình ảnh</label>
 				<input type="file" name="file">
 			</div>
 			<div class="right__inputWrapper">
 				<label for="title">Thành phần</label>
-				<input type="text" name="ingredient" id="product-ingredient" placeholder="Thành phần">
+				<input value="@Model.ingredient" type="text" name="ingredient" id="product-ingredient" placeholder="Thành phần">
 			</div>
 			<div class="right__inputWrapper">
 				<label for="title">Công dụng</label>
-				<input type="text" name="uses" id="product-uses" placeholder="Công dụng">
+				<input type="text" value="@Model.uses" name="uses" id="product-uses" placeholder="Công dụng">
 			</div>
 			<div class="right__inputWrapper">
 				<label for="title">Liều lượng</label>
-				<input type="text" name="dosage" id="product-dosage" placeholder="Liều lượng">
+				<input value="@Model.dosage" type="text" name="dosage" id="product-dosage" placeholder="Liều lượng">
 			</div>
 			<div class="right__inputWrapper">
 				<label for="title">Đơn vị</label>
-				<input type="text" name="unit" id="product-unit" placeholder="Đơn vị">
+				<input value="@Model.unit" type="text" name="unit" id="product-unit" placeholder="Đơn vị">
 			</div>
 			<div class="right__inputWrapper">
 				<label for="title">Giá bán</label>
-				<input type="text" name="price" id="product-price" placeholder="Gia bán">
+				<input value="@Model.price" type="text" name="price" id="product-price" placeholder="Gia bán">
 			</div>
 			<div class="right__inputWrapper">
 				<label for="desc">Mô tả</label>
-				<textarea name="description" id="product-description" cols="30" rows="3" placeholder="Mô tả"></textarea>
+				<textarea name="description" id="product-description" cols="30" rows="3" placeholder="Mô tả">@Model.description</textarea>
 			</div>
 			<div class="right__inputWrapper">
 				<label for="desc">Ghi chú</label>
-				<textarea name="note" id="product-note" cols="30" rows="3" placeholder="Ghi chú"></textarea>
+				<textarea name="note" id="product-note" cols="30" rows="3" placeholder="Ghi chú">@Model.note</textarea>
 			</div>
 			<button class="btn" type="submit">Thêm</button>
 		</form>
 	</div>
 </div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		var old_category = $('#old-category').val();
+		$('#product-category').val(old_category);
+		var old_publisher = $('#old-publisher').val();
+		$('#product-publisher').val(old_publisher);
+	})
+</script>
+
+
 
