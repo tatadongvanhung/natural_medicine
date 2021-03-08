@@ -77,11 +77,11 @@ namespace natural_medicine.Areas.Admin.Controllers
             Session["loginAdmin"] = null;
             return RedirectToAction("login");
         }
-
+        [CustomAuthorize]
         public ActionResult CheckPhoneNumber(string id)
         {
             var result = "";
-            var model = context.users.Where(x => x.phone.Trim() == id && x.user_type != 1).FirstOrDefault();
+            var model = context.users.Where(x => x.phone.Trim() == id).FirstOrDefault();
             if (model == null)
             {
                 result = "success";
@@ -92,7 +92,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
+        [CustomAuthorize]
         public ActionResult InsertAdmin()
         {
             return View();
@@ -107,7 +107,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             return Json("success", JsonRequestBehavior.AllowGet);
             
         }
-
+        [CustomAuthorize]
         public ActionResult ViewAdmin(int ?page)
         {
             if (page == null) page = 1;
@@ -116,10 +116,45 @@ namespace natural_medicine.Areas.Admin.Controllers
             var model = context.users.Where(x => x.user_type != 1).ToList();
             return View(model.ToPagedList(pageNumber, pageSize));
         }
+        [CustomAuthorize]
         public ActionResult DeleteAdmin(int id)
         {
             var model = context.users.Where(x => x.id == id).FirstOrDefault();
+            context.users.Remove(model);
+            context.SaveChanges();
             return RedirectToAction("ViewAdmin");
+        }
+        [CustomAuthorize]
+        public ActionResult UpdateAdmin(int id)
+        {
+            var model = context.users.Where(x => x.id == id).FirstOrDefault();
+            return View(model);
+        }
+        [HttpPost]
+        public JsonResult UpdateAdmin(user model)
+        {
+            var obj = context.users.Where(x => x.id == model.id).FirstOrDefault();
+            if (model.password != null)
+            {
+                var password = BCrypt.Net.BCrypt.HashPassword(model.password, 14);
+                model.password = password;
+                obj.name = model.name;
+                obj.phone = model.phone;
+                obj.email = model.email;
+                obj.password = model.password;
+                obj.user_type = model.user_type;
+                obj.update_at = DateTime.Now;
+                context.SaveChanges();
+            } else
+            {
+                obj.name = model.name;
+                obj.phone = model.phone;
+                obj.email = model.email;
+                obj.user_type = model.user_type;
+                obj.update_at = DateTime.Now;
+                context.SaveChanges();
+            }
+            return Json("success", JsonRequestBehavior.AllowGet);
         }
     }
 }

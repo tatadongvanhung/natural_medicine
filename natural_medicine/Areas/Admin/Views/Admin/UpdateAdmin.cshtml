@@ -1,0 +1,141 @@
+﻿
+@{
+	ViewBag.Title = "UpdateAdmin";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using natural_medicine.Models
+@model user
+
+
+<div class="right__content">
+	<div class="right__title">Bảng điều khiển</div>
+	<p class="right__desc">Cập nhật tài khoản quản trị</p>
+	<div class="right__formWrapper" id="category-div">
+		<div class="alert alert-success" id="alert-success" style="display:none;">Cập nhật quản trị viên <span id="label-name"></span> thành công!</div>
+		<div class="alert alert-danger" id="alert-error" style="display:none;">Cập nhật quản trị viên thất bại!</div>
+		<form id="form-insert-admin">
+			<input name="id" id="admin-id" type="hidden" value="@Model.id" />
+			<input name="old_user_type" id="admin-old-type" type="hidden" value="@Model.user_type" />
+			<div class="right__inputWrapper">
+				<label for="title">Họ tên</label>
+				<input type="text" value="@Model.name" name="name" id="admin-name" placeholder="Họ tên" required="required">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="title">Số điện thoại</label>
+				<input type="text" value="@Model.phone" name="phone" id="admin-phone" placeholder="Số điện thoại" required="required">
+				<span id="phone-ok" style="color: green;"><img style="width:20px; height:20px;" src="~/Content/admin/assets/icon-check.svg" alt="">  Số điện thoại phù hợp!</span>
+				<span id="phone-err" style="color: red;"><img style="width:15px; height:15px;" src="~/Content/admin/assets/icon-x.svg" alt="">  Số điện thoại đã được sử dụng!</span>
+			</div>
+			<div class="right__inputWrapper">
+				<label for="title">Email</label>
+				<input type="email" value="@Model.email" name="email" id="admin-email" placeholder="Email" required="required">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="title">Mật khẩu</label>
+				<input type="password" name="password" id="admin-password" placeholder="Mật khẩu" required="required">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="title">Xác nhận mật khẩu</label>
+				<input type="password" name="confirm_password" id="admin-confirm" placeholder="Xác nhận mật khẩu" required="required">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="category">Quyền</label>
+				<select name="user_type" id="admin-type" required="required">
+					<option value="2" selected>Admin</option>
+					<option value="3">Master Admin</option>
+				</select>
+			</div>
+			<button class="btn" type="button" id="insert">Thêm</button>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		const old_phone = $("#admin-phone").val();
+		$("#phone-err").hide();
+		$("#phone-ok").hide();
+		var old_status = $('#admin-old-type').val();
+		$('#admin-type').val(old_status);
+
+		$("#admin-phone").change(function () {
+			var phone_number = $(this).val();
+			if (phone_number == '') {
+				$("#admin-phone").val(old_phone);
+			}
+			var serviceURL = '/admin/admin/checkphonenumber/' + phone_number;
+			if (phone_number != old_phone && phone_number != '') {
+				$.ajax({
+					url: serviceURL,
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: successFunc,
+					error: errorFunc
+				});
+				function successFunc(data, status) {
+					if (data == "success") {
+						$("#phone-err").hide();
+						$("#phone-ok").hide();
+						$("#phone-ok").show();
+						$('#admin-phone').css("border", "1px solid #DAE1F5");
+						setTimeout(function () { $("#phone-ok").hide(); }, 2000);
+						$('#insert').removeAttr('disabled');
+					} else {
+						$("#phone-err").hide();
+						$("#phone-ok").hide();
+						$("#phone-err").show();
+						$('#admin-phone').css("border", "1px solid red");
+						setTimeout(function () { $("#phone-err").hide(); }, 2000);
+						$('#insert').attr('disabled', 'disabled');
+					}
+				}
+			} else {
+				$("#phone-err").hide();
+				$("#phone-ok").hide();
+				$('#insert').removeAttr('disabled');
+			}
+
+			function errorFunc() {
+				alert("Lỗi hệ thống");
+			}
+		});
+
+		$("#insert").click(function () {
+			var dataForm = new Object();
+			dataForm.id = $('#admin-id').val();
+			dataForm.name = $('#admin-name').val();
+			dataForm.phone = $('#admin-phone').val();
+			dataForm.email = $('#admin-email').val();
+			dataForm.password = $('#admin-password').val();
+			dataForm.user_type = $('#admin-type').val();
+			var serviceURL = '/admin/admin/updateadmin';
+			$.ajax({
+				url: serviceURL,
+				type: "POST",
+				data: JSON.stringify(dataForm),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: successFunc,
+				error: errorFunc
+			});
+			function successFunc(data) {
+				if (data == "success") {
+					$("#alert-success").show();
+					$("#label-name").html(dataForm.name);
+					setTimeout(function () { $("#alert-success").hide(); }, 3000);
+					$("#form-insert-admin")[0].reset();
+				} else {
+					$("#alert-error").show();
+					setTimeout(function () { $("#alert-error").hide(); }, 3000);
+				}
+			}
+			function errorFunc() {
+			}
+		});
+	});
+
+</script>
+
+
+
+

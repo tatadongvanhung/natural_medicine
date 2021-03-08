@@ -23,7 +23,7 @@ namespace natural_medicine.Controllers
         [HttpPost]
         public ActionResult Login(user auth)
         {
-            user model = context.users.Where(X => X.phone == auth.phone).FirstOrDefault();
+            user model = context.users.Where(X => X.phone == auth.phone && X.user_type == 1).FirstOrDefault();
             if (model != null && model.user_type == 1){
                 Boolean checkPasswork = BCrypt.Net.BCrypt.Verify(auth.password, model.password.Trim());
                 if (checkPasswork){
