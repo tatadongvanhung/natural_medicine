@@ -1,72 +1,94 @@
 ﻿
 @{
-    ViewBag.Title = "ViewProduct";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+	ViewBag.Title = "ViewProduct";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using PagedList.Mvc;
+@model PagedList.IPagedList<natural_medicine.Models.product>
+@{ 
+	IEnumerable<natural_medicine.Models.category> category = ViewBag.category;
 }
 
 <div class="right__content">
 	<div class="right__title">Bảng điều khiển</div>
 	<p class="right__desc">Danh sách sản phẩm</p>
+	<div class="container-filter">
+		<form method="get" action="/admin/product/viewproduct">
+			<div class="right__inputWrapper">
+				<label for="title">Loại sản phẩm</label>
+				<select name="category_id" id="selected-id">
+					<option>Chọn thể loại</option>
+					@foreach (natural_medicine.Models.category it in category)
+					{
+						<option value="@it.id">@it.name</option>
+					}
+				</select>
+			</div>
+			<div class="right__inputWrapper">
+				<label for="desc">Tìm kiếm...</label>
+				<input type="text" name="search" id="filter_end">
+			</div>
+			<div style="padding-top:20px;">
+				<button style="width:100px;" class="btn" type="submit" id="filter-orders">Tìm kiếm</button>
+			</div>
+		</form>
+	</div>
 	<div class="right__table">
 		<div class="right__tableWrapper">
 			<table>
 				<thead>
 					<tr>
 						<th>STT</th>
-						<th>Tên sản phẩm</th>
+						<th>Sản phẩm</th>
 						<th>Hình ảnh</th>
-						<th>Giá SP</th>
-						<th>Đã bán</th>
-						<th>Từ khoá</th>
-						<th>Thời gian</th>
+						<th>Công dụng</th>
+						<th>Giá bán</th>
+						<th>Tồn kho</th>
+						<th>Nhập</th>
 						<th>Sửa</th>
 						<th>Xoá</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					<tr>
-						<td data-label="STT">1</td>
-						<td data-label="Tên sản phẩm">Dada Dress</td>
-						<td data-label="Hình ảnh">
-							<img src="~/Content/assets/img/geo-rua-tay.jpg" />
-						</td>
-						<td data-label="Giá SP">590.000 ₫</td>
-						<td data-label="Đã bán">1</td>
-						<td data-label="Từ khoá">dress, vay</td>
-						<td data-label="Thời gian">2020-07-13 21:31:05</td>
-						<td data-label="Sửa" class="right__iconTable"><a href=""><img src="~/Content/admin/assets/icon-edit.svg" alt=""></a></td>
-						<td data-label="Xoá" class="right__iconTable"><a href=""><img src="~/Content/admin/assets/icon-trash-black.svg" alt=""></a></td>
-					</tr>
-					<tr>
-						<td data-label="STT">2</td>
-						<td data-label="Tên sản phẩm">Cobi Top, Tuta Skirt</td>
-						<td data-label="Hình ảnh">
-							<img src="~/Content/assets/img/geo-rua-tay.jpg" />
-						</td>
-						<td data-label="Giá SP">810.000 ₫</td>
-						<td data-label="Đã bán">0</td>
-						<td data-label="Từ khoá">top skirt</td>
-						<td data-label="Thời gian">2020-07-13 22:19:01</td>
-						<td data-label="Sửa" class="right__iconTable"><a href=""><img src="~/Content/admin/assets/icon-edit.svg" alt=""></a></td>
-						<td data-label="Xoá" class="right__iconTable"><a href=""><img src="~/Content/admin/assets/icon-trash-black.svg" alt=""></a></td>
-					</tr>
-					<tr>
-						<td data-label="STT">3</td>
-						<td data-label="Tên sản phẩm">Beda Dress</td>
-						<td data-label="Hình ảnh">
-							<img src="~/Content/assets/img/geo-rua-tay.jpg" />
-						</td>
-						<td data-label="Giá SP">590.000 ₫</td>
-						<td data-label="Đã bán">1</td>
-						<td data-label="Từ khoá">dress, vay</td>
-						<td data-label="Thời gian">2020-07-13 21:30:41</td>
-						<td data-label="Sửa" class="right__iconTable"><a href=""><img src="~/Content/admin/assets/icon-edit.svg" alt=""></a></td>
-						<td data-label="Xoá" class="right__iconTable"><a href=""><img src="~/Content/admin/assets/icon-trash-black.svg" alt=""></a></td>
-					</tr>
+					@{
+						if (Model.Count != 0)
+						{
+							int i = 0;
+							foreach (natural_medicine.Models.product it in Model)
+							{
+								i++;
+								<tr>
+									<td data-label="STT">@i</td>
+									<td data-label="Tên sản phẩm">@it.name</td>
+									<td data-label="Hình ảnh">
+										<img src="~/Content/assets/img/@it.image_url" />
+									</td>
+									<td data-label="Tên sản phẩm">@it.uses</td>
+									<td data-label="Giá SP">@it.price VNĐ</td>
+									<td data-label="Đã bán">@it.inventory_quantity</td>
+									<td data-label="Sửa" class="right__iconTable"><a href="/admin/product/import/@it"><img src="~/Content/admin/assets/icon-settings.svg" alt=""></a></td>
+									<td data-label="Sửa" class="right__iconTable"><a href="/admin/product/updateproduct/@it"><img src="~/Content/admin/assets/icon-edit.svg" alt=""></a></td>
+									<td data-label="Xoá" class="right__iconTable"><a href="/admin/product/delereproduct/@it"><img src="~/Content/admin/assets/icon-trash-black.svg" alt=""></a></td>
+								</tr>
+							}
+						}
+						else
+						{
+							<tr>
+								<td style="text-align:center;" colspan="9" class="alignR"><strong>DANH SÁCH SẢN PHẨM TRỐNG!</strong></td>
+							</tr>
+						}
+					}
 				</tbody>
 			</table>
+			@Html.PagedListPager(Model, page => Url.Action("ViewProduct", new { page }))
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		
+	});
+</script>
 
