@@ -7,6 +7,8 @@ using natural_medicine.Areas.Admin.Security;
 using natural_medicine.Models;
 using PagedList;
 using System.IO;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 
 namespace natural_medicine.Areas.Admin.Controllers
 {
@@ -81,6 +83,35 @@ namespace natural_medicine.Areas.Admin.Controllers
             }
             
         }
+        public ActionResult ViewImportProduct(DateTime? start_date, DateTime? end_date, int? page)
+        {
+            if (page == null) page = 1;
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            if (start_date != null && end_date != null)
+            {
+                if (start_date == end_date)
+                {
+                    DateTime start = (DateTime)start_date;
+                    var model = context.imports.Where(x => EntityFunctions.TruncateTime(x.create_at) == start.Date)
+                        .OrderByDescending(x => x.create_at).ToList();
+                    return View(model.ToPagedList(pageNumber, 100));
+                }
+                else
+                {
+                    var model = context.imports
+                    .Where(x => EntityFunctions.TruncateTime(x.create_at) >= start_date
+                        && EntityFunctions.TruncateTime(x.create_at) <= end_date)
+                    .OrderByDescending(x => x.create_at).ToList();
+                    return View(model.ToPagedList(pageNumber, 100));
+                }
+            }
+            else
+            {
+                var model = context.imports.OrderByDescending(x => x.create_at).ToList();
+                return View(model.ToPagedList(pageNumber, pageSize));
+            }
+        }
 
         public ActionResult ImportProduct(int id)
         {
@@ -91,14 +122,27 @@ namespace natural_medicine.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult ImportProduct(import nhap)
         {
-            nhap.create_at = DateTime.Now;
-            context.imports.Add(nhap);
-            context.SaveChanges();
-
-            var model = context.products.Where(x => x.id == nhap.product_id).FirstOrDefault();
-            model.inventory_quantity = model.inventory_quantity + nhap.quantity;
-            context.SaveChanges();
-            return RedirectToAction("viewproduct");
+            using (DbContextTransaction dbTran = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    nhap.create_at = DateTime.Now;
+                    nhap.import_date = DateTime.Today;
+                    context.imports.Add(nhap);
+                    context.SaveChanges();
+                    var model = context.products.Where(x => x.id == nhap.product_id).FirstOrDefault();
+                    model.inventory_quantity = model.inventory_quantity + nhap.quantity;
+                    context.SaveChanges();
+                    dbTran.Commit();
+                    return RedirectToAction("viewproduct");
+                }
+                catch
+                {
+                    TempData["error"] = "Đã xảy ra lỗi!";
+                    dbTran.Rollback();
+                    return Redirect(Request.UrlReferrer.ToString());
+                }
+            }
         }
         public ActionResult UpdateProduct(int id)
         {

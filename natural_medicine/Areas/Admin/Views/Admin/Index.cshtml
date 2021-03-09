@@ -9,9 +9,10 @@
 
 @{ 
 	int ?count_customer = ViewBag.count_customer;
-	int ?count_category = ViewBag.count_category;
+	int ?total_order = ViewBag.total_order;
 	int ?count_order = ViewBag.count_order;
 	int ?count_product = ViewBag.count_product;
+	var this_month = ViewBag.this_month;
 }
 <div class="right__content">
 	<div class="right__title">Bảng điều khiển</div>
@@ -28,12 +29,12 @@
 			<div class="right__cardDesc">Xem Chi Tiết <img src="~/Content/admin/assets/arrow-right.svg" alt=""></div>
 		</a>
 		<a class="right__card" href="/admin/category/viewcategory">
-			<div class="right__cardTitle">Thể Loại</div>
-			<div class="right__cardNumber">@count_category</div>
+			<div class="right__cardTitle">Doanh Thu @this_month</div>
+			<div class="right__cardNumber">@total_order</div>
 			<div class="right__cardDesc">Xem Chi Tiết <img src="~/Content/admin/assets/arrow-right.svg" alt=""></div>
 		</a>
 		<a class="right__card" href="/admin/orders/vieworder">
-			<div class="right__cardTitle">Đơn Hàng</div>
+			<div class="right__cardTitle">Số Đơn Hàng @this_month</div> 
 			<div class="right__cardNumber">@count_order</div>
 			<div class="right__cardDesc">Xem Chi Tiết <img src="~/Content/admin/assets/arrow-right.svg" alt=""></div>
 		</a>

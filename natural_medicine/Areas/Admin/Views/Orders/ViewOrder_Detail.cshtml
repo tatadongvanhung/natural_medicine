@@ -36,14 +36,14 @@
 		<p class="right__desc">- Khách hàng: <label>@order.name.</label></p>
 		<p class="right__desc">- Số điện thoại: <label>@order.phone.</label></p>
 		<p class="right__desc">- Địa chỉ nhận hàng: <label>@order.address.</label></p>
-		@if (order.discount_code != null)
+		@*@if (order.discount_code != null)
 		{
 			<p class="right__desc">- Tạm tính: <label>@order.subtotal VNĐ.</label></p>
 			<p class="right__desc">- Mã giảm giá áp dụng: <label>@order.discount_code.</label></p>
 			int? discount = @order.subtotal - @order.total;
 			<p class="right__desc">- Chiết khẩu: <label>@discount VNĐ.</label></p>
 		}
-		<p class="right__desc">- Tổng tiền: <label>@order.total VNĐ.</label></p>
+		<p class="right__desc">- Tổng tiền: <label>@order.total VNĐ.</label></p>*@
 		<p class="right__desc">- Phương thức thanh toán: <label>@order.payment_method.</label></p>
 		<p class="right__desc">- Trạng thái đơn hàng: <label id="label-status">@order.status.</label></p>
 		<p class="right__desc">- Ngày đặt hàng: <label>@order.create_at.</label></p>
@@ -87,6 +87,27 @@
 							</tr>
 						}
 					}
+					@if (order.discount_code != null)
+					{
+						int? discount = @order.subtotal - @order.total;
+						<tr>
+							<td style="text-align:center" colspan="4"><strong>Tạm tính: </strong></td>
+							<td style="text-align:center;"><strong>@order.subtotal VNĐ.</strong></td>
+						</tr>
+						<tr>
+							<td style="text-align:center" colspan="4"><strong>Mã ưu đãi: </strong></td>
+							<td style="text-align:center;"><strong>@order.discount_code.</strong></td>
+						</tr>
+						<tr>
+							<td style="text-align:center" colspan="4"><strong>Chiết khẩu: </strong></td>
+							
+							<td style="text-align:center;"><strong>@discount VNĐ.</strong></td>
+						</tr>
+					}
+					<tr>
+						<td style="text-align:center" colspan="4" class="alignR"><strong>Tổng tiền:	</strong></td>
+						<td style="text-align:center;"><strong>@order.total VNĐ.</strong></td>
+					</tr>
 				</tbody>
 			</table>
 			@*@Html.PagedListPager(Model, page => Url.Action("ViewOrder", new { page }))*@
@@ -101,6 +122,9 @@
 			return new Date().toJSON().split('T')[0];
 		});
 		var old_status = $('#old-status-id').val();
+		for (var i = 1; i < old_status; i++) {
+			$('#selected-id option[value="' + i + '"]').attr("disabled", true);
+		}
 		$('#selected-id').val(old_status);
 	});
 	$("#update-status").click(function () {
@@ -120,6 +144,9 @@
 		});
 		function successFunc(data) {
 			if (data == "success") {
+				for (var i = 1; i < dataForm.status_id; i++) {
+					$('#selected-id option[value="' + i + '"]').attr("disabled", true);
+				}
 				$("#label-status").html(status);
 			} else {
 				alert("Cập nhật trạng thái xảy ra lỗi!")

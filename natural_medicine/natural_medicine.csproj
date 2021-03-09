@@ -314,6 +314,7 @@
     <Content Include="Areas\Admin\Views\Admin\UpdateAdmin.cshtml" />
     <Content Include="Areas\Admin\Views\Product\ImportProduct.cshtml" />
     <Content Include="Areas\Admin\Views\Product\UpdateProduct.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\ViewImportProduct.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

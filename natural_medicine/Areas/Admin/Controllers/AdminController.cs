@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using PagedList;
 using natural_medicine.Models;
 using natural_medicine.Areas.Admin.Security;
+using System.Data.Entity.SqlServer;
+using System.Data.Entity.Core.Objects;
 
 namespace natural_medicine.Areas.Admin.Controllers
 {
@@ -13,17 +15,31 @@ namespace natural_medicine.Areas.Admin.Controllers
     {
         private MyDBContext context = new MyDBContext();
 
-        [CustomAuthorize]
         public ActionResult Index()
         {
+            //var this_month = DateTime.Now.Month + "/" + DateTime.Now.Year;
+            //var list_order_month = context.orders.Where(x => SqlFunctions.DatePart("year", x.create_at) == DateTime.Now.Year
+            //    && SqlFunctions.DatePart("month", x.create_at) == DateTime.Now.Month).ToList();
+            //var total_order = list_order_month.Sum(x => x.total);
+
+            //var count_order = context.orders
+            //    .Where(x => SqlFunctions.DatePart("year", x.create_at) == DateTime.Now.Year
+            //    && SqlFunctions.DatePart("month", x.create_at) == DateTime.Now.Month).Count();
+
             var model = context.VIEW_ORDER.OrderByDescending(x => x.create_at).Take(5);
-            var count_customer = context.users.Where(x => x.user_type == 1).Count();
-            var count_category = context.categories.Count();
-            var count_order = context.orders.Count();
+            var this_month = DateTime.Now.Date;
             ViewBag.count_product = context.products.Count();
-            ViewBag.count_customer = count_customer;
-            ViewBag.count_category = count_category;
+            ViewBag.count_customer = context.users.Where(x => x.user_type == 1).Count();
+
+            var total_order = context.orders
+                .Where(x => EntityFunctions.TruncateTime(x.create_at) == this_month)
+                .ToList().Sum(x => x.total);
+            var count_order = context.orders
+                .Where(x => EntityFunctions.TruncateTime(x.create_at) == this_month)
+                .Count();
+            ViewBag.total_order = total_order;
             ViewBag.count_order = count_order;
+            ViewBag.this_month = this_month.ToString("dd/MM/yyyy");
             return View(model);
         }
         public ActionResult Login()

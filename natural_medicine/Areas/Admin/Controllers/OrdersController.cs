@@ -7,6 +7,7 @@ using PagedList;
 using natural_medicine.Models;
 using System.Data.Entity.Core.Objects;
 using natural_medicine.Areas.Admin.Security;
+using System.Data.Entity;
 
 namespace natural_medicine.Areas.Admin.Controllers
 {
@@ -56,16 +57,32 @@ namespace natural_medicine.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult UpdateOrderStatus(order donhang)
         {
-            try
+            using (DbContextTransaction dbTran = context.Database.BeginTransaction())
             {
-                var model = context.orders.Where(x => x.id == donhang.id).FirstOrDefault();
-                model.status_id = donhang.status_id;
-                context.SaveChanges();
-                return Json("success", JsonRequestBehavior.AllowGet);
-            }
-            catch
-            {
-                return Json("error", JsonRequestBehavior.AllowGet);
+                try
+                {
+                    var model = context.orders.Where(x => x.id == donhang.id).FirstOrDefault();
+                    model.status_id = donhang.status_id;
+                    if (donhang.status_id == 3) //Trạng thái đã đóng gói: Trừ sản phẩm đi
+                    {
+                        List<orders_detail> list = context.orders_detail.Where(x => x.order_id == donhang.id).ToList();
+                        foreach(orders_detail it in list)
+                        {
+                            //Cập nhật lại tồn kho
+                            var product = context.products.Where(x => x.id == it.product_id).FirstOrDefault();
+                            product.inventory_quantity = product.inventory_quantity - it.quantity;
+                            context.SaveChanges();
+                        }
+                    }
+                    context.SaveChanges();
+                    dbTran.Commit();
+                    return Json("success", JsonRequestBehavior.AllowGet);
+                }
+                catch
+                {
+                    dbTran.Rollback();
+                    return Json("error", JsonRequestBehavior.AllowGet);
+                }
             }
 
         }

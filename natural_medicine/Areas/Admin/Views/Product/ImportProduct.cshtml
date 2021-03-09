@@ -23,13 +23,25 @@
 				<label for="image">Hình ảnh</label>
 				<img src="~/Content/assets/img/@Model.image_url" alt="">
 			</div>
+			<input type="hidden" name="publisher_id" value="@Model.publisher_id" id="old-publisher" />
+			@*<div class="right__inputWrapper">
+				<label for="category">Nhà cung cấp</label>
+				<input type="hidden" value="@Model.publisher_id" id="old-publisher" />
+				<select name="publisher_id" id="product-publisher">
+					<option disabled selected>Chọn nhà cung cấp</option>
+					@foreach (publisher it in publisher)
+					{
+						<option value="@it.id">@it.name</option>
+					}
+				</select>
+			</div>*@
 			<div class="right__inputWrapper">
 				<label for="title">Số lượng nhập</label>
 				<input type="text" name="quantity" id="import-quantity" placeholder="Số lượng">
 			</div>
 			<div class="right__inputWrapper">
 				<label for="title">Giá nhập kho</label>
-				<input type="text" name="price" id="product-price" placeholder="Giá nhập kho">
+				<input type="text" name="price" id="product-price" placeholder="Giá nhập">
 			</div>
 			<div class="right__inputWrapper">
 				<label for="desc">Ghi chú</label>
