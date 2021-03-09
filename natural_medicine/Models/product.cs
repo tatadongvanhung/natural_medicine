@@ -51,6 +51,10 @@ namespace natural_medicine.Models
 
         public byte? publisher_id { get; set; }
 
+        public DateTime? create_at { get; set; }
+
+        public DateTime? update_at { get; set; }
+
         public virtual category category { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

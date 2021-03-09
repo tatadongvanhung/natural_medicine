@@ -84,7 +84,21 @@ namespace natural_medicine.Areas.Admin.Controllers
 
         public ActionResult ImportProduct(int id)
         {
-            return View();
+            ViewBag.publisher = context.publishers.ToList();
+            var model = context.products.Where(x => x.id == id).FirstOrDefault();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult ImportProduct(import nhap)
+        {
+            nhap.create_at = DateTime.Now;
+            context.imports.Add(nhap);
+            context.SaveChanges();
+
+            var model = context.products.Where(x => x.id == nhap.product_id).FirstOrDefault();
+            model.inventory_quantity = model.inventory_quantity + nhap.quantity;
+            context.SaveChanges();
+            return RedirectToAction("viewproduct");
         }
         public ActionResult UpdateProduct(int id)
         {

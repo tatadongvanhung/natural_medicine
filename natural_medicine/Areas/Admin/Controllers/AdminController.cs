@@ -20,6 +20,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             var count_customer = context.users.Where(x => x.user_type == 1).Count();
             var count_category = context.categories.Count();
             var count_order = context.orders.Count();
+            ViewBag.count_product = context.products.Count();
             ViewBag.count_customer = count_customer;
             ViewBag.count_category = count_category;
             ViewBag.count_order = count_order;

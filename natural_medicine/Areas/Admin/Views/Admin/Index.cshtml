@@ -11,6 +11,7 @@
 	int ?count_customer = ViewBag.count_customer;
 	int ?count_category = ViewBag.count_category;
 	int ?count_order = ViewBag.count_order;
+	int ?count_product = ViewBag.count_product;
 }
 <div class="right__content">
 	<div class="right__title">Bảng điều khiển</div>
@@ -18,7 +19,7 @@
 	<div class="right__cards">
 		<a class="right__card" href="/admin/product/viewproduct">
 			<div class="right__cardTitle">Sản Phẩm</div>
-			<div class="right__cardNumber">72</div>
+			<div class="right__cardNumber">@count_product</div>
 			<div class="right__cardDesc">Xem Chi Tiết <img src="~/Content/admin/assets/arrow-right.svg" alt=""></div>
 		</a>
 		<a class="right__card" href="/admin/admin/viewcustomer">

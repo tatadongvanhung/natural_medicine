@@ -19,6 +19,8 @@ namespace natural_medicine.Models
 
         public int? quantity { get; set; }
 
+        public DateTime? create_at { get; set; }
+
         [Column(TypeName = "text")]
         public string image_url { get; set; }
 

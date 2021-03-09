@@ -14,7 +14,6 @@ namespace natural_medicine.Models
             orders = new HashSet<order>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         [StringLength(255)]

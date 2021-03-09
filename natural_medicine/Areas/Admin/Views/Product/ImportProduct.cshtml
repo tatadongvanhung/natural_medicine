@@ -1,8 +1,51 @@
 ﻿
 @{
-    ViewBag.Title = "ImportProduct";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+	ViewBag.Title = "ImportProduct";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+@using natural_medicine.Models;
+@model product
+@{
+	IEnumerable<publisher> publisher = ViewBag.publisher;
+	product product = ViewBag.product;
+}
+<div class="right__content">
+	<div class="right__title">Bảng điều khiển</div>
+	<p class="right__desc">Phiếu nhập kho: # @Model.name</p>
+	<div class="right__formWrapper">
+		<form action="/admin/product/importproduct" method="post">
+			<input type="hidden" name="product_id" value="@Model.id" />
+			<div class="right__inputWrapper">
+				<label for="title">Tên sản phẩm</label>
+				<input type="text" value="@Model.name" id="product-name" readonly="readonly">
+			</div>
+			<div class="right__inputWrapper" style="width:50%; height:50%;">
+				<label for="image">Hình ảnh</label>
+				<img src="~/Content/assets/img/@Model.image_url" alt="">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="title">Số lượng nhập</label>
+				<input type="text" name="quantity" id="import-quantity" placeholder="Số lượng">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="title">Giá nhập kho</label>
+				<input type="text" name="price" id="product-price" placeholder="Giá nhập kho">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="desc">Ghi chú</label>
+				<textarea name="note" id="product-note" cols="30" rows="3" placeholder="Ghi chú"></textarea>
+			</div>
+			<button class="btn" type="submit">Nhập</button>
+		</form>
+	</div>
+</div>
 
-<h2>ImportProduct</h2>
+<script type="text/javascript">
+	$(document).ready(function () {
+		var publisher_id = $('#old-publisher').val();
+		$('#product-publisher').val(publisher_id);
+	})
+</script>
+
+
 

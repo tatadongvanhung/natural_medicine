@@ -18,6 +18,8 @@ namespace natural_medicine.Models
 
         public int? quantity { get; set; }
 
+        public DateTime? create_at { get; set; }
+
         public virtual order order { get; set; }
 
         public virtual product product { get; set; }

@@ -4,11 +4,6 @@
 	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-
-@{
-	ViewBag.Title = "InsertProduct";
-	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-}
 @using natural_medicine.Models;
 @model product
 
@@ -73,7 +68,7 @@
 			</div>
 			<div class="right__inputWrapper">
 				<label for="title">Giá bán</label>
-				<input value="@Model.price" type="text" name="price" id="product-price" placeholder="Gia bán">
+				<input value="@Model.price" type="text" name="price" id="product-price" placeholder="Giá bán">
 			</div>
 			<div class="right__inputWrapper">
 				<label for="desc">Mô tả</label>
@@ -83,7 +78,7 @@
 				<label for="desc">Ghi chú</label>
 				<textarea name="note" id="product-note" cols="30" rows="3" placeholder="Ghi chú">@Model.note</textarea>
 			</div>
-			<button class="btn" type="submit">Thêm</button>
+			<button class="btn" type="submit">Sửa</button>
 		</form>
 	</div>
 </div>
