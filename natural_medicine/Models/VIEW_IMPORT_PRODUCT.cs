@@ -6,8 +6,9 @@ namespace natural_medicine.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class import
+    public partial class VIEW_IMPORT_PRODUCT
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         public int? product_id { get; set; }
@@ -26,8 +27,13 @@ namespace natural_medicine.Models
         [StringLength(255)]
         public string note { get; set; }
 
-        public virtual product product { get; set; }
+        [StringLength(100)]
+        public string product_name { get; set; }
 
-        public virtual publisher publisher { get; set; }
+        [Column(TypeName = "text")]
+        public string image_url { get; set; }
+
+        [StringLength(255)]
+        public string publisher_name { get; set; }
     }
 }

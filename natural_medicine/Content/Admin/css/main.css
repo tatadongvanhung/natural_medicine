@@ -49,6 +49,17 @@ body {
     height: auto;
     float:left;
 }
+.container-filter-import {
+    border-radius: 5px;
+    padding-left: 40px;
+}
+
+.container-filter-import div {
+    padding: 0 30px 0 30px;
+    width: auto;
+    height: auto;
+    float: left;
+}
 .pagination {
     float: right;
 }

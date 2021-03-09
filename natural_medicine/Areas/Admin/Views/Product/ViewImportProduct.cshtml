@@ -6,13 +6,28 @@
 
 
 @using PagedList.Mvc;
-@model PagedList.IPagedList<natural_medicine.Models.import>
+@model PagedList.IPagedList<natural_medicine.Models.VIEW_IMPORT_PRODUCT>
+
+@{ 
+	IEnumerable<natural_medicine.Models.product> product = ViewBag.product;
+}
 
 <div class="right__content">
 	<div class="right__title">Bảng điều khiển</div>
 	<p class="right__desc">Danh sách đơn hàng</p>
-	<div class="container-filter">
-		<form method="get" action="/admin/orders/vieworder">
+	<div class="container-filter-import">
+		<form method="get" action="/admin/product/viewimportproduct">
+			<div class="right__inputWrapper">
+				<label for="title">Sản phẩm</label>
+				<select name="product_id" id="selected-id">
+					<option selected >Chọn sản phẩm</option>
+					@foreach (natural_medicine.Models.product it in product)
+					{
+						<option value="@it.id">@it.name</option>
+					}
+				</select>
+			</div>
+			
 			<div class="right__inputWrapper">
 				<label for="title">Ngày bắt đầu</label>
 				<input type="date" name="start_date" id="filter_start">
@@ -32,14 +47,13 @@
 				<thead>
 					<tr>
 						<th>STT</th>
-						<th>Khách hàng</th>
-						<th>SĐT</th>
-						<th>Địa chỉ</th>
-						<th>Ngày</th>
-						<th>Tổng tiền</th>
-						<th>Trạng thái</th>
-						<th>Chi tiết</th>
-						<th>Xoá</th>
+						<th>Sản phẩm</th>
+						<th>Hình ảnh</th>
+						<th>NCC</th>
+						<th>Ngày Nhập</th>
+						<th>Số Lượng</th>
+						<th>Giá Nhập</th>
+						<th>Ghi chú</th>
 					</tr>
 				</thead>
 
@@ -48,19 +62,20 @@
 						if (Model.Count != 0)
 						{
 							int i = 0;
-							foreach (natural_medicine.Models.VIEW_ORDER it in Model)
+							foreach (natural_medicine.Models.VIEW_IMPORT_PRODUCT it in Model)
 							{
 								i++;
 								<tr>
 									<td data-label="STT">@i</td>
-									<td data-label="Tiêu đề">@it.name</td>
-									<td data-label="SĐT">@it.phone</td>
-									<td data-label="SĐT">@it.address</td>
+									<td data-label="Tiêu đề">@it.product_name</td>
+									<td data-label="Hình ảnh">
+										<img src="~/Content/assets/img/@it.image_url" />
+									</td>
+									<td data-label="SĐT">@it.publisher_name</td>
 									<td data-label="Mô tả">@it.create_at</td>
-									<td data-label="Mô tả">@it.total</td>
-									<td data-label="Mô tả">@it.status</td>
-									<td data-label="Sửa" class="right__iconTable"><a href="/admin/orders/vieworder_detail/@it.id"><img src="~/Content/admin/assets/icon-edit.svg" alt=""></a></td>
-									<td data-label="Xoá" class="right__iconTable"><a href="/admin/orders/deleteorder/@it.id"><img src="~/Content/admin/assets/icon-trash-black.svg" alt=""></a></td>
+									<td data-label="Mô tả">@it.quantity</td>
+									<td data-label="Mô tả">@it.price</td>
+									<td data-label="Mô tả">@it.note</td>
 								</tr>
 							}
 						}

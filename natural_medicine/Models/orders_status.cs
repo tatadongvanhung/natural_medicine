@@ -14,7 +14,6 @@ namespace natural_medicine.Models
             orders = new HashSet<order>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public byte id { get; set; }
 
         [Required]

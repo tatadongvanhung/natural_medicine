@@ -83,32 +83,34 @@ namespace natural_medicine.Areas.Admin.Controllers
             }
             
         }
-        public ActionResult ViewImportProduct(DateTime? start_date, DateTime? end_date, int? page)
+        public ActionResult ViewImportProduct(DateTime? start_date, DateTime? end_date,int ?product_id, int? page)
         {
             if (page == null) page = 1;
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            if (start_date != null && end_date != null)
+            var product = context.products.ToList();
+            
+            if (product_id != null && start_date != null && end_date != null)
             {
-                if (start_date == end_date)
-                {
-                    DateTime start = (DateTime)start_date;
-                    var model = context.imports.Where(x => EntityFunctions.TruncateTime(x.create_at) == start.Date)
-                        .OrderByDescending(x => x.create_at).ToList();
-                    return View(model.ToPagedList(pageNumber, 100));
-                }
-                else
-                {
-                    var model = context.imports
-                    .Where(x => EntityFunctions.TruncateTime(x.create_at) >= start_date
-                        && EntityFunctions.TruncateTime(x.create_at) <= end_date)
-                    .OrderByDescending(x => x.create_at).ToList();
-                    return View(model.ToPagedList(pageNumber, 100));
-                }
+               
+                var model = context.VIEW_IMPORT_PRODUCT
+                .Where(x => EntityFunctions.TruncateTime(x.create_at) >= start_date
+                    && EntityFunctions.TruncateTime(x.create_at) <= end_date
+                    && x.product_id == product_id)
+                .OrderByDescending(x => x.create_at).ToList();
+                ViewBag.product = product;
+                return View(model.ToPagedList(pageNumber, 100));
+            } else if (product_id != null && start_date == null && end_date == null)
+            {
+                var model = context.VIEW_IMPORT_PRODUCT
+                .Where(x => x.product_id == product_id).OrderByDescending(x => x.create_at).ToList();
+                ViewBag.product = product;
+                return View(model.ToPagedList(pageNumber, 100));
             }
             else
             {
-                var model = context.imports.OrderByDescending(x => x.create_at).ToList();
+                var model = context.VIEW_IMPORT_PRODUCT.OrderByDescending(x => x.create_at).ToList();
+                ViewBag.product = product;
                 return View(model.ToPagedList(pageNumber, pageSize));
             }
         }

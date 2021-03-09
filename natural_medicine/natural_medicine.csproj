@@ -167,6 +167,7 @@
     <Compile Include="Models\publisher.cs" />
     <Compile Include="Models\review.cs" />
     <Compile Include="Models\user.cs" />
+    <Compile Include="Models\VIEW_IMPORT_PRODUCT.cs" />
     <Compile Include="Models\VIEW_ORDER.cs" />
     <Compile Include="Models\VIEW_ORDER_DETAIL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
