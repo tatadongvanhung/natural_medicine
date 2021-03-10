@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="natural_medicine_dataModelStoreContainer" CdmEntityContainer="dataEntities">
+    <FunctionImportMapping FunctionImportName="IMPORTS_REPORT" FunctionName="natural_medicine_dataModel.Store.IMPORTS_REPORT">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="natural_medicine_dataModel.IMPORTS_REPORT_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="uses" ColumnName="uses" />
+          <ScalarProperty Name="dosage" ColumnName="dosage" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sum_quantity" ColumnName="sum_quantity" />
+          <ScalarProperty Name="sum_total" ColumnName="sum_total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -158,7 +158,25 @@
     <Compile Include="Models\category.cs" />
     <Compile Include="Models\discount.cs" />
     <Compile Include="Models\import.cs" />
+    <Compile Include="Models\IMPORTS_REPORT_Result.cs">
+      <DependentUpon>MyDBProcedure.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MyDBContext.cs" />
+    <Compile Include="Models\MyDBProcedure.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyDBProcedure.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MyDBProcedure.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyDBProcedure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MyDBProcedure.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyDBProcedure.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\order.cs" />
     <Compile Include="Models\orders_detail.cs" />
     <Compile Include="Models\orders_status.cs" />
@@ -266,6 +284,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\MyDBProcedure.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyDBProcedure.edmx</DependentUpon>
+      <LastGenOutput>MyDBProcedure.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MyDBProcedure.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyDBProcedure.edmx</DependentUpon>
+      <LastGenOutput>MyDBProcedure.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\assets\font-awesome\font\fontawesome-webfont.eot" />
@@ -320,6 +348,13 @@
     <Content Include="Areas\Admin\Views\Report\ReportImport.cshtml" />
     <Content Include="Areas\Admin\Views\Report\ReportExport.cshtml" />
     <Content Include="Areas\Admin\Views\Report\TotalRevenue.cshtml" />
+    <EntityDeploy Include="Models\MyDBProcedure.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MyDBProcedure.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\MyDBProcedure.edmx.diagram">
+      <DependentUpon>MyDBProcedure.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -376,6 +411,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
