@@ -378,6 +378,10 @@ warning 6002: The table/view 'natural_medicine_data.dbo.VIEW_ORDER_DETAIL' does 
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="EXPORTS_REPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="start_date" Type="date" Mode="In" />
+    <Parameter Name="end_date" Type="date" Mode="In" />
+  </Function>
   <Function Name="IMPORTS_REPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="start_date" Type="date" Mode="In" />
     <Parameter Name="end_date" Type="date" Mode="In" />

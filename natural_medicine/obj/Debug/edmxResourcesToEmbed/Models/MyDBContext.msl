@@ -233,5 +233,18 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="EXPORTS_REPORT" FunctionName="natural_medicine_dataModel.Store.EXPORTS_REPORT">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="natural_medicine_dataModel.EXPORTS_REPORT_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="image_url" ColumnName="image_url" />
+          <ScalarProperty Name="uses" ColumnName="uses" />
+          <ScalarProperty Name="dosage" ColumnName="dosage" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sum_quantity" ColumnName="sum_quantity" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

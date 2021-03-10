@@ -1,8 +1,87 @@
 ﻿
 @{
-    ViewBag.Title = "ReportExport";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+	ViewBag.Title = "ReportExport";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>ReportExport</h2>
+
+@using natural_medicine.Models;
+@model List<EXPORTS_REPORT_Result>
+@{
+	String date = ViewBag.date;
+	DateTime start_date = ViewBag.start_date;
+	DateTime end_date = ViewBag.end_date;
+}
+<div class="right__content">
+	<div class="right__title">Bảng điều khiển</div>
+	<p class="right__desc">Thống Kê Nhập Kho Ngày @date</p>
+	<div class="container-filter">
+		<form method="get" action="/admin/report/reportexport">
+			<div class="right__inputWrapper">
+				<label for="title">Ngày bắt đầu</label>
+				<input type="date" name="start_date" id="filter_start">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="desc">Ngày kết thúc</label>
+				<input type="date" name="end_date" id="filter_end">
+			</div>
+			<div style="padding-top:20px;">
+				<button style="width:100px;" class="btn" type="submit" id="filter-orders">Tìm kiếm</button>
+			</div>
+		</form>
+	</div>
+	<div class="right__table">
+		<div class="right__tableWrapper">
+			<table>
+				<thead>
+					<tr>
+						<th>STT</th>
+						<th>Sản phẩm</th>
+						<th>Hình ảnh</th>
+						<th>Tổng lượng xuất</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@{
+						if (Model.Count != 0)
+						{
+							int i = 0;
+							foreach (EXPORTS_REPORT_Result it in Model)
+							{
+								i++;
+								<tr>
+									<td data-label="STT">@i</td>
+									<td data-label="Tiêu đề">@it.name</td>
+									<td data-label="Hình ảnh">
+										<img src="~/Content/assets/img/@it.image_url" />
+									</td>
+									<td data-label="Mô tả">@it.sum_quantity</td>
+								</tr>
+							}
+						}
+						else
+						{
+							<tr>
+								<td style="text-align:center;" colspan="4" class="alignR"><strong>DANH SÁCH TRỐNG!</strong></td>
+							</tr>
+						}
+					}
+				</tbody>
+			</table>
+
+		</div>
+		<form method="post" action="/admin/report/excelexport">
+			<input name="start_date" type="hidden" id="old-start-date" value="@start_date" />
+			<input name="end_date" type="hidden" id="old-end-date" value="@end_date" />
+			<div style="padding-top:20px; text-align:right;">
+				<button style="width:100px;" class="btn" type="submit" id="csv-exports">EXCEL</button>
+			</div>
+		</form>
+		@*Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount*@
+	</div>
+</div>
+
+
+
 

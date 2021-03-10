@@ -477,6 +477,10 @@
       <Parameter Name="start_date" Mode="In" Type="DateTime" />
       <Parameter Name="end_date" Mode="In" Type="DateTime" />
     </FunctionImport>
+    <FunctionImport Name="EXPORTS_REPORT" ReturnType="Collection(natural_medicine_dataModel.EXPORTS_REPORT_Result)">
+      <Parameter Name="start_date" Mode="In" Type="DateTime" />
+      <Parameter Name="end_date" Mode="In" Type="DateTime" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="IMPORTS_REPORT_Result">
     <Property Type="Int32" Name="id" Nullable="false" />
@@ -487,5 +491,14 @@
     <Property Type="String" Name="description" Nullable="true" MaxLength="255" />
     <Property Type="Int32" Name="sum_quantity" Nullable="true" />
     <Property Type="Int32" Name="sum_total" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="EXPORTS_REPORT_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="name" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="image_url" Nullable="true" MaxLength="Max" />
+    <Property Type="String" Name="uses" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="dosage" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="sum_quantity" Nullable="true" />
   </ComplexType>
 </Schema>

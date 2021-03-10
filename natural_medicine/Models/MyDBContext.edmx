@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="natural_medicine_dataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="natural_medicine_dataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="address">
           <Key>
             <PropertyRef Name="id" />
@@ -383,6 +383,10 @@ warning 6002: The table/view 'natural_medicine_data.dbo.VIEW_ORDER_DETAIL' does 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="EXPORTS_REPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start_date" Type="date" Mode="In" />
+          <Parameter Name="end_date" Type="date" Mode="In" />
+        </Function>
         <Function Name="IMPORTS_REPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="start_date" Type="date" Mode="In" />
           <Parameter Name="end_date" Type="date" Mode="In" />
@@ -504,8 +508,7 @@ warning 6002: The table/view 'natural_medicine_data.dbo.VIEW_ORDER_DETAIL' does 
             <End Role="reviews" EntitySet="reviews" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="natural_medicine_dataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -986,6 +989,10 @@ warning 6002: The table/view 'natural_medicine_data.dbo.VIEW_ORDER_DETAIL' does 
             <Parameter Name="start_date" Mode="In" Type="DateTime" />
             <Parameter Name="end_date" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="EXPORTS_REPORT" ReturnType="Collection(natural_medicine_dataModel.EXPORTS_REPORT_Result)">
+            <Parameter Name="start_date" Mode="In" Type="DateTime" />
+            <Parameter Name="end_date" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="IMPORTS_REPORT_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -996,6 +1003,15 @@ warning 6002: The table/view 'natural_medicine_data.dbo.VIEW_ORDER_DETAIL' does 
           <Property Type="String" Name="description" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="sum_quantity" Nullable="true" />
           <Property Type="Int32" Name="sum_total" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="EXPORTS_REPORT_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="image_url" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="uses" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="dosage" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="description" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="sum_quantity" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1232,6 +1248,19 @@ warning 6002: The table/view 'natural_medicine_data.dbo.VIEW_ORDER_DETAIL' does 
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="sum_quantity" ColumnName="sum_quantity" />
                 <ScalarProperty Name="sum_total" ColumnName="sum_total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EXPORTS_REPORT" FunctionName="natural_medicine_dataModel.Store.EXPORTS_REPORT">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="natural_medicine_dataModel.EXPORTS_REPORT_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="image_url" ColumnName="image_url" />
+                <ScalarProperty Name="uses" ColumnName="uses" />
+                <ScalarProperty Name="dosage" ColumnName="dosage" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="sum_quantity" ColumnName="sum_quantity" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

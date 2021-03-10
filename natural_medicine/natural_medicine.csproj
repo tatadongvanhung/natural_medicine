@@ -163,6 +163,9 @@
     <Compile Include="Models\discount.cs">
       <DependentUpon>MyDBContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EXPORTS_REPORT_Result.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\import.cs">
       <DependentUpon>MyDBContext.tt</DependentUpon>
     </Compile>

@@ -56,5 +56,18 @@ namespace natural_medicine.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<IMPORTS_REPORT_Result>("IMPORTS_REPORT", start_dateParameter, end_dateParameter);
         }
+    
+        public virtual ObjectResult<EXPORTS_REPORT_Result> EXPORTS_REPORT(Nullable<System.DateTime> start_date, Nullable<System.DateTime> end_date)
+        {
+            var start_dateParameter = start_date.HasValue ?
+                new ObjectParameter("start_date", start_date) :
+                new ObjectParameter("start_date", typeof(System.DateTime));
+    
+            var end_dateParameter = end_date.HasValue ?
+                new ObjectParameter("end_date", end_date) :
+                new ObjectParameter("end_date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EXPORTS_REPORT_Result>("EXPORTS_REPORT", start_dateParameter, end_dateParameter);
+        }
     }
 }
