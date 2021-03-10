@@ -122,6 +122,7 @@ namespace natural_medicine.Controllers
                         detail.product_id = item.product.id;
                         detail.price = item.product.price;
                         detail.quantity = item.quantity;
+                        detail.create_at = DateTime.Today;
                         context.orders_detail.Add(detail);
                         context.SaveChanges();
                     }

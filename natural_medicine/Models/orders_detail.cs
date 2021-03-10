@@ -18,6 +18,7 @@ namespace natural_medicine.Models
 
         public int? quantity { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? create_at { get; set; }
 
         public virtual order order { get; set; }

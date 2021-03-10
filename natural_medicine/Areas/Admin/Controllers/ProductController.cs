@@ -106,6 +106,14 @@ namespace natural_medicine.Areas.Admin.Controllers
                 .Where(x => x.product_id == product_id).OrderByDescending(x => x.create_at).ToList();
                 ViewBag.product = product;
                 return View(model.ToPagedList(pageNumber, 100));
+            } else if(product_id == null && start_date != null && end_date != null)
+            {
+                var model = context.VIEW_IMPORT_PRODUCT
+                .Where(x => EntityFunctions.TruncateTime(x.create_at) >= start_date
+                    && EntityFunctions.TruncateTime(x.create_at) <= end_date)
+                .OrderByDescending(x => x.create_at).ToList();
+                ViewBag.product = product;
+                return View(model.ToPagedList(pageNumber, 100));
             }
             else
             {
