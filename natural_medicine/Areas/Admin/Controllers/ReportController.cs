@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -168,9 +169,55 @@ namespace natural_medicine.Areas.Admin.Controllers
             Response.End();
             return Json("success", JsonRequestBehavior.AllowGet);
         }
-        public ActionResult TotalRevenue()
+        public ActionResult TotalRevenue(DateTime? start_date, DateTime? end_date)
         {
-            return View();
+            if (start_date != null && end_date != null)
+            {
+                DateTime start = (DateTime)start_date;
+                DateTime end = (DateTime)end_date;
+                var sumTotal = context.orders
+                    .Where(x => EntityFunctions.TruncateTime(x.create_at) >= start 
+                    && EntityFunctions.TruncateTime(x.create_at) <= end)
+                    .Sum(x => x.total);
+                var sumImport = context.imports
+                    .Where(x => EntityFunctions.TruncateTime(x.create_at) >= start
+                    && EntityFunctions.TruncateTime(x.create_at) <= end)
+                    .Sum(x => x.price * x.quantity);
+
+                var sumOrder = context.orders
+                .Where(x => EntityFunctions.TruncateTime(x.create_at) >= start
+                && EntityFunctions.TruncateTime(x.create_at) <= end)
+                .Count();
+
+                ViewBag.sumTotal = sumTotal;
+                ViewBag.sumImport = sumImport;
+                ViewBag.sumOrder = sumOrder;
+                ViewBag.date = start.ToString("dd/MM/yyyy") + " - " + end.ToString("dd/MM/yyyy");
+                ViewBag.start_date = start;
+                ViewBag.end_date = end;
+                return View();
+            }
+            else
+            {
+                DateTime start = DateTime.Today;
+                DateTime end = DateTime.Today;
+                var sumTotal = context.orders
+                    .Where(x => EntityFunctions.TruncateTime(x.create_at) == start)
+                    .Sum(x => x.total);
+                var sumImport = context.imports
+                   .Where(x => EntityFunctions.TruncateTime(x.create_at) == start)
+                   .Sum(x => x.price * x.quantity);
+                var sumOrder = context.orders
+                   .Where(x => EntityFunctions.TruncateTime(x.create_at) == start)
+                   .Count();
+                ViewBag.sumTotal = sumTotal;
+                ViewBag.sumImport = sumImport;
+                ViewBag.sumOrder = sumOrder;
+                ViewBag.date = start.ToString("dd/MM/yyyy");
+                ViewBag.start_date = start;
+                ViewBag.end_date = end;
+                return View();
+            }
         }
     }
 }
