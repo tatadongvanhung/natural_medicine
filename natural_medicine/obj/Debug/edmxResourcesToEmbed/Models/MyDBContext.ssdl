@@ -1,0 +1,502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="natural_medicine_dataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="address">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="address" Type="nvarchar" MaxLength="255" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="update_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="categories">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="100" />
+    <Property Name="note" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="discounts">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="100" />
+    <Property Name="description" Type="nvarchar" MaxLength="255" />
+    <Property Name="value" Type="float" />
+    <Property Name="max_value" Type="int" />
+    <Property Name="start_date" Type="date" />
+    <Property Name="end_date" Type="date" />
+    <Property Name="create_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="imports">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="product_id" Type="int" />
+    <Property Name="publisher_id" Type="tinyint" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="price" Type="int" />
+    <Property Name="import_date" Type="date" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="note" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="orders">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="payment_method_id" Type="int" />
+    <Property Name="name" Type="nvarchar" MaxLength="100" />
+    <Property Name="phone" Type="varchar" MaxLength="20" />
+    <Property Name="address" Type="nvarchar" MaxLength="255" />
+    <Property Name="discount_code" Type="varchar" MaxLength="100" />
+    <Property Name="subtotal" Type="int" />
+    <Property Name="total" Type="int" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="note" Type="nvarchar" MaxLength="255" />
+    <Property Name="status_id" Type="tinyint" />
+    <Property Name="user_address_id" Type="int" />
+  </EntityType>
+  <EntityType Name="orders_detail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="order_id" Type="int" />
+    <Property Name="product_id" Type="int" />
+    <Property Name="price" Type="int" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="create_at" Type="date" />
+  </EntityType>
+  <EntityType Name="orders_status">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="tinyint" Nullable="false" />
+    <Property Name="status" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="payment_methods">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" />
+    <Property Name="created_at" Type="datetime" />
+    <Property Name="updated_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="product_images">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="product_id" Type="int" />
+    <Property Name="image_url" Type="text" />
+  </EntityType>
+  <EntityType Name="products">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="100" />
+    <Property Name="ingredient" Type="nvarchar" MaxLength="100" />
+    <Property Name="uses" Type="nvarchar" MaxLength="100" />
+    <Property Name="dosage" Type="nvarchar" MaxLength="100" />
+    <Property Name="unit" Type="nvarchar" MaxLength="100" />
+    <Property Name="price" Type="int" />
+    <Property Name="inventory_quantity" Type="int" />
+    <Property Name="description" Type="nvarchar" MaxLength="255" />
+    <Property Name="image_url" Type="text" />
+    <Property Name="note" Type="nvarchar" MaxLength="255" />
+    <Property Name="category_id" Type="tinyint" />
+    <Property Name="publisher_id" Type="tinyint" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="update_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="publishers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" />
+    <Property Name="phone" Type="varchar" MaxLength="20" />
+    <Property Name="address" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="reviews">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="user_name" Type="nvarchar" MaxLength="255" />
+    <Property Name="rating" Type="tinyint" />
+    <Property Name="comment" Type="nvarchar" MaxLength="255" />
+    <Property Name="product_id" Type="int" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="update_at" Type="datetime" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" />
+    <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="100" />
+    <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="user_type" Type="int" Nullable="false" />
+    <Property Name="last_login_at" Type="datetime" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="update_at" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'natural_medicine_data.dbo.VIEW_IMPORT_PRODUCT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="VIEW_IMPORT_PRODUCT">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="product_id" Type="int" />
+    <Property Name="publisher_id" Type="tinyint" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="price" Type="int" />
+    <Property Name="import_date" Type="date" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="note" Type="nvarchar" MaxLength="255" />
+    <Property Name="product_name" Type="nvarchar" MaxLength="100" />
+    <Property Name="image_url" Type="text" />
+    <Property Name="publisher_name" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'natural_medicine_data.dbo.VIEW_ORDER' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="VIEW_ORDER">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="user_id" />
+      <PropertyRef Name="status" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="100" />
+    <Property Name="phone" Type="varchar" MaxLength="20" />
+    <Property Name="discount_code" Type="varchar" MaxLength="100" />
+    <Property Name="subtotal" Type="int" />
+    <Property Name="total" Type="int" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="note" Type="nvarchar" MaxLength="255" />
+    <Property Name="user_address_id" Type="int" />
+    <Property Name="address" Type="nvarchar" MaxLength="255" />
+    <Property Name="status_id" Type="tinyint" />
+    <Property Name="status" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="payment_method_id" Type="int" />
+    <Property Name="payment_method" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'natural_medicine_data.dbo.VIEW_ORDER_DETAIL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="VIEW_ORDER_DETAIL">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="order_id" Type="int" />
+    <Property Name="product_id" Type="int" />
+    <Property Name="price" Type="int" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="create_at" Type="date" />
+    <Property Name="image_url" Type="text" />
+    <Property Name="name" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK__address__user_id__145C0A3F">
+    <End Role="users" Type="Self.users" Multiplicity="0..1" />
+    <End Role="address" Type="Self.address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="address">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__imports__product__35BCFE0A">
+    <End Role="products" Type="Self.products" Multiplicity="0..1" />
+    <End Role="imports" Type="Self.imports" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="imports">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__imports__publish__36B12243">
+    <End Role="publishers" Type="Self.publishers" Multiplicity="0..1" />
+    <End Role="imports" Type="Self.imports" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="publishers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="imports">
+        <PropertyRef Name="publisher_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders__payment___2D27B809">
+    <End Role="payment_methods" Type="Self.payment_methods" Multiplicity="0..1" />
+    <End Role="orders" Type="Self.orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="payment_methods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="payment_method_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders__status_i__2E1BDC42">
+    <End Role="orders_status" Type="Self.orders_status" Multiplicity="0..1" />
+    <End Role="orders" Type="Self.orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders_status">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="status_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders__user_add__2F10007B">
+    <End Role="address" Type="Self.address" Multiplicity="0..1" />
+    <End Role="orders" Type="Self.orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="address">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="user_address_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders__user_id__2C3393D0">
+    <End Role="users" Type="Self.users" Multiplicity="1" />
+    <End Role="orders" Type="Self.orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders_de__order__31EC6D26">
+    <End Role="orders" Type="Self.orders" Multiplicity="0..1" />
+    <End Role="orders_detail" Type="Self.orders_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders_detail">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders_de__produ__32E0915F">
+    <End Role="products" Type="Self.products" Multiplicity="0..1" />
+    <End Role="orders_detail" Type="Self.orders_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders_detail">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__product_i__produ__398D8EEE">
+    <End Role="products" Type="Self.products" Multiplicity="0..1" />
+    <End Role="product_images" Type="Self.product_images" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product_images">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__products__catego__22AA2996">
+    <End Role="categories" Type="Self.categories" Multiplicity="0..1" />
+    <End Role="products" Type="Self.products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categories">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="products">
+        <PropertyRef Name="category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__products__publis__239E4DCF">
+    <End Role="publishers" Type="Self.publishers" Multiplicity="0..1" />
+    <End Role="products" Type="Self.products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="publishers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="products">
+        <PropertyRef Name="publisher_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__reviews__product__3D5E1FD2">
+    <End Role="products" Type="Self.products" Multiplicity="0..1" />
+    <End Role="reviews" Type="Self.reviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="reviews">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__reviews__user_id__3C69FB99">
+    <End Role="users" Type="Self.users" Multiplicity="0..1" />
+    <End Role="reviews" Type="Self.reviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="reviews">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="IMPORTS_REPORT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="start_date" Type="date" Mode="In" />
+    <Parameter Name="end_date" Type="date" Mode="In" />
+  </Function>
+  <EntityContainer Name="natural_medicine_dataModelStoreContainer">
+    <EntitySet Name="address" EntityType="Self.address" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="categories" EntityType="Self.categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="discounts" EntityType="Self.discounts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="imports" EntityType="Self.imports" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="orders_detail" EntityType="Self.orders_detail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="orders_status" EntityType="Self.orders_status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="payment_methods" EntityType="Self.payment_methods" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="product_images" EntityType="Self.product_images" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="publishers" EntityType="Self.publishers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="reviews" EntityType="Self.reviews" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VIEW_IMPORT_PRODUCT" EntityType="Self.VIEW_IMPORT_PRODUCT" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VIEW_IMPORT_PRODUCT].[id] AS [id], 
+    [VIEW_IMPORT_PRODUCT].[product_id] AS [product_id], 
+    [VIEW_IMPORT_PRODUCT].[publisher_id] AS [publisher_id], 
+    [VIEW_IMPORT_PRODUCT].[quantity] AS [quantity], 
+    [VIEW_IMPORT_PRODUCT].[price] AS [price], 
+    [VIEW_IMPORT_PRODUCT].[import_date] AS [import_date], 
+    [VIEW_IMPORT_PRODUCT].[create_at] AS [create_at], 
+    [VIEW_IMPORT_PRODUCT].[note] AS [note], 
+    [VIEW_IMPORT_PRODUCT].[product_name] AS [product_name], 
+    [VIEW_IMPORT_PRODUCT].[image_url] AS [image_url], 
+    [VIEW_IMPORT_PRODUCT].[publisher_name] AS [publisher_name]
+    FROM [dbo].[VIEW_IMPORT_PRODUCT] AS [VIEW_IMPORT_PRODUCT]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VIEW_ORDER" EntityType="Self.VIEW_ORDER" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VIEW_ORDER].[id] AS [id], 
+    [VIEW_ORDER].[user_id] AS [user_id], 
+    [VIEW_ORDER].[name] AS [name], 
+    [VIEW_ORDER].[phone] AS [phone], 
+    [VIEW_ORDER].[discount_code] AS [discount_code], 
+    [VIEW_ORDER].[subtotal] AS [subtotal], 
+    [VIEW_ORDER].[total] AS [total], 
+    [VIEW_ORDER].[create_at] AS [create_at], 
+    [VIEW_ORDER].[note] AS [note], 
+    [VIEW_ORDER].[user_address_id] AS [user_address_id], 
+    [VIEW_ORDER].[address] AS [address], 
+    [VIEW_ORDER].[status_id] AS [status_id], 
+    [VIEW_ORDER].[status] AS [status], 
+    [VIEW_ORDER].[payment_method_id] AS [payment_method_id], 
+    [VIEW_ORDER].[payment_method] AS [payment_method]
+    FROM [dbo].[VIEW_ORDER] AS [VIEW_ORDER]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VIEW_ORDER_DETAIL" EntityType="Self.VIEW_ORDER_DETAIL" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VIEW_ORDER_DETAIL].[id] AS [id], 
+    [VIEW_ORDER_DETAIL].[order_id] AS [order_id], 
+    [VIEW_ORDER_DETAIL].[product_id] AS [product_id], 
+    [VIEW_ORDER_DETAIL].[price] AS [price], 
+    [VIEW_ORDER_DETAIL].[quantity] AS [quantity], 
+    [VIEW_ORDER_DETAIL].[create_at] AS [create_at], 
+    [VIEW_ORDER_DETAIL].[image_url] AS [image_url], 
+    [VIEW_ORDER_DETAIL].[name] AS [name]
+    FROM [dbo].[VIEW_ORDER_DETAIL] AS [VIEW_ORDER_DETAIL]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__address__user_id__145C0A3F" Association="Self.FK__address__user_id__145C0A3F">
+      <End Role="users" EntitySet="users" />
+      <End Role="address" EntitySet="address" />
+    </AssociationSet>
+    <AssociationSet Name="FK__imports__product__35BCFE0A" Association="Self.FK__imports__product__35BCFE0A">
+      <End Role="products" EntitySet="products" />
+      <End Role="imports" EntitySet="imports" />
+    </AssociationSet>
+    <AssociationSet Name="FK__imports__publish__36B12243" Association="Self.FK__imports__publish__36B12243">
+      <End Role="publishers" EntitySet="publishers" />
+      <End Role="imports" EntitySet="imports" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders__payment___2D27B809" Association="Self.FK__orders__payment___2D27B809">
+      <End Role="payment_methods" EntitySet="payment_methods" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders__status_i__2E1BDC42" Association="Self.FK__orders__status_i__2E1BDC42">
+      <End Role="orders_status" EntitySet="orders_status" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders__user_add__2F10007B" Association="Self.FK__orders__user_add__2F10007B">
+      <End Role="address" EntitySet="address" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders__user_id__2C3393D0" Association="Self.FK__orders__user_id__2C3393D0">
+      <End Role="users" EntitySet="users" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders_de__order__31EC6D26" Association="Self.FK__orders_de__order__31EC6D26">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="orders_detail" EntitySet="orders_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders_de__produ__32E0915F" Association="Self.FK__orders_de__produ__32E0915F">
+      <End Role="products" EntitySet="products" />
+      <End Role="orders_detail" EntitySet="orders_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__product_i__produ__398D8EEE" Association="Self.FK__product_i__produ__398D8EEE">
+      <End Role="products" EntitySet="products" />
+      <End Role="product_images" EntitySet="product_images" />
+    </AssociationSet>
+    <AssociationSet Name="FK__products__catego__22AA2996" Association="Self.FK__products__catego__22AA2996">
+      <End Role="categories" EntitySet="categories" />
+      <End Role="products" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__products__publis__239E4DCF" Association="Self.FK__products__publis__239E4DCF">
+      <End Role="publishers" EntitySet="publishers" />
+      <End Role="products" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__reviews__product__3D5E1FD2" Association="Self.FK__reviews__product__3D5E1FD2">
+      <End Role="products" EntitySet="products" />
+      <End Role="reviews" EntitySet="reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK__reviews__user_id__3C69FB99" Association="Self.FK__reviews__user_id__3C69FB99">
+      <End Role="users" EntitySet="users" />
+      <End Role="reviews" EntitySet="reviews" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

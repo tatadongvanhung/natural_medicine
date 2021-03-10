@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="849deb47d2ef4917a6c76038e17f96d3" Name="Diagram1">
+        <EntityTypeShape EntityType="natural_medicine_dataModel.address" Width="1.5" PointX="3.75" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.category" Width="1.5" PointX="3.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.discount" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.import" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.order" Width="1.5" PointX="6" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.orders_detail" Width="1.5" PointX="8.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.orders_status" Width="1.5" PointX="3.75" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.payment_methods" Width="1.5" PointX="3.75" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.product_images" Width="1.5" PointX="8.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.product" Width="1.5" PointX="6" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.publisher" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.review" Width="1.5" PointX="11.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.user" Width="1.5" PointX="1.5" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.VIEW_IMPORT_PRODUCT" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.VIEW_ORDER" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.VIEW_ORDER_DETAIL" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="natural_medicine_dataModel.FK__address__user_id__145C0A3F" ManuallyRouted="false" />
+        <AssociationConnector Association="natural_medicine_dataModel.FK__orders__user_add__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="natural_medicine_dataModel.FK__products__catego__22AA2996" ManuallyRouted="false" />
+        <AssociationConnector Association="natural_medicine_dataModel.FK__imports__product__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="natural_medicine_dataModel.FK__imports__publish__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="natural_medicine_dataModel.FK__orders__payment___2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="natural_medicine_dataModel.FK__orders__status_i__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="natural_medicine_dataModel.FK__orders__user_id__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="natural_medicine_dataModel.FK__orders_de__order__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="natural_medicine_dataModel.FK__orders_de__produ__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="natural_medicine_dataModel.FK__product_i__produ__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="natural_medicine_dataModel.FK__products__publis__239E4DCF" ManuallyRouted="false" />
+        <AssociationConnector Association="natural_medicine_dataModel.FK__reviews__product__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="natural_medicine_dataModel.FK__reviews__user_id__3C69FB99" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,491 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="natural_medicine_dataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="address">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="Int32" />
+    <Property Name="address1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <Property Name="update_at" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="user" Relationship="Self.FK__address__user_id__145C0A3F" FromRole="address" ToRole="users" />
+    <NavigationProperty Name="orders" Relationship="Self.FK__orders__user_add__2F10007B" FromRole="address" ToRole="orders" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="products" Relationship="Self.FK__products__catego__22AA2996" FromRole="categories" ToRole="products" />
+  </EntityType>
+  <EntityType Name="discount">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="value" Type="Double" />
+    <Property Name="max_value" Type="Int32" />
+    <Property Name="start_date" Type="DateTime" Precision="0" />
+    <Property Name="end_date" Type="DateTime" Precision="0" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="import">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="product_id" Type="Int32" />
+    <Property Name="publisher_id" Type="Byte" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="price" Type="Int32" />
+    <Property Name="import_date" Type="DateTime" Precision="0" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <Property Name="note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="product" Relationship="Self.FK__imports__product__35BCFE0A" FromRole="imports" ToRole="products" />
+    <NavigationProperty Name="publisher" Relationship="Self.FK__imports__publish__36B12243" FromRole="imports" ToRole="publishers" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <Property Name="payment_method_id" Type="Int32" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="discount_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="subtotal" Type="Int32" />
+    <Property Name="total" Type="Int32" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <Property Name="note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="status_id" Type="Byte" />
+    <Property Name="user_address_id" Type="Int32" />
+    <NavigationProperty Name="address1" Relationship="Self.FK__orders__user_add__2F10007B" FromRole="orders" ToRole="address" />
+    <NavigationProperty Name="payment_methods" Relationship="Self.FK__orders__payment___2D27B809" FromRole="orders" ToRole="payment_methods" />
+    <NavigationProperty Name="orders_status" Relationship="Self.FK__orders__status_i__2E1BDC42" FromRole="orders" ToRole="orders_status" />
+    <NavigationProperty Name="user" Relationship="Self.FK__orders__user_id__2C3393D0" FromRole="orders" ToRole="users" />
+    <NavigationProperty Name="orders_detail" Relationship="Self.FK__orders_de__order__31EC6D26" FromRole="orders" ToRole="orders_detail" />
+  </EntityType>
+  <EntityType Name="orders_detail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="order_id" Type="Int32" />
+    <Property Name="product_id" Type="Int32" />
+    <Property Name="price" Type="Int32" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="create_at" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="order" Relationship="Self.FK__orders_de__order__31EC6D26" FromRole="orders_detail" ToRole="orders" />
+    <NavigationProperty Name="product" Relationship="Self.FK__orders_de__produ__32E0915F" FromRole="orders_detail" ToRole="products" />
+  </EntityType>
+  <EntityType Name="orders_status">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Byte" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="orders" Relationship="Self.FK__orders__status_i__2E1BDC42" FromRole="orders_status" ToRole="orders" />
+  </EntityType>
+  <EntityType Name="payment_methods">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="created_at" Type="DateTime" Precision="3" />
+    <Property Name="updated_at" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="orders" Relationship="Self.FK__orders__payment___2D27B809" FromRole="payment_methods" ToRole="orders" />
+  </EntityType>
+  <EntityType Name="product_images">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="product_id" Type="Int32" />
+    <Property Name="image_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="product" Relationship="Self.FK__product_i__produ__398D8EEE" FromRole="product_images" ToRole="products" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ingredient" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="uses" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="dosage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="unit" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="Int32" />
+    <Property Name="inventory_quantity" Type="Int32" />
+    <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="image_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="category_id" Type="Byte" />
+    <Property Name="publisher_id" Type="Byte" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <Property Name="update_at" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="category" Relationship="Self.FK__products__catego__22AA2996" FromRole="products" ToRole="categories" />
+    <NavigationProperty Name="imports" Relationship="Self.FK__imports__product__35BCFE0A" FromRole="products" ToRole="imports" />
+    <NavigationProperty Name="orders_detail" Relationship="Self.FK__orders_de__produ__32E0915F" FromRole="products" ToRole="orders_detail" />
+    <NavigationProperty Name="product_images" Relationship="Self.FK__product_i__produ__398D8EEE" FromRole="products" ToRole="product_images" />
+    <NavigationProperty Name="publisher" Relationship="Self.FK__products__publis__239E4DCF" FromRole="products" ToRole="publishers" />
+    <NavigationProperty Name="reviews" Relationship="Self.FK__reviews__product__3D5E1FD2" FromRole="products" ToRole="reviews" />
+  </EntityType>
+  <EntityType Name="publisher">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="imports" Relationship="Self.FK__imports__publish__36B12243" FromRole="publishers" ToRole="imports" />
+    <NavigationProperty Name="products" Relationship="Self.FK__products__publis__239E4DCF" FromRole="publishers" ToRole="products" />
+  </EntityType>
+  <EntityType Name="review">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="Int32" />
+    <Property Name="user_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="rating" Type="Byte" />
+    <Property Name="comment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="product_id" Type="Int32" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <Property Name="update_at" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="product" Relationship="Self.FK__reviews__product__3D5E1FD2" FromRole="reviews" ToRole="products" />
+    <NavigationProperty Name="user" Relationship="Self.FK__reviews__user_id__3C69FB99" FromRole="reviews" ToRole="users" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="user_type" Type="Int32" Nullable="false" />
+    <Property Name="last_login_at" Type="DateTime" Precision="3" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <Property Name="update_at" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="addresses" Relationship="Self.FK__address__user_id__145C0A3F" FromRole="users" ToRole="address" />
+    <NavigationProperty Name="orders" Relationship="Self.FK__orders__user_id__2C3393D0" FromRole="users" ToRole="orders" />
+    <NavigationProperty Name="reviews" Relationship="Self.FK__reviews__user_id__3C69FB99" FromRole="users" ToRole="reviews" />
+  </EntityType>
+  <EntityType Name="VIEW_IMPORT_PRODUCT">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="product_id" Type="Int32" />
+    <Property Name="publisher_id" Type="Byte" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="price" Type="Int32" />
+    <Property Name="import_date" Type="DateTime" Precision="0" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <Property Name="note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="product_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="image_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="publisher_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="VIEW_ORDER">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="user_id" />
+      <PropertyRef Name="status" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="user_id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="discount_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="subtotal" Type="Int32" />
+    <Property Name="total" Type="Int32" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <Property Name="note" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="user_address_id" Type="Int32" />
+    <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="status_id" Type="Byte" />
+    <Property Name="status" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="payment_method_id" Type="Int32" />
+    <Property Name="payment_method" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="VIEW_ORDER_DETAIL">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="order_id" Type="Int32" />
+    <Property Name="product_id" Type="Int32" />
+    <Property Name="price" Type="Int32" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="create_at" Type="DateTime" Precision="0" />
+    <Property Name="image_url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK__address__user_id__145C0A3F">
+    <End Role="users" Type="Self.user" Multiplicity="0..1" />
+    <End Role="address" Type="Self.address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="address">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders__user_add__2F10007B">
+    <End Role="address" Type="Self.address" Multiplicity="0..1" />
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="address">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="user_address_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__products__catego__22AA2996">
+    <End Role="categories" Type="Self.category" Multiplicity="0..1" />
+    <End Role="products" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="categories">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="products">
+        <PropertyRef Name="category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__imports__product__35BCFE0A">
+    <End Role="products" Type="Self.product" Multiplicity="0..1" />
+    <End Role="imports" Type="Self.import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="imports">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__imports__publish__36B12243">
+    <End Role="publishers" Type="Self.publisher" Multiplicity="0..1" />
+    <End Role="imports" Type="Self.import" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="publishers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="imports">
+        <PropertyRef Name="publisher_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders__payment___2D27B809">
+    <End Role="payment_methods" Type="Self.payment_methods" Multiplicity="0..1" />
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="payment_methods">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="payment_method_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders__status_i__2E1BDC42">
+    <End Role="orders_status" Type="Self.orders_status" Multiplicity="0..1" />
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders_status">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="status_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders__user_id__2C3393D0">
+    <End Role="users" Type="Self.user" Multiplicity="1" />
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders_de__order__31EC6D26">
+    <End Role="orders" Type="Self.order" Multiplicity="0..1" />
+    <End Role="orders_detail" Type="Self.orders_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders_detail">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders_de__produ__32E0915F">
+    <End Role="products" Type="Self.product" Multiplicity="0..1" />
+    <End Role="orders_detail" Type="Self.orders_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orders_detail">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__product_i__produ__398D8EEE">
+    <End Role="products" Type="Self.product" Multiplicity="0..1" />
+    <End Role="product_images" Type="Self.product_images" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product_images">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__products__publis__239E4DCF">
+    <End Role="publishers" Type="Self.publisher" Multiplicity="0..1" />
+    <End Role="products" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="publishers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="products">
+        <PropertyRef Name="publisher_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__reviews__product__3D5E1FD2">
+    <End Role="products" Type="Self.product" Multiplicity="0..1" />
+    <End Role="reviews" Type="Self.review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="products">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="reviews">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__reviews__user_id__3C69FB99">
+    <End Role="users" Type="Self.user" Multiplicity="0..1" />
+    <End Role="reviews" Type="Self.review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="reviews">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MyDBContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="addresses" EntityType="Self.address" />
+    <EntitySet Name="categories" EntityType="Self.category" />
+    <EntitySet Name="discounts" EntityType="Self.discount" />
+    <EntitySet Name="imports" EntityType="Self.import" />
+    <EntitySet Name="orders" EntityType="Self.order" />
+    <EntitySet Name="orders_detail" EntityType="Self.orders_detail" />
+    <EntitySet Name="orders_status" EntityType="Self.orders_status" />
+    <EntitySet Name="payment_methods" EntityType="Self.payment_methods" />
+    <EntitySet Name="product_images" EntityType="Self.product_images" />
+    <EntitySet Name="products" EntityType="Self.product" />
+    <EntitySet Name="publishers" EntityType="Self.publisher" />
+    <EntitySet Name="reviews" EntityType="Self.review" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <EntitySet Name="VIEW_IMPORT_PRODUCT" EntityType="Self.VIEW_IMPORT_PRODUCT" />
+    <EntitySet Name="VIEW_ORDER" EntityType="Self.VIEW_ORDER" />
+    <EntitySet Name="VIEW_ORDER_DETAIL" EntityType="Self.VIEW_ORDER_DETAIL" />
+    <AssociationSet Name="FK__address__user_id__145C0A3F" Association="Self.FK__address__user_id__145C0A3F">
+      <End Role="users" EntitySet="users" />
+      <End Role="address" EntitySet="addresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders__user_add__2F10007B" Association="Self.FK__orders__user_add__2F10007B">
+      <End Role="address" EntitySet="addresses" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__products__catego__22AA2996" Association="Self.FK__products__catego__22AA2996">
+      <End Role="categories" EntitySet="categories" />
+      <End Role="products" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__imports__product__35BCFE0A" Association="Self.FK__imports__product__35BCFE0A">
+      <End Role="products" EntitySet="products" />
+      <End Role="imports" EntitySet="imports" />
+    </AssociationSet>
+    <AssociationSet Name="FK__imports__publish__36B12243" Association="Self.FK__imports__publish__36B12243">
+      <End Role="publishers" EntitySet="publishers" />
+      <End Role="imports" EntitySet="imports" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders__payment___2D27B809" Association="Self.FK__orders__payment___2D27B809">
+      <End Role="payment_methods" EntitySet="payment_methods" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders__status_i__2E1BDC42" Association="Self.FK__orders__status_i__2E1BDC42">
+      <End Role="orders_status" EntitySet="orders_status" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders__user_id__2C3393D0" Association="Self.FK__orders__user_id__2C3393D0">
+      <End Role="users" EntitySet="users" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders_de__order__31EC6D26" Association="Self.FK__orders_de__order__31EC6D26">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="orders_detail" EntitySet="orders_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders_de__produ__32E0915F" Association="Self.FK__orders_de__produ__32E0915F">
+      <End Role="products" EntitySet="products" />
+      <End Role="orders_detail" EntitySet="orders_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__product_i__produ__398D8EEE" Association="Self.FK__product_i__produ__398D8EEE">
+      <End Role="products" EntitySet="products" />
+      <End Role="product_images" EntitySet="product_images" />
+    </AssociationSet>
+    <AssociationSet Name="FK__products__publis__239E4DCF" Association="Self.FK__products__publis__239E4DCF">
+      <End Role="publishers" EntitySet="publishers" />
+      <End Role="products" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__reviews__product__3D5E1FD2" Association="Self.FK__reviews__product__3D5E1FD2">
+      <End Role="products" EntitySet="products" />
+      <End Role="reviews" EntitySet="reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK__reviews__user_id__3C69FB99" Association="Self.FK__reviews__user_id__3C69FB99">
+      <End Role="users" EntitySet="users" />
+      <End Role="reviews" EntitySet="reviews" />
+    </AssociationSet>
+    <FunctionImport Name="IMPORTS_REPORT" ReturnType="Collection(natural_medicine_dataModel.IMPORTS_REPORT_Result)">
+      <Parameter Name="start_date" Mode="In" Type="DateTime" />
+      <Parameter Name="end_date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="IMPORTS_REPORT_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="name" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="image_url" Nullable="true" MaxLength="Max" />
+    <Property Type="String" Name="uses" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="dosage" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="sum_quantity" Nullable="true" />
+    <Property Type="Int32" Name="sum_total" Nullable="true" />
+  </ComplexType>
+</Schema>

@@ -15,10 +15,10 @@ namespace natural_medicine.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class dataEntities : DbContext
+    public partial class MyDBContext : DbContext
     {
-        public dataEntities()
-            : base("name=dataEntities")
+        public MyDBContext()
+            : base("name=MyDBContext")
         {
         }
     
@@ -27,6 +27,22 @@ namespace natural_medicine.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<address> addresses { get; set; }
+        public virtual DbSet<category> categories { get; set; }
+        public virtual DbSet<discount> discounts { get; set; }
+        public virtual DbSet<import> imports { get; set; }
+        public virtual DbSet<order> orders { get; set; }
+        public virtual DbSet<orders_detail> orders_detail { get; set; }
+        public virtual DbSet<orders_status> orders_status { get; set; }
+        public virtual DbSet<payment_methods> payment_methods { get; set; }
+        public virtual DbSet<product_images> product_images { get; set; }
+        public virtual DbSet<product> products { get; set; }
+        public virtual DbSet<publisher> publishers { get; set; }
+        public virtual DbSet<review> reviews { get; set; }
+        public virtual DbSet<user> users { get; set; }
+        public virtual DbSet<VIEW_IMPORT_PRODUCT> VIEW_IMPORT_PRODUCT { get; set; }
+        public virtual DbSet<VIEW_ORDER> VIEW_ORDER { get; set; }
+        public virtual DbSet<VIEW_ORDER_DETAIL> VIEW_ORDER_DETAIL { get; set; }
     
         public virtual ObjectResult<IMPORTS_REPORT_Result> IMPORTS_REPORT(Nullable<System.DateTime> start_date, Nullable<System.DateTime> end_date)
         {

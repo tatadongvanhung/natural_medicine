@@ -14,7 +14,6 @@ namespace natural_medicine.Areas.Admin.Controllers
     {
         // GET: Admin/Report
         private MyDBContext context = new MyDBContext();
-        private dataEntities db = new dataEntities();
 
         public ActionResult ReportImport(DateTime ?start_date, DateTime ?end_date)
         {
@@ -22,7 +21,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             {
                 DateTime start = (DateTime)start_date;
                 DateTime end = (DateTime) end_date;
-                var model = db.IMPORTS_REPORT(start.Date, end.Date)
+                var model = context.IMPORTS_REPORT(start.Date, end.Date)
                     .ToList();
                 ViewBag.date = start.ToString("dd/MM/yyyy") + " - " + end.ToString("dd/MM/yyyy");
                 ViewBag.start_date = start;
@@ -33,7 +32,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             {
                 DateTime start = DateTime.Today;
                 DateTime end = DateTime.Today;
-                var model = db.IMPORTS_REPORT(start, end).ToList();
+                var model = context.IMPORTS_REPORT(start, end).ToList();
                 ViewBag.date = start.ToString("dd/MM/yyyy");
                 ViewBag.start_date = start;
                 ViewBag.end_date = end;
@@ -44,7 +43,7 @@ namespace natural_medicine.Areas.Admin.Controllers
         public JsonResult ExcelImport(DateTime? start_date, DateTime? end_date)
         {
             var gv = new GridView();
-            gv.DataSource = db.IMPORTS_REPORT(start_date, end_date)
+            gv.DataSource = context.IMPORTS_REPORT(start_date, end_date)
                 .Select(r => new {
                     id = r.id,
                     name = r.name,

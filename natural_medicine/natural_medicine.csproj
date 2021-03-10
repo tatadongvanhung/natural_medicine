@@ -153,42 +153,73 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\address.cs" />
+    <Compile Include="Models\address.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CartModel\Cart.cs" />
-    <Compile Include="Models\category.cs" />
-    <Compile Include="Models\discount.cs" />
-    <Compile Include="Models\import.cs" />
+    <Compile Include="Models\category.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\discount.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\import.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IMPORTS_REPORT_Result.cs">
-      <DependentUpon>MyDBProcedure.tt</DependentUpon>
+      <DependentUpon>MyDBContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MyDBContext.cs" />
-    <Compile Include="Models\MyDBProcedure.Context.cs">
+    <Compile Include="Models\MyDBContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MyDBProcedure.Context.tt</DependentUpon>
+      <DependentUpon>MyDBContext.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MyDBProcedure.cs">
+    <Compile Include="Models\MyDBContext.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MyDBProcedure.tt</DependentUpon>
+      <DependentUpon>MyDBContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MyDBProcedure.Designer.cs">
+    <Compile Include="Models\MyDBContext.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MyDBProcedure.edmx</DependentUpon>
+      <DependentUpon>MyDBContext.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\order.cs" />
-    <Compile Include="Models\orders_detail.cs" />
-    <Compile Include="Models\orders_status.cs" />
-    <Compile Include="Models\payment_methods.cs" />
-    <Compile Include="Models\product.cs" />
-    <Compile Include="Models\product_images.cs" />
-    <Compile Include="Models\publisher.cs" />
-    <Compile Include="Models\review.cs" />
-    <Compile Include="Models\user.cs" />
-    <Compile Include="Models\VIEW_IMPORT_PRODUCT.cs" />
-    <Compile Include="Models\VIEW_ORDER.cs" />
-    <Compile Include="Models\VIEW_ORDER_DETAIL.cs" />
+    <Compile Include="Models\order.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\orders_detail.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\orders_status.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\payment_methods.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\product.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\product_images.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\publisher.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\review.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\user.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VIEW_IMPORT_PRODUCT.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VIEW_ORDER.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VIEW_ORDER_DETAIL.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -284,15 +315,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\MyDBProcedure.Context.tt">
+    <Content Include="Models\MyDBContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MyDBProcedure.edmx</DependentUpon>
-      <LastGenOutput>MyDBProcedure.Context.cs</LastGenOutput>
+      <DependentUpon>MyDBContext.edmx</DependentUpon>
+      <LastGenOutput>MyDBContext.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\MyDBProcedure.tt">
+    <Content Include="Models\MyDBContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MyDBProcedure.edmx</DependentUpon>
-      <LastGenOutput>MyDBProcedure.cs</LastGenOutput>
+      <DependentUpon>MyDBContext.edmx</DependentUpon>
+      <LastGenOutput>MyDBContext.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -348,12 +379,12 @@
     <Content Include="Areas\Admin\Views\Report\ReportImport.cshtml" />
     <Content Include="Areas\Admin\Views\Report\ReportExport.cshtml" />
     <Content Include="Areas\Admin\Views\Report\TotalRevenue.cshtml" />
-    <EntityDeploy Include="Models\MyDBProcedure.edmx">
+    <EntityDeploy Include="Models\MyDBContext.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MyDBProcedure.Designer.cs</LastGenOutput>
+      <LastGenOutput>MyDBContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\MyDBProcedure.edmx.diagram">
-      <DependentUpon>MyDBProcedure.edmx</DependentUpon>
+    <Content Include="Models\MyDBContext.edmx.diagram">
+      <DependentUpon>MyDBContext.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
