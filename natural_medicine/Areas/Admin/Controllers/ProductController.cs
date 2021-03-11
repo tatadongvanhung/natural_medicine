@@ -16,6 +16,7 @@ namespace natural_medicine.Areas.Admin.Controllers
     {
         // GET: Admin/Product
         private MyDBContext context = new MyDBContext();
+        [CustomAuthorize]
         public ActionResult InsertProduct()
         {
             ViewBag.category = context.categories.ToList();
@@ -51,7 +52,7 @@ namespace natural_medicine.Areas.Admin.Controllers
                 return RedirectToAction("insertproduct");
             }
         }
-        
+        [CustomAuthorize]
         public ActionResult ViewProduct(int ?category_id, String search, int ?page)
         {
             if (page == null) page = 1;
@@ -83,6 +84,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             }
             
         }
+        [CustomAuthorize]
         public ActionResult ViewImportProduct(DateTime? start_date, DateTime? end_date,int ?product_id, int? page)
         {
             if (page == null) page = 1;
@@ -122,7 +124,7 @@ namespace natural_medicine.Areas.Admin.Controllers
                 return View(model.ToPagedList(pageNumber, pageSize));
             }
         }
-
+        [CustomAuthorize]
         public ActionResult ImportProduct(int id)
         {
             ViewBag.publisher = context.publishers.ToList();
@@ -154,6 +156,7 @@ namespace natural_medicine.Areas.Admin.Controllers
                 }
             }
         }
+        [CustomAuthorize]
         public ActionResult UpdateProduct(int id)
         {
             var model = context.products.Where(x => x.id == id).FirstOrDefault();
@@ -210,6 +213,7 @@ namespace natural_medicine.Areas.Admin.Controllers
                 return RedirectToAction("insertproduct");
             }
         }
+        [CustomAuthorize]
         public ActionResult DeleteProduct(int id)
         {
             var model = context.products.Where(x => x.id == id).FirstOrDefault();

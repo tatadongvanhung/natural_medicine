@@ -15,6 +15,7 @@ namespace natural_medicine.Areas.Admin.Controllers
     {
         private MyDBContext context = new MyDBContext();
 
+        [CustomAuthorize]
         public ActionResult Index()
         {
             //var this_month = DateTime.Now.Month + "/" + DateTime.Now.Year;

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using natural_medicine.Models;
+using natural_medicine.Areas.Admin.Security;
 
 namespace natural_medicine.Areas.Admin.Controllers
 {
@@ -16,6 +17,7 @@ namespace natural_medicine.Areas.Admin.Controllers
         // GET: Admin/Report
         private MyDBContext context = new MyDBContext();
 
+        [CustomAuthorize]
         public ActionResult ReportImport(DateTime ?start_date, DateTime ?end_date)
         {
             if(start_date != null && end_date != null)
@@ -93,7 +95,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             Response.End();
             return Json("success", JsonRequestBehavior.AllowGet);
         }
-
+        [CustomAuthorize]
         public ActionResult ReportExport(DateTime? start_date, DateTime? end_date)
         {
             if (start_date != null && end_date != null)
@@ -169,6 +171,7 @@ namespace natural_medicine.Areas.Admin.Controllers
             Response.End();
             return Json("success", JsonRequestBehavior.AllowGet);
         }
+        [CustomAuthorize]
         public ActionResult TotalRevenue(DateTime? start_date, DateTime? end_date)
         {
             if (start_date != null && end_date != null)
@@ -188,7 +191,6 @@ namespace natural_medicine.Areas.Admin.Controllers
                 .Where(x => EntityFunctions.TruncateTime(x.create_at) >= start
                 && EntityFunctions.TruncateTime(x.create_at) <= end)
                 .Count();
-
                 ViewBag.sumTotal = sumTotal;
                 ViewBag.sumImport = sumImport;
                 ViewBag.sumOrder = sumOrder;
