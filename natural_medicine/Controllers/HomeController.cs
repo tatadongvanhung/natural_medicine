@@ -30,7 +30,7 @@ namespace natural_medicine.Controllers
         public ActionResult Product(int id)
         {
             var product_detail = context.products.Where(X => X.id == id).FirstOrDefault();
-            var model = context.products.Where(X => X.category_id == product_detail.category_id).ToList();
+            var model = context.products.Where(X => X.category_id == product_detail.category_id && X.id != id).ToList();
             ViewBag.SP = product_detail;
             return View(model);
         }
