@@ -481,6 +481,7 @@
       <Parameter Name="start_date" Mode="In" Type="DateTime" />
       <Parameter Name="end_date" Mode="In" Type="DateTime" />
     </FunctionImport>
+    <EntitySet Name="sysdiagrams" EntityType="natural_medicine_dataModel.sysdiagram" />
   </EntityContainer>
   <ComplexType Name="IMPORTS_REPORT_Result">
     <Property Type="Int32" Name="id" Nullable="false" />
@@ -501,4 +502,14 @@
     <Property Type="String" Name="description" Nullable="true" MaxLength="255" />
     <Property Type="Int32" Name="sum_quantity" Nullable="true" />
   </ComplexType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
 </Schema>

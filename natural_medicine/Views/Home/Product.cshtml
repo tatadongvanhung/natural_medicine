@@ -47,6 +47,7 @@
 
 @{
 	product sanpham = ViewBag.SP;
+	List<review> rate = ViewBag.rate;
 
 }
 <div class="modal fade" id="myModal" role="dialog">
@@ -150,55 +151,89 @@
 						}
 					}
 				</div>
-
 				<div class="tab-pane fade" id="danhgia">
 					<div class="row-fluid">
-						<div class="span4">
+						<div class="span4" id="div-rating">
 							<div id="rating">
-
 								<input type="radio" id="star5" name="rating" value="5" />
-								<label class="full" for="star5" title="5 stars"></label> 
+								<label class="full" for="star5" title="5 stars"></label>
 
-								<input type="radio" id="star4half" name="rating" value="4.5" />
-								<label class="half" for="star4half" title="4.5 stars"></label>
-								
 								<input type="radio" id="star4" name="rating" value="4" />
 								<label class="full" for="star4" title="4 stars"></label>
-								
-								<input type="radio" id="star3half" name="rating" value="3.5" />
-								<label class="half" for="star3half" title="3.5 stars"></label>
 
 								<input type="radio" id="star3" name="rating" value="3" />
 								<label class="full" for="star3" title="3 stars"></label>
-								
-								<input type="radio" id="star2half" name="rating" value="2.5" />
-								<label class="half" for="star2half" title="2.5 stars"></label>
-								
+
 								<input type="radio" id="star2" name="rating" value="2" />
 								<label class="full" for="star2" title="2 stars"></label>
-								
-								<input type="radio" id="star1half" name="rating" value="1.5" />
-								<label class="half" for="star1half" title="1.5 stars"></label>
 
 								<input type="radio" id="star1" name="rating" value="1" />
 								<label class="full" for="star1" title="1 star"></label>
-
-								<input type="radio" id="starhalf" name="rating" value="0.5" />
-								<label class="half" for="starhalf" title="0.5 stars"></label>
 							</div>
 
 							<form class="form-horizontal">
 								<fieldset>
 									<div class="control-group">
-										<textarea rows="3" id="textarea" class="input-xlarge"></textarea>
+										<textarea rows="3" id="comment" class="input-xlarge"></textarea>
 									</div>
-									<a href="" class="defaultBtn">
-										<span class=""></span>VUI LÒNG ĐĂNG NHẬP ĐỂ ĐÁNH GIÁ
-									</a>
-									<!-- <button class="shopBtn" type="submit">ĐÁNH GIÁ</button> -->
+									@{
+										natural_medicine.Models.user auth = (natural_medicine.Models.user)Session["loginClient"];
+										if (auth == null)
+										{
+											<button class="defaultBtn" data-toggle="modal" data-target="#PopUpLogin">
+												ĐĂNG NHẬP ĐỂ ĐÁNH GIÁ <span class="icon-arrow-right"></span>
+											</button>
+										}
+										else
+										{
+											<input type="hidden" id="user_id" value="@auth.id" />
+											<input type="hidden" id="user_name" value="@auth.name" />
+											<input type="hidden" id="product_id" value="@sanpham.id" />
+											<button id="btn-rating" class="shopBtn" type="button">GỬI ĐÁNH GIÁ</button>
+										}
+									}
 								</fieldset>
 							</form>
 						</div>
+						<table class="table table-striped">
+							<tbody>
+								@foreach (review it in rate)
+								{
+									<tr class="techSpecRow">
+										<td class="techSpecTD1">
+											<div id="rating">
+												<input type="radio" id="star-5-@it.id" name="rating-@it.id" value="5" disabled />
+												<label class="full" for="star-5-@it.id" title="5 stars"></label>
+
+												<input type="radio" id="star-4-@it.id" name="rating-@it.id" value="4" disabled />
+												<label class="full" for="star-4-@it.id" title="4 stars"></label>
+
+												<input type="radio" id="star-3-@it.id" name="rating-@it.id" value="3" disabled/>
+												<label class="full" for="star-3-@it.id" title="3 stars"></label>
+
+												<input type="radio" id="star-2-@it.id" name="rating-@it.id" value="2" disabled/>
+												<label class="full" for="star-2-@it.id" title="2 stars"></label>
+
+												<input type="radio" id="star-1-@it.id" name="rating-@it.id" value="1" disabled/>
+												<label class="full" for="star-1-@it.id" title="1 star"></label>
+												@if (it.rating > 0)
+												{
+													<script type="text/javascript">
+													$('#star-@it.rating-@it.id').attr('checked', true);
+													</script>
+												}
+
+											</div>
+										</td>
+										<td class="techSpecTD2" style="padding-top:13px;">@it.user_name</td>
+									</tr>
+									<tr class="techSpecRow">
+										<td style="width:70%;" class="techSpecTD1">@it.comment</td>
+										<td class="techSpecTD2"></td>
+									</tr>
+								}
+							</tbody>
+						</table>
 					</div>
 					<hr class="soft">
 				</div>
@@ -209,6 +244,35 @@
 
 <script>
 	$(document).ready(function () {
+		
+		$("#btn-rating").click(function () {
+			var dataForm = new Object();
+			dataForm.rating = $("input[name='rating']:checked").val();
+			dataForm.user_id = $("#user_id").val();
+			dataForm.user_name = $("#user_name").val();
+			dataForm.comment = $("#comment").val();
+			dataForm.product_id = $("#product_id").val();
+			var serviceURL = '/home/rating';
+			$.ajax({
+				url: serviceURL,
+				type: "POST",
+				data: JSON.stringify(dataForm),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: successFunc,
+				error: errorFunc
+			});
+			function successFunc(data) {
+				if (data == "success") {
+					alert("tc");
+					$("#div-rating").hide();
+				} else {
+				}
+			}
+			function errorFunc() {
+			}
+		});
+		//$('#star4').attr('checked', true);
 		$(".add-cart").click(function () {
 			var name = $(this).attr("name");
 			var serviceURL = '/Cart/AddItem/' + name;

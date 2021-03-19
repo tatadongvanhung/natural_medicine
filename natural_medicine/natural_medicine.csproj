@@ -211,6 +211,9 @@
     <Compile Include="Models\review.cs">
       <DependentUpon>MyDBContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\user.cs">
       <DependentUpon>MyDBContext.tt</DependentUpon>
     </Compile>

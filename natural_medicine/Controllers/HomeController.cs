@@ -32,6 +32,9 @@ namespace natural_medicine.Controllers
             var product_detail = context.products.Where(X => X.id == id).FirstOrDefault();
             var model = context.products.Where(X => X.category_id == product_detail.category_id && X.id != id).ToList();
             ViewBag.SP = product_detail;
+            var rate = context.reviews.Where(x => x.product_id == id).ToList();
+            ViewBag.rate = rate;
+
             return View(model);
         }
 
@@ -52,6 +55,15 @@ namespace natural_medicine.Controllers
         {
             var model = context.products.Where(X => X.name.Contains(search) || X.uses.Contains(search)).ToList();
             return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult Rating(review data)
+        {
+            data.create_at = DateTime.Now;
+            context.reviews.Add(data);
+            context.SaveChanges();
+            return Json("success", JsonRequestBehavior.AllowGet);
         }
     }
 }

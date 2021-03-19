@@ -35,6 +35,7 @@
         <AssociationConnector Association="natural_medicine_dataModel.FK__products__publis__239E4DCF" ManuallyRouted="false" />
         <AssociationConnector Association="natural_medicine_dataModel.FK__reviews__product__3D5E1FD2" ManuallyRouted="false" />
         <AssociationConnector Association="natural_medicine_dataModel.FK__reviews__user_id__3C69FB99" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="natural_medicine_dataModel.sysdiagram" Width="1.5" PointX="10.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
