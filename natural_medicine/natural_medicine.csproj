@@ -141,6 +141,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\DiscountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\PublishersController.cs" />
@@ -186,6 +187,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MyDBContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\news.cs">
+      <DependentUpon>MyDBContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\order.cs">
       <DependentUpon>MyDBContext.tt</DependentUpon>
@@ -392,6 +396,8 @@
     <Content Include="Models\MyDBContext.edmx.diagram">
       <DependentUpon>MyDBContext.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\News\InsertNews.cshtml" />
+    <Content Include="Areas\Admin\Views\News\ViewNews.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -425,6 +431,8 @@
     <Content Include="Views\MyOrder\ListOrder.cshtml" />
     <Content Include="Views\MyOrder\OrderDetail.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Home\News.cshtml" />
+    <Content Include="Views\Home\NewsDetail.cshtml" />
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>

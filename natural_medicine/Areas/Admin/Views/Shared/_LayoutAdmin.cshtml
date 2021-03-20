@@ -79,6 +79,13 @@
 							<li class="left__menuItem">
 								<a href="/admin/product/viewimportproduct" class="left__title"><img src="~/Content/admin/assets/icon-book.svg" alt="">Phiếu Nhập Kho</a>
 							</li>
+							<li class="left__menuItem">
+								<div class="left__title"><img src="~/Content/admin/assets/icon-book.svg" alt="">Thông Báo<img class="left__iconDown" src="~/Content/admin/assets/arrow-down.svg" alt=""></div>
+								<div class="left__text">
+									<a class="left__link" href="/admin/news/insertnews">Thêm Thông Báo</a>
+									<a class="left__link" href="/admin/news/viewnews">Xem Danh Sách</a>
+								</div>
+							</li>
 							@if (auth != null)
 							{
 								if (auth.user_type == 3)

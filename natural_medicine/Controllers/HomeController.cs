@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using natural_medicine.Models;
+using PagedList;
 
 namespace natural_medicine.Controllers
 {
@@ -45,12 +46,23 @@ namespace natural_medicine.Controllers
             return View(model);
         }
 
-        public ActionResult Test()
+        public ActionResult News(int ?page)
         {
-            return View();
-        }
+            if (page == null) page = 1;
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
 
-        [HttpPost]
+            var model = context.news.OrderByDescending(x => x.date_post).ToList();
+            return View(model.ToPagedList(pageNumber, pageSize));
+        }
+        public ActionResult NewsDetail(int id)
+        {
+            var model = context.news.Where(x => x.id==id).FirstOrDefault();
+            return View(model);
+        }
+        
+
+       [HttpPost]
         public ActionResult Search(String search)
         {
             var model = context.products.Where(X => X.name.Contains(search) || X.uses.Contains(search)).ToList();

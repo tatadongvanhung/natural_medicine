@@ -1,0 +1,36 @@
+﻿
+@{
+	ViewBag.Title = "News";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using PagedList.Mvc;
+@model PagedList.IPagedList<natural_medicine.Models.news>
+
+<div class="row" style="height: 100vh;">
+	<div class="span12">
+		<ul class="breadcrumb">
+			<li><a href="/home/index">Trang chủ</a> <span class="divider">/</span></li>
+			<li class="active">Tin tức</li>
+		</ul>
+		<div class="well well-small">
+			@foreach (natural_medicine.Models.news it in Model)
+			{
+				<div class="row-fluid">
+					<h5><strong><a href="/home/newsdetail/@it.id">@it.title</a></strong></h5>
+					<h6><i>@it.date_post</i></h6>
+					<div class="overflow">
+						<i>
+							@Html.Raw(it.content)
+						</i>
+					</div>
+				</div>
+				<hr class="soften">
+			}
+
+		</div>
+		<div style="text-align:right;">
+			@Html.PagedListPager(Model, page => Url.Action("news", new { page }))
+		</div>
+	</div>
+</div>
+

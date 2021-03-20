@@ -257,5 +257,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="news">
+      <EntityTypeMapping TypeName="natural_medicine_dataModel.news">
+        <MappingFragment StoreEntitySet="news">
+          <ScalarProperty Name="update_at" ColumnName="update_at" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="date_post" ColumnName="date_post" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

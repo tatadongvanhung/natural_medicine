@@ -44,6 +44,7 @@ namespace natural_medicine.Models
         public virtual DbSet<VIEW_ORDER> VIEW_ORDER { get; set; }
         public virtual DbSet<VIEW_ORDER_DETAIL> VIEW_ORDER_DETAIL { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<news> news { get; set; }
     
         public virtual ObjectResult<IMPORTS_REPORT_Result> IMPORTS_REPORT(Nullable<System.DateTime> start_date, Nullable<System.DateTime> end_date)
         {

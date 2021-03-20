@@ -44,6 +44,17 @@
     <Property Name="create_at" Type="datetime" />
     <Property Name="note" Type="nvarchar" MaxLength="255" />
   </EntityType>
+  <EntityType Name="news">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="nvarchar" MaxLength="255" />
+    <Property Name="content" Type="nvarchar" MaxLength="1000" />
+    <Property Name="date_post" Type="date" />
+    <Property Name="create_at" Type="datetime" />
+    <Property Name="update_at" Type="datetime" />
+  </EntityType>
   <EntityType Name="orders">
     <Key>
       <PropertyRef Name="id" />
@@ -401,6 +412,7 @@ warning 6002: The table/view 'natural_medicine_data.dbo.VIEW_ORDER_DETAIL' does 
     <EntitySet Name="categories" EntityType="Self.categories" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="discounts" EntityType="Self.discounts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="imports" EntityType="Self.imports" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="news" EntityType="Self.news" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="orders_detail" EntityType="Self.orders_detail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="orders_status" EntityType="Self.orders_status" Schema="dbo" store:Type="Tables" />

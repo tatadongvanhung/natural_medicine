@@ -482,6 +482,7 @@
       <Parameter Name="end_date" Mode="In" Type="DateTime" />
     </FunctionImport>
     <EntitySet Name="sysdiagrams" EntityType="natural_medicine_dataModel.sysdiagram" />
+    <EntitySet Name="news" EntityType="natural_medicine_dataModel.news" />
   </EntityContainer>
   <ComplexType Name="IMPORTS_REPORT_Result">
     <Property Type="Int32" Name="id" Nullable="false" />
@@ -511,5 +512,16 @@
     <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="news">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="content" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="date_post" Type="DateTime" Precision="0" />
+    <Property Name="create_at" Type="DateTime" Precision="3" />
+    <Property Name="update_at" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>
