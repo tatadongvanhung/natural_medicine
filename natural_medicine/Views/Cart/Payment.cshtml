@@ -8,8 +8,17 @@
 @model Cart
 
 @{
+	natural_medicine.Models.VIEW_ORDER order = ViewBag.order;
 	List<natural_medicine.Models.address> listaddress = ViewBag.listaddress;
 	List<natural_medicine.Models.payment_methods> payment_methods = ViewBag.payment_methods;
+}
+
+@section css {
+	<link href="~/Content/assets/css/payment.css" rel="stylesheet" />
+}
+@section scripts
+{
+	<script src="~/Scripts/payment.js"></script>
 }
 
 <body>
@@ -147,6 +156,65 @@
 						</div>
 
 						<div class="control-group">
+							<div class="paymentWrap" style="display: none">
+								<label id="firstBank" class="btn paymentMethod first" paymentID="1">
+									<div class="each-bankking">
+										<img class="logo-bankking" src="~/Content/assets/img/tech_logo.png" />
+									</div>
+								</label>
+								<label class="btn paymentMethod" paymentID="2">
+									<div class="each-bankking">
+										<img class="logo-bankking" src="~/Content/assets/img/bidv_logo.png" />
+									</div>
+								</label>
+								<label class="btn paymentMethod" paymentID="3">
+									<div class="each-bankking">
+										<img class="logo-bankking" src="~/Content/assets/img/vtb_logo.png" />
+									</div>
+								</label>
+								<label class="btn paymentMethod" paymentID="4">
+									<div class="each-bankking">
+										<img class="logo-bankking" src="~/Content/assets/img/vcb_logo.png" />
+									</div>
+								</label>
+								<label class="btn paymentMethod" paymentID="5">
+									<div class="each-bankking">
+										<img class="logo-bankking" src="~/Content/assets/img/vpb_logo.jpg" />
+									</div>
+								</label>
+								<label class="btn paymentMethod" paymentID="7">
+									<div class="each-bankking">
+										<img class="logo-bankking" src="~/Content/assets/img/momo_logo.jpg" />
+									</div>
+								</label>
+							</div>
+						</div>
+						<div data-v-e62f5402 class="card payment-info" style="display: none">
+							<div data-v-e62f5402="" class="card-body">
+								<h5 data-v-e62f5402="" class="card-title">Thông tin thanh toán</h5>
+								<table class="table">
+									<tbody>
+										<tr>
+											<th class="titleTable" scope="row">Phương thức thanh toán</th>
+											<td id="paymentName"></td>
+										</tr>
+										<tr>
+											<th class="titleTable" scope="row">Số tài khoản</th>
+											<td id="accountNumber"></td>
+										</tr>
+										<tr>
+											<th class="titleTable" scope="row">Người thụ hưởng</th>
+											<td id="accountName"></td>
+										</tr>
+										<tr>
+											<th class="titleTable" scope="row">Chi nhánh</th>
+											<td id="addressBank"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="control-group">
 							<label class="control-label">
 								LỜI NHẮN <sup style="color: red"></sup>
 							</label>
@@ -235,6 +303,3 @@
 		});
 	</script>
 </body>
-
-
-

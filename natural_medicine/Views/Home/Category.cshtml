@@ -11,6 +11,23 @@
 
 }
 
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Natural Medicine Shop</h4>
+			</div>
+			<div class="modal-body">
+				<p>Thêm sản phẩm thành công!</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <ul class="breadcrumb">
 	<li><a href="/home/index">Trang chủ</a> <span class="divider">/</span></li>
 	<li class="active">@category.name</li>
@@ -33,7 +50,8 @@
 						<div class="caption cntr">
 							<p>@it.name</p>
 							<p><strong> @it.price đ</strong></p>
-							<h4><a class="shopBtn" href="/Cart/AddItem/@it.id" title="THÊM VÀO GIỎ"> THÊM VÀO GIỎ </a></h4>
+							@*<h4><a class="shopBtn" href="/Cart/AddItem/@it.id" title="THÊM VÀO GIỎ"> THÊM VÀO GIỎ </a></h4>*@
+							<button class="shopBtn add-cart" title="THÊM VÀO GIỎ" name="@it.id" data-toggle="modal" data-target="#myModal">THÊM VÀO GIỎ</button>
 							<br class="clr">
 						</div>
 					</div>
@@ -44,5 +62,24 @@
 	}
 }
 
-
-
+<script>
+	$(document).ready(function () {
+		$(".add-cart").click(function () {
+			var name = $(this).attr("name");
+			var serviceURL = '/Cart/AddItem/' + name;
+			$.ajax({
+				url: serviceURL,
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: successFunc,
+				error: errorFunc
+			});
+			function successFunc(data, status) {
+				$("#myModal").show();
+			}
+			function errorFunc() {
+				alert("Thêm sản phẩm thất bại!")
+			}
+		});
+	});
+</script>
