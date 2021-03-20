@@ -1,0 +1,38 @@
+﻿
+@{
+	ViewBag.Title = "UpdateNews";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using natural_medicine.Models
+@model news
+
+<div class="right__content">
+	<div class="right__title">Bảng điều khiển</div>
+	<p class="right__desc">Chỉnh sửa thông báo</p>
+	<div class="">
+		<form action="/admin/news/updatenews" method="post">
+			<div class="right__inputWrapper">
+				<label for="title">Tiêu đề</label>
+				<input name="title" type="text" value="@Model.title" required>
+				<input name="id" type="hidden" value="@Model.id">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="title">Ngày đăng</label>
+				<input name="date_post" type="date" value="@String.Format("{0:yyyy-MM-dd}", Model.date_post)">
+			</div>
+			<div class="right__inputWrapper">
+				<label for="desc">Nội dung</label>
+				<textarea name="content" id="content" cols="30" rows="10">@Html.Raw(Model.content)</textarea>
+			</div>
+			<button class="btn" type="submit">Sửa</button>
+		</form>
+	</div>
+</div>
+<script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
+<script>
+	ClassicEditor
+		.create(document.querySelector('#content'));
+</script>
+
+
+

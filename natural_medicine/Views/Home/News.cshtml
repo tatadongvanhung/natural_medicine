@@ -17,7 +17,7 @@
 			{
 				<div class="row-fluid">
 					<h5><strong><a href="/home/newsdetail/@it.id">@it.title</a></strong></h5>
-					<h6><i>@it.date_post</i></h6>
+					<h6><i>@String.Format("Ngày đăng: {0:dd/MM/yyyy}", it.date_post)</i></h6>
 					<div class="overflow">
 						<i>
 							@Html.Raw(it.content)

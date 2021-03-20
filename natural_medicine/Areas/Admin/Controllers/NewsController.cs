@@ -45,5 +45,22 @@ namespace natural_medicine.Areas.Admin.Controllers
             context.SaveChanges();
             return RedirectToAction("viewnews");
         }
+
+        public ActionResult UpdateNews(int id)
+        {
+            var model = context.news.Where(x => x.id == id).FirstOrDefault();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult UpdateNews(news data)
+        {
+            var model = context.news.Where(x => x.id == data.id).FirstOrDefault();
+            model.title = data.title;
+            model.date_post = data.date_post;
+            model.content = data.content;
+            model.update_at = DateTime.Now;
+            context.SaveChanges();
+            return RedirectToAction("viewnews");
+        }
     }
 }
