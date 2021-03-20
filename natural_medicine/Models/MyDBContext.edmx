@@ -56,7 +56,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="title" Type="nvarchar" MaxLength="255" />
           <Property Name="content" Type="nvarchar" MaxLength="1000" />
-          <Property Name="date_post" Type="date" />
+          <Property Name="date_post" Type="datetime" />
           <Property Name="create_at" Type="datetime" />
           <Property Name="update_at" Type="datetime" />
         </EntityType>
@@ -1055,7 +1055,7 @@ warning 6002: The table/view 'natural_medicine_data.dbo.VIEW_ORDER_DETAIL' does 
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="content" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="date_post" Type="DateTime" Precision="0" />
+          <Property Name="date_post" Type="DateTime" Precision="3" />
           <Property Name="create_at" Type="DateTime" Precision="3" />
           <Property Name="update_at" Type="DateTime" Precision="3" />
         </EntityType>

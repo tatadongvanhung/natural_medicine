@@ -520,7 +520,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="content" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-    <Property Name="date_post" Type="DateTime" Precision="0" />
+    <Property Name="date_post" Type="DateTime" Precision="3" />
     <Property Name="create_at" Type="DateTime" Precision="3" />
     <Property Name="update_at" Type="DateTime" Precision="3" />
   </EntityType>

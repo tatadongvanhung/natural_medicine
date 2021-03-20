@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -52,7 +53,9 @@ namespace natural_medicine.Controllers
             int pageSize = 10;
             int pageNumber = (page ?? 1);
 
-            var model = context.news.OrderByDescending(x => x.date_post).ToList();
+            var model = context.news
+                .Where(x => EntityFunctions.TruncateTime(x.date_post) <= DateTime.Today)
+                .OrderByDescending(x => x.date_post).ToList();
             return View(model.ToPagedList(pageNumber, pageSize));
         }
         public ActionResult NewsDetail(int id)

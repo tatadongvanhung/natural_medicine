@@ -51,7 +51,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="title" Type="nvarchar" MaxLength="255" />
     <Property Name="content" Type="nvarchar" MaxLength="1000" />
-    <Property Name="date_post" Type="date" />
+    <Property Name="date_post" Type="datetime" />
     <Property Name="create_at" Type="datetime" />
     <Property Name="update_at" Type="datetime" />
   </EntityType>
